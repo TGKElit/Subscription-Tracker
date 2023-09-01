@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Subscription-Tracker",
-    "slug": "Subscription-Tracker",
+    "name": "expoTest",
+    "slug": "expoTest",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

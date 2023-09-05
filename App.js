@@ -11,7 +11,10 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text style={{ color: "red" }}>Hello World!</Text>
-      <TextInput></TextInput>
+      <Text style={{ color: "blue" }}>Below is a TextInput</Text>
+      <TextInput
+        style={{ backgroundColor: "grey", height: "5%", width: "90%" }}
+      ></TextInput>
       <Text>
         Open up App.js to start working on your app! TESTING TESTING Hallå ADAM!
         Funkar detta fortfarande?

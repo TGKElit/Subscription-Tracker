@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "224186763641",
+    "project_id": "subscriptiontracker-b0f27",
+    "storage_bucket": "subscriptiontracker-b0f27.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:224186763641:android:e18ab41f6a771fa9c1c7a8",
+        "android_client_info": {
+          "package_name": "com.wa2goose.subscriptiontracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "224186763641-akum8u5mrmu1k9h86me5t2a0avkbbq7v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDaWff-YiJpVG6KBkxirMpWliqldnwzGwc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "224186763641-akum8u5mrmu1k9h86me5t2a0avkbbq7v.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "224186763641-lfma14i19lhm3v44pkkfnvqtav32dqqt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.wa2goose.subscriptiontracker"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

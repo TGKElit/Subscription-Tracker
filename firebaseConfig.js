@@ -14,13 +14,6 @@ import { getDatabase } from "firebase/database";
 // Initialize Firebase
 const firebaseConfig = {
   // old project - change to new project data
-  // apiKey: "AIzaSyCEWbHfebB2L9xnTWLtNfUTcyipLS7UaIQ",
-  // authDomain: "subscription-tracker-edbd5.firebaseapp.com",
-  // projectId: "subscription-tracker-edbd5",
-  // storageBucket: "subscription-tracker-edbd5.appspot.com",
-  // messagingSenderId: "373117593569",
-  // appId: "1:373117593569:web:baadbfa84c1bc40422d4a0",
-  // measurementId: "G-FHLL86J4RB",
 };
 
 const app = initializeApp(firebaseConfig);

@@ -1,9 +1,11 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, TextInput, View } from "react-native";
+import { CTAButton } from "./src/Components/CTAButton/CTAButton";
 
 export default function App() {
   return (
     <View style={styles.container}>
+      <CTAButton title="Testbutton" variant="primary" onPress={() => {}} />
       <Text style={{ color: "red" }}>Hello World!</Text>
       <Text style={{ color: "blue" }}>Below is a TextInput</Text>
       <TextInput

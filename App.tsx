@@ -1,24 +1,27 @@
-import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, TextInput, View } from "react-native";
-import { CTAButton } from "./src/Components/CTAButton/CTAButton";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import LoginScreen from "./screens/LoginScreen";
+import HomeScreen from "./screens/HomeScreen";
 
-export default function App() {
+const Stack = createStackNavigator();
+
+function App() {
   return (
-    <View style={styles.container}>
-      <CTAButton title="Testbutton" variant="primary" onPress={() => {}} />
-      <Text style={{ color: "red" }}>Hello World!</Text>
-      <Text style={{ color: "blue" }}>Below is a TextInput</Text>
-      <TextInput
-        style={{ backgroundColor: "grey", height: "5%", width: "90%" }}
-      ></TextInput>
-      <Text>
-        Open up App.js to start working on your app! TESTING TESTING Hallå ADAM!
-        Funkar detta fortfarande?
-      </Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="Login"
+          component={LoginScreen}
+        />
+        <Stack.Screen name="Home" component={HomeScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
+
+export default App;
 
 const styles = StyleSheet.create({
   container: {

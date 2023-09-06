@@ -1,12 +1,6 @@
-import { initializeApp } from "firebase/app";
+import * as firebase from "firebase/app";
 
 // Optionally import the services that you want to use
-import {
-  getAuth,
-  connectAuthEmulator,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
-import { getDatabase } from "firebase/database";
 
 // Initialize Firebase
 const firebaseConfig = {
@@ -21,8 +15,14 @@ const firebaseConfig = {
   measurementId: "G-FQR3KH7G08",
 };
 
-const app = initializeApp(firebaseConfig);
+let app;
+if (firebase.apps.length === 0) {
+  app = firebase.initializeApp(firebaseConfig);
+} else {
+  app = firebase.app();
+}
 
-const auth = getAuth(app);
+const auth = firebase.auth();
+export { auth };
 // For more information on how to access Firebase in your project,
 // see the Firebase documentation: https://firebase.google.com/docs/web/setup#access-firebase

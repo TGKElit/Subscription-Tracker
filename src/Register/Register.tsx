@@ -17,11 +17,11 @@ import { FirebaseAuthTypes } from "@react-native-firebase/auth";
 import auth from "@react-native-firebase/auth";
 
 export const Register = () => {
-  const [name, setName] = useState<string | undefined>();
-  const [email, setEmail] = useState<string | undefined>();
-  const [password, setPassword] = useState<string | undefined>();
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
-  const nav = useNavigation<NativeStackNavigationProp<any>>();
+  // const nav = useNavigation<NativeStackNavigationProp<any>>();
 
   const createProfile = async (response: FirebaseAuthTypes.UserCredential) => {
     // Create Profile Query Here
@@ -81,7 +81,7 @@ export const Register = () => {
             onPress={registerAndGoToMainFlow}
             variant="primary"
           />
-          <CTAButton title="Go Back" onPress={nav.goBack} variant="secondary" />
+          {/* <CTAButton title="Go Back" onPress={nav.goBack} variant="secondary" /> */}
         </View>
       </SafeAreaView>
     </Pressable>

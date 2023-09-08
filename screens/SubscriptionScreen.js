@@ -1,14 +1,14 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 
-const HomeScreen = () => {
+const SubscriptionScreen = () => {
   return (
     <View>
-      <Text>HomeScreen</Text>
+      <Text>Subscription</Text>
     </View>
   );
 };
 
-export default HomeScreen;
+export default SubscriptionScreen;
 
 const styles = StyleSheet.create({});

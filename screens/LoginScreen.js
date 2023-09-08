@@ -8,19 +8,27 @@ import {
 } from "react-native";
 import React from "react";
 import { useState } from "react";
-import { auth } from "../firebase";
+import { startFirebaseApp } from "../firebaseConfig";
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const handleSignUp = () => {
-    auth
-      .createUserWithEmailAndPassword(email, password)
-      .then((userCredentials) => {
-        const user = userCredentials.user;
-        console.log("Registered with:", user.email);
-      })
-      .catch((error) => alert(error.message));
+  startFirebaseApp();
+
+  const createAccount = async () => {
+    try {
+      const auth = getAuth();
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+      console.log("Registered with:", user.email);
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   return (
@@ -49,7 +57,7 @@ const LoginScreen = () => {
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={handleSignUp}
+          onPress={createAccount}
           style={[styles.button, styles.buttonOutline]}
         >
           <Text style={styles.buttonText}>Register</Text>

@@ -15,7 +15,10 @@ function App() {
           name="Login"
           component={LoginScreen}
         />
-        <Stack.Screen name="Home" component={SubscriptionScreen} />
+        <Stack.Screen
+          name="SubscriptionScreen"
+          component={SubscriptionScreen}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -3,6 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import LoginScreen from "./screens/LoginScreen";
 import SubscriptionScreen from "./screens/SubscriptionScreen";
+import SettingsScreen from "./screens/SettingsScreen";
 
 const Stack = createStackNavigator();
 
@@ -10,6 +11,11 @@ function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        <Stack.Screen 
+          options={{ headerShown: false}}
+          name="Settings"
+          component={SettingsScreen}
+        />
         <Stack.Screen
           options={{ headerShown: false }}
           name="Login"

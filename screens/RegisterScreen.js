@@ -61,17 +61,17 @@ const RegisterScreen = () => {
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <Text style={{ fontSize: 36, marginBottom: 10 }}>Registrera</Text>
       <Text style={{ fontSize: 16, marginBottom: 10 }}>
-        Skriv i email och lösenord för att registrera
+        Skriv i e-post och lösenord för att registrera
       </Text>
       <View style={styles.inputContainer}>
         <TextInput
-          placeholder="Email"
+          placeholder="E-post"
           value={email}
           onChangeText={(text) => setEmail(text)}
           style={styles.input}
         />
         <TextInput
-          placeholder="Password"
+          placeholder="Lösenord"
           value={password}
           onChangeText={(text) => setPassword(text)}
           style={styles.input}
@@ -114,25 +114,36 @@ const RegisterScreen = () => {
         >
           <View style={styles.termsOfSeriveContainer}>
             <View style={styles.modalView}>
-              <Text style={styles.modalText}>Hello World!</Text>
+              <Text style={styles.termsOfServiceHeader}>
+                Villkor for tjänsten
+              </Text>
+              <View style={styles.termsOfServiceTextContainer}>
+                <Text>
+                  Lorem ipsum dolor sit amet consectetur. Donec augue elit
+                  praesent faucibus quisque malesuada vitae pellentesque
+                  aliquam. Lorem ipsum dolor sit amet consectetur. Donec augue
+                  elit praesent faucibus quisque malesuada vitae pellentesque
+                  aliquam.
+                </Text>
+              </View>
               <View style={styles.termsOfServiceButtonContainer}>
                 <Pressable
-                  style={[styles.button, styles.buttonClose]}
+                  style={[styles.termsOfServiceButton, styles.denyButton]}
                   onPress={() => {
                     setModalVisible(!modalVisible);
                     setBoxState(false);
                   }}
                 >
-                  <Text style={styles.textStyle}>Neka</Text>
+                  <Text style={styles.textBlack}>Avböj</Text>
                 </Pressable>
                 <Pressable
-                  style={[styles.button, styles.buttonClose]}
+                  style={[styles.termsOfServiceButton, styles.acceptButton]}
                   onPress={() => {
                     setModalVisible(!modalVisible);
                     setBoxState(true);
                   }}
                 >
-                  Acceptera
+                  <Text style={styles.textWhite}>Acceptera</Text>
                 </Pressable>
               </View>
             </View>
@@ -205,13 +216,58 @@ const styles = StyleSheet.create({
   termsOfSeriveContainer: {
     justifyContent: "center",
     alignItems: "center",
-    height: "30vh",
-    width: "100vw",
+    height: "50vh",
+    width: "80vw",
     backgroundColor: "white",
+    paddingVertical: 24,
+    paddingHorizontal: 12,
+    gap: 24,
+  },
+  modalView: {
+    justifyContent: "space-between",
+    alignItems: "center",
+    height: "100%",
+    width: "100%",
+  },
+  termsOfServiceHeader: {
+    fontSize: 24,
+    fontWeight: "600",
+    lineHeight: 28,
+    fontStyle: "normal",
+  },
+  termsOfServiceTextContainer: {
+    marginTop: 20,
+    height: "20vh",
+    width: "100%",
   },
 
   termsOfServiceButtonContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
+  },
+  termsOfServiceButton: {
+    width: 126,
+    paddingVertical: 12,
+    paddingHorizontal: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 10,
+    borderRadius: 12,
+    borderColor: "black",
+    borderWidth: 2,
+  },
+
+  denyButton: {
+    backgroundColor: "white",
+  },
+  acceptButton: {
+    backgroundColor: "black",
+  },
+
+  textBlack: {
+    color: "black",
+  },
+  textWhite: {
+    color: "white",
   },
 });

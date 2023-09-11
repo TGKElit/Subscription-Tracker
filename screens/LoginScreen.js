@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import React from "react";
 import { useState } from "react";
+import { CTAButtonBig } from "../src/Components/CTAButton/CTAButtonBig";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
@@ -32,14 +33,12 @@ const LoginScreen = () => {
           secureTextEntry
         />
       </View>
-
-      <View style={styles.buttonContainer}>
-        <Pressable
-          onPress={() => {}}
-          style={[styles.button, styles.buttonOutline]}
-        >
-          <Text style={styles.buttonText}>Login</Text>
-        </Pressable>
+      <View>
+        <CTAButtonBig
+          title="Logga in"
+          onPress={() => alert("Logga in")}
+          variant="primary"
+        />
       </View>
     </KeyboardAvoidingView>
   );

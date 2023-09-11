@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 
-import { TouchableOpacity, Text, StyleSheet } from "react-native";
+import { TouchableOpacity, Text, StyleSheet, Pressable } from "react-native";
 
 type ButtonType = "primary" | "secondary";
 
@@ -10,7 +10,11 @@ interface CTAButtonProps {
   onPress: () => void;
 }
 
-export const CTAButton: FC<CTAButtonProps> = ({ title, onPress, variant }) => {
+export const CTAButtonBig: FC<CTAButtonProps> = ({
+  title,
+  onPress,
+  variant,
+}) => {
   const containerStyle =
     variant === "primary" ? styles.containerPrimary : styles.containerSecondary;
 
@@ -18,34 +22,41 @@ export const CTAButton: FC<CTAButtonProps> = ({ title, onPress, variant }) => {
     variant === "primary" ? styles.textPrimary : styles.textSecondary;
 
   return (
-    <TouchableOpacity onPress={onPress} style={containerStyle}>
+    <Pressable onPress={onPress} style={containerStyle}>
       <Text style={textStyle}>{title}</Text>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 
 const styles = StyleSheet.create({
   containerPrimary: {
-    height: 60,
-    backgroundColor: "purple",
-    borderRadius: 8,
+    height: 46,
+    width: 366,
+    backgroundColor: "black",
+    borderRadius: 12,
     justifyContent: "center",
     alignItems: "center",
+    borderColor: "black",
+    borderWidth: 2,
+    borderStyle: "solid",
   },
   containerSecondary: {
-    height: 60,
+    height: 46,
+    width: 366,
     backgroundColor: "white",
     justifyContent: "center",
     alignItems: "center",
+
+    borderRadius: 12,
   },
   textPrimary: {
-    fontSize: 15,
-    fontWeight: "bold",
+    fontSize: 16,
+    fontWeight: "700",
     color: "white",
   },
   textSecondary: {
-    fontSize: 15,
-    fontWeight: "bold",
+    fontSize: 16,
+    fontWeight: "700",
     color: "black",
   },
 });

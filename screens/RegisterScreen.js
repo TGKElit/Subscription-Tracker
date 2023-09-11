@@ -11,6 +11,8 @@ import {
 import React from "react";
 import { useState, useEffect } from "react";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import { CTAButtonSmall } from "../src/Components/CTAButton/CTAButtonSmall";
+import { CTAButtonBig } from "../src/Components/CTAButton/CTAButtonBig";
 
 const RegisterScreen = () => {
   const [email, setEmail] = useState("");
@@ -78,12 +80,11 @@ const RegisterScreen = () => {
       </View>
 
       <View style={styles.buttonContainer}>
-        <Pressable
+        <CTAButtonBig
+          title="Registrera"
           onPress={createAccount}
-          style={[styles.button, styles.buttonOutline]}
-        >
-          <Text style={styles.buttonText}>Register</Text>
-        </Pressable>
+          variant="primary"
+        />
       </View>
       <View style={styles.checkBoxContainer}>
         <Pressable onPress={toggleBox} style={[styles.checkBox]}>
@@ -125,24 +126,22 @@ const RegisterScreen = () => {
                 </Text>
               </View>
               <View style={styles.termsOfServiceButtonContainer}>
-                <Pressable
-                  style={[styles.termsOfServiceButton, styles.denyButton]}
+                <CTAButtonSmall
+                  title="Avböj"
                   onPress={() => {
                     setModalVisible(!modalVisible);
                     setBoxState(false);
                   }}
-                >
-                  <Text style={styles.textBlack}>Avböj</Text>
-                </Pressable>
-                <Pressable
-                  style={[styles.termsOfServiceButton, styles.acceptButton]}
+                  variant="secondary"
+                />
+                <CTAButtonSmall
+                  title="Acceptera"
                   onPress={() => {
                     setModalVisible(!modalVisible);
                     setBoxState(true);
                   }}
-                >
-                  <Text style={styles.textWhite}>Acceptera</Text>
-                </Pressable>
+                  variant="primary"
+                />
               </View>
             </View>
           </View>
@@ -175,29 +174,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: 40,
-  },
-  button: {
-    backgroundColor: "#0782F9",
-    width: "100%",
-    padding: 15,
-    borderRadius: 10,
-    alignItems: "center",
-  },
-  buttonOutline: {
-    backgroundColor: "#fff",
-    marginTop: 5,
-    borderColor: "#0782F9",
-    borderWidth: 2,
-  },
-  buttonText: {
-    color: "black",
-    fontSize: 16,
-    fontWeight: "700",
-  },
-  buttonOutlineText: {
-    color: "#0782F9",
-    fontSize: 16,
-    fontWeight: "700",
   },
   checkBox: {
     height: 32,

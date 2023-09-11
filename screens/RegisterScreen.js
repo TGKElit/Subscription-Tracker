@@ -10,11 +10,9 @@ import {
 
 import React from "react";
 import { useState, useEffect } from "react";
-import { startFirebaseApp } from "../firebaseConfig";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 
 const RegisterScreen = () => {
-  startFirebaseApp();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [boxState, setBoxState] = useState(false);

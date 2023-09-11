@@ -9,13 +9,10 @@ import {
 } from "react-native";
 import React from "react";
 import { useState } from "react";
-import { startFirebaseApp } from "../firebaseConfig";
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  startFirebaseApp();
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">

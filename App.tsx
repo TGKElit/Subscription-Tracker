@@ -5,13 +5,22 @@ import LoginScreen from "./screens/LoginScreen";
 import SubscriptionScreen from "./screens/SubscriptionScreen";
 import SettingsScreen from "./screens/SettingsScreen";
 import RegisterScreen from "./screens/RegisterScreen";
+import { startFirebaseApp } from "./firebaseConfig";
+import LandingScreen from "./screens/LandingScreen";
 
 const Stack = createStackNavigator();
 
 function App() {
+  startFirebaseApp();
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="Landing"
+          component={LandingScreen}
+        />
+
         <Stack.Screen
           options={{ headerShown: false }}
           name="Register"

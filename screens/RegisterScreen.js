@@ -28,7 +28,16 @@ const RegisterScreen = () => {
   };
 
   const createAccount = async () => {
-    if (boxState === true) {
+    // Email validation regex pattern
+    const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
+
+    if (boxState && email !== "" && password !== "") {
+      // Check if the email matches the pattern
+      if (!emailPattern.test(email)) {
+        alert("Ange en giltig e-postadress.");
+        return; // Exit the function if the email is not valid
+      }
+
       try {
         const auth = getAuth();
         const userCredential = await createUserWithEmailAndPassword(
@@ -39,10 +48,12 @@ const RegisterScreen = () => {
         const user = userCredential.user;
         console.log("Registered with:", user.email);
       } catch (error) {
-        // alert(error.message);
+        alert(error.message);
       }
-    } else {
-      alert("Du måste godkänna villkoren");
+    } else if (!boxState) {
+      alert("Du måste godkänna villkoren.");
+    } else if (email === "" || password === "") {
+      alert("Fyll i både e-post och lösenord.");
     }
   };
 
@@ -91,7 +102,7 @@ const RegisterScreen = () => {
         </Text>
       </View>
 
-      <View style={styles.centeredView}>
+      <View>
         <Modal
           animationType="slide"
           transparent={true}
@@ -101,15 +112,29 @@ const RegisterScreen = () => {
             setModalVisible(!modalVisible);
           }}
         >
-          <View style={styles.centeredView}>
+          <View style={styles.termsOfSeriveContainer}>
             <View style={styles.modalView}>
               <Text style={styles.modalText}>Hello World!</Text>
-              <Pressable
-                style={[styles.button, styles.buttonClose]}
-                onPress={() => setModalVisible(!modalVisible)}
-              >
-                <Text style={styles.textStyle}>Hide Modal</Text>
-              </Pressable>
+              <View style={styles.termsOfServiceButtonContainer}>
+                <Pressable
+                  style={[styles.button, styles.buttonClose]}
+                  onPress={() => {
+                    setModalVisible(!modalVisible);
+                    setBoxState(false);
+                  }}
+                >
+                  <Text style={styles.textStyle}>Neka</Text>
+                </Pressable>
+                <Pressable
+                  style={[styles.button, styles.buttonClose]}
+                  onPress={() => {
+                    setModalVisible(!modalVisible);
+                    setBoxState(true);
+                  }}
+                >
+                  Acceptera
+                </Pressable>
+              </View>
             </View>
           </View>
         </Modal>
@@ -180,5 +205,13 @@ const styles = StyleSheet.create({
   termsOfSeriveContainer: {
     justifyContent: "center",
     alignItems: "center",
+    height: "30vh",
+    width: "100vw",
+    backgroundColor: "white",
+  },
+
+  termsOfServiceButtonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 });

@@ -4,6 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import LoginScreen from "./screens/LoginScreen";
 import SubscriptionScreen from "./screens/SubscriptionScreen";
 import SettingsScreen from "./screens/SettingsScreen";
+import RegisterScreen from "./screens/RegisterScreen";
 
 const Stack = createStackNavigator();
 
@@ -11,15 +12,20 @@ function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen 
-          options={{ headerShown: false}}
-          name="Settings"
-          component={SettingsScreen}
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="Register"
+          component={RegisterScreen}
         />
         <Stack.Screen
           options={{ headerShown: false }}
           name="Login"
           component={LoginScreen}
+        />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="Settings"
+          component={SettingsScreen}
         />
         <Stack.Screen
           name="SubscriptionScreen"

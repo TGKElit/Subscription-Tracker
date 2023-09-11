@@ -5,6 +5,7 @@ import {
   TextInput,
   View,
   TouchableOpacity,
+  Pressable,
 } from "react-native";
 import React from "react";
 import { useState } from "react";
@@ -16,23 +17,9 @@ const LoginScreen = () => {
   const [password, setPassword] = useState("");
   startFirebaseApp();
 
-  const createAccount = async () => {
-    try {
-      const auth = getAuth();
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      const user = userCredential.user;
-      console.log("Registered with:", user.email);
-    } catch (error) {
-      alert(error.message);
-    }
-  };
-
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
+      <Text style={{ fontSize: 36, marginBottom: 10 }}>Logga in</Text>
       <View style={styles.inputContainer}>
         <TextInput
           placeholder="Email"
@@ -50,18 +37,12 @@ const LoginScreen = () => {
       </View>
 
       <View style={styles.buttonContainer}>
-        <TouchableOpacity
+        <Pressable
           onPress={() => {}}
           style={[styles.button, styles.buttonOutline]}
         >
           <Text style={styles.buttonText}>Login</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={createAccount}
-          style={[styles.button, styles.buttonOutline]}
-        >
-          <Text style={styles.buttonText}>Register</Text>
-        </TouchableOpacity>
+        </Pressable>
       </View>
     </KeyboardAvoidingView>
   );

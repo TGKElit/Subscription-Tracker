@@ -13,23 +13,36 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const auth = getAuth();
 
   const login = () => {
+    const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
     if (email === "" || password === "") {
       alert("Fyll i både e-post och lösenord.");
       return;
     }
+
     try {
-      signInWithEmailAndPassword(auth, email, password).then(
-        (userCredential) => {
-          navigation.navigate("SubscriptionScreen");
+      const auth = getAuth();
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
           console.log(user);
+          navigation.navigate("SubscriptionScreen");
           // ...
-        }
-      );
+        })
+        .catch((error) => {
+          if (emailPattern.test(email) === false) {
+            alert("Felaktig e-postadress format");
+          } else if (
+            error.code === "auth/user-not-found" ||
+            error.code === "auth/wrong-password"
+          ) {
+            alert("Felaktig e-postadress eller lösenord.");
+          } else {
+            alert("Något gick fel. Försök igen senare.");
+          }
+        });
     } catch (error) {
       alert(error.message);
     }

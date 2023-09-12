@@ -8,10 +8,32 @@ import {
 import React from "react";
 import { useState } from "react";
 import { CTAButtonBig } from "../src/Components/CTAButton/CTAButtonBig";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const auth = getAuth();
+
+  const login = () => {
+    if (email === "" || password === "") {
+      alert("Fyll i både e-post och lösenord.");
+      return;
+    }
+    try {
+      signInWithEmailAndPassword(auth, email, password).then(
+        (userCredential) => {
+          navigation.navigate("SubscriptionScreen");
+          // Signed in
+          const user = userCredential.user;
+          console.log(user);
+          // ...
+        }
+      );
+    } catch (error) {
+      alert(error.message);
+    }
+  };
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
@@ -32,11 +54,7 @@ const LoginScreen = () => {
         />
       </View>
       <View>
-        <CTAButtonBig
-          title="Logga in"
-          onPress={() => alert("Logga in")}
-          variant="primary"
-        />
+        <CTAButtonBig title="Logga in" onPress={login} variant="primary" />
       </View>
     </KeyboardAvoidingView>
   );

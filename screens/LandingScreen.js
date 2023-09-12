@@ -11,13 +11,13 @@ const LandingScreen = ({ navigation }) => {
 
       <Text>Landing Screen</Text>
       <CTAButtonBig
-        title="Go to Login"
+        title="Logga in"
         onPress={() => navigation.navigate("Login")}
         variant="primary"
       />
 
       <CTAButtonBig
-        title="Go to Register"
+        title="Registrera"
         onPress={() => navigation.navigate("Register")}
         variant="secondary"
       />

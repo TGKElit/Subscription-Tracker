@@ -14,7 +14,7 @@ import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { CTAButtonSmall } from "../src/Components/CTAButton/CTAButtonSmall";
 import { CTAButtonBig } from "../src/Components/CTAButton/CTAButtonBig";
 
-const RegisterScreen = () => {
+const RegisterScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [boxState, setBoxState] = useState(false);
@@ -47,6 +47,7 @@ const RegisterScreen = () => {
         );
         const user = userCredential.user;
         console.log("Registered with:", user.email);
+        navigation.navigate("SubscriptionScreen");
       } catch (error) {
         alert(error.message);
       }

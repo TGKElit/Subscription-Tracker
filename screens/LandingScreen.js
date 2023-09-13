@@ -12,27 +12,40 @@ const LandingScreen = ({ navigation }) => {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
+        gap: "44px",
+        marginHorizontal: "12px",
       }}
     >
+      <View
+        style={{ height: "342px", backgroundColor: "grey", width: "100%" }}
+      ></View>
       <StatusBar style="dark" />
       <Text style={{ fontFamily: "Inter_600SemiBold", fontSize: 48 }}>
         tracky.
       </Text>
-      <Text style={{ fontFamily: "Inter_400Regular", fontSize: 16 }}>
+      <Text
+        style={{
+          fontFamily: "Inter_400Regular",
+          fontSize: 16,
+        }}
+      >
         Lorem ipsum dolor sit amet consectetur. Donec augue elit praesent
         faucibus quisque malesuada vitae pellentesque aliquam.
       </Text>
-      <CTAButtonBig
-        title="Logga in"
-        onPress={() => navigation.navigate("Login")}
-        variant="primary"
-      />
 
-      <CTAButtonBig
-        title="Registrera"
-        onPress={() => navigation.navigate("Register")}
-        variant="secondary"
-      />
+      <View>
+        <CTAButtonBig
+          title="Logga in"
+          onPress={() => navigation.navigate("Login")}
+          variant="primary"
+        />
+
+        <CTAButtonBig
+          title="Registrera"
+          onPress={() => navigation.navigate("Register")}
+          variant="secondary"
+        />
+      </View>
       <Button
         title="Go to Settings"
         onPress={() => navigation.navigate("Settings")}

@@ -52,6 +52,7 @@ function App() {
           component={SettingsScreen}
         />
         <Stack.Screen
+          options={{ headerShown: false }}
           name="SubscriptionScreen"
           component={SubscriptionScreen}
         />

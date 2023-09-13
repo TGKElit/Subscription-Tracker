@@ -6,14 +6,21 @@ import { CTAButtonBig } from "../src/Components/CTAButton/CTAButtonBig";
 
 const LandingScreen = ({ navigation }) => {
   return (
-    <SafeAreaView>
+    <SafeAreaView
+      style={{
+        flex: "1",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <StatusBar style="dark" />
-      <Text style={{ fontSize: 40 }}>Original</Text>
-      <Text style={{ fontFamily: "Inter_400Regular", fontSize: 40 }}>
-        Not Original
+      <Text style={{ fontFamily: "Inter_600SemiBold", fontSize: 48 }}>
+        tracky.
       </Text>
-      <Text style={{ fontFamily: "Inter_600SemiBold", fontSize: 40 }}>
-        Landing Screen
+      <Text style={{ fontFamily: "Inter_400Regular", fontSize: 16 }}>
+        Lorem ipsum dolor sit amet consectetur. Donec augue elit praesent
+        faucibus quisque malesuada vitae pellentesque aliquam.
       </Text>
       <CTAButtonBig
         title="Logga in"

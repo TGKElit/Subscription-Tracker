@@ -51,12 +51,12 @@ const styles = StyleSheet.create({
   },
   textPrimary: {
     fontSize: 16,
-    fontWeight: "700",
+    fontFamily: "Inter_600SemiBold",
     color: "white",
   },
   textSecondary: {
     fontSize: 16,
-    fontWeight: "700",
+    fontFamily: "Inter_600SemiBold",
     color: "black",
   },
 });

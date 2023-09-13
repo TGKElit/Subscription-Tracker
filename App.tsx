@@ -10,6 +10,7 @@ import {
   useFonts,
   Inter_600SemiBold,
   Inter_400Regular,
+  Inter_900Black,
 } from "@expo-google-fonts/inter";
 
 const Stack = createStackNavigator();
@@ -18,6 +19,7 @@ function App() {
   let [fontsLoaded, fontError] = useFonts({
     Inter_600SemiBold,
     Inter_400Regular,
+    Inter_900Black,
   });
 
   if (!fontsLoaded && !fontError) {

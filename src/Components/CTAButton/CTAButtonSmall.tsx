@@ -53,36 +53,12 @@ const styles = StyleSheet.create({
   },
   textPrimary: {
     fontSize: 16,
-    fontWeight: "700",
     color: "white",
+    fontFamily: "Inter_600SemiBold",
   },
   textSecondary: {
     fontSize: 16,
-    fontWeight: "700",
     color: "black",
+    fontFamily: "Inter_600SemiBold",
   },
 });
-
-// button: {
-//   backgroundColor: "#0782F9",
-//   width: "100%",
-//   padding: 15,
-//   borderRadius: 10,
-//   alignItems: "center",
-// },
-// buttonOutline: {
-//   backgroundColor: "#fff",
-//   marginTop: 5,
-//   borderColor: "#0782F9",
-//   borderWidth: 2,
-// },
-// buttonText: {
-//   color: "black",
-//   fontSize: 16,
-//   fontWeight: "700",
-// },
-// buttonOutlineText: {
-//   color: "#0782F9",
-//   fontSize: 16,
-//   fontWeight: "700",
-// },

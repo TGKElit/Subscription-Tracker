@@ -8,8 +8,13 @@ const LandingScreen = ({ navigation }) => {
   return (
     <SafeAreaView>
       <StatusBar style="dark" />
-
-      <Text>Landing Screen</Text>
+      <Text style={{ fontSize: 40 }}>Original</Text>
+      <Text style={{ fontFamily: "Inter_400Regular", fontSize: 40 }}>
+        Not Original
+      </Text>
+      <Text style={{ fontFamily: "Inter_600SemiBold", fontSize: 40 }}>
+        Landing Screen
+      </Text>
       <CTAButtonBig
         title="Logga in"
         onPress={() => navigation.navigate("Login")}

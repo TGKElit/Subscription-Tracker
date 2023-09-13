@@ -6,11 +6,25 @@ import SettingsScreen from "./screens/SettingsScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 import { startFirebaseApp } from "./firebaseConfig";
 import LandingScreen from "./screens/LandingScreen";
+import {
+  useFonts,
+  Inter_600SemiBold,
+  Inter_400Regular,
+} from "@expo-google-fonts/inter";
 
 const Stack = createStackNavigator();
 
 function App() {
+  let [fontsLoaded, fontError] = useFonts({
+    Inter_600SemiBold,
+    Inter_400Regular,
+  });
+
+  if (!fontsLoaded && !fontError) {
+    return null;
+  }
   startFirebaseApp();
+
   return (
     <NavigationContainer>
       <Stack.Navigator>

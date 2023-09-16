@@ -60,8 +60,8 @@ const RegisterScreen = ({ navigation }) => {
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
-      <Text style={{ fontSize: 36, marginBottom: 10 }}>Registrera</Text>
-      <Text style={{ fontSize: 16, marginBottom: 10 }}>
+      <Text style={{ fontSize: 36, marginBottom: 64 }}>Registrera</Text>
+      <Text style={{ fontSize: 16, marginBottom: 8 }}>
         Skriv i e-post och lösenord för att registrera
       </Text>
       <View style={styles.inputContainer}>
@@ -80,26 +80,29 @@ const RegisterScreen = ({ navigation }) => {
         />
       </View>
 
-      <View style={styles.buttonContainer}>
-        <CTAButtonBig
-          title="Registrera"
-          onPress={createAccount}
-          variant="primary"
-        />
-      </View>
       <View style={styles.checkBoxContainer}>
         <Pressable onPress={toggleBox} style={[styles.checkBox]}>
           {boxState ? (
             <Text style={{ fontSize: 24, color: "black" }}>✓</Text>
           ) : null}
         </Pressable>
-        <Text>Genom att kryssa samtycker jag till </Text>
+        <Text style={{ marginLeft: 8 }}>
+          Genom att kryssa samtycker jag till{" "}
+        </Text>
         <Text
           onPress={() => setModalVisible(true)}
           style={{ textDecorationLine: "underline" }}
         >
           villkoren
         </Text>
+      </View>
+      {/* få registreringsknappen till vänster */}
+      <View style={{ justifyContent: "flex-start" }}>
+        <CTAButtonSmall
+          title="Registrera"
+          onPress={createAccount}
+          variant="primary"
+        />
       </View>
 
       <View>
@@ -162,6 +165,8 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     width: "80%",
+    gap: 8,
+    marginBottom: 8,
   },
   input: {
     backgroundColor: "#fff",
@@ -197,6 +202,7 @@ const styles = StyleSheet.create({
     paddingVertical: 24,
     paddingHorizontal: 12,
     gap: 24,
+    borderRadius: 12,
   },
   modalView: {
     justifyContent: "space-between",
@@ -216,6 +222,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
 
+  // gör spacebetween
   termsOfServiceButtonContainer: {
     flexDirection: "row",
     justifyContent: "space-between",

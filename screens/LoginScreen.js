@@ -50,7 +50,9 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
-      <Text style={{ fontSize: 36, marginBottom: 10 }}>Logga in</Text>
+      <Text style={{ fontFamily: "Inter_600SemiBold", fontSize: 36 }}>
+        Logga in
+      </Text>
       <View style={styles.inputContainer}>
         <TextInput
           placeholder="Email"

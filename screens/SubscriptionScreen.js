@@ -4,6 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { CTAButtonBig } from "../src/Components/CTAButton/CTAButtonBig";
 import { useState } from "react";
+import { HeaderContainer } from "../src/Components/HeaderContainer/HeaderContainer";
 
 const SubscriptionScreen = () => {
   const auth = getAuth();
@@ -32,6 +33,7 @@ const SubscriptionScreen = () => {
 
   return (
     <SafeAreaView>
+      <HeaderContainer title="Prenumationer" />
       <Text>Welcome {user.email} </Text>
       <CTAButtonBig title="Logga ut" onPress={signOut} />
     </SafeAreaView>

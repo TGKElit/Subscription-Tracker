@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View, Image, SafeAreaView, Button } from "react-native";
 import { Card } from "../src/Components/Card/Card";
+import { Navbar } from "../src/Components/Navbar/Navbar";
 import React from "react";
 
 
@@ -16,6 +17,7 @@ const SettingsScreen = ({navigation}) => {
           title="Logga ut"
           onPress={() => navigation.navigate("Landing")}
         />
+        <Navbar navigation={navigation}/>
       </View>
     </SafeAreaView>
   );

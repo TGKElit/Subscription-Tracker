@@ -45,7 +45,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
 
-  
 
   defaultContainer: {
     backgroundColor: "gray",

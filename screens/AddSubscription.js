@@ -7,6 +7,7 @@ import { CTAButtonBig } from "../src/Components/CTAButton/CTAButtonBig";
 import { StyleSheet } from "react-native";
 import { CTAButtonSmall } from "../src/Components/CTAButton/CTAButtonSmall";
 import { ref, set, getDatabase, get, push } from "firebase/database";
+import { Picker } from "@react-native-picker/picker";
 
 const AddSubscriptionScreen = () => {
   const auth = getAuth();
@@ -89,12 +90,21 @@ const AddSubscriptionScreen = () => {
       >
         <Text>Faktureringsperiod</Text>
         <Text>Välj din Faktureringsperiod</Text>
-        <TextInput
+        {/* <TextInput
           placeholder="Skriv här ..."
           value={billingPeriod}
           onChangeText={(text) => setBillingPeriod(text)}
           style={styles.input}
-        />
+        /> */}
+        <Picker
+          selectedValue={billingPeriod}
+          onValueChange={(itemValue, itemIndex) => setBillingPeriod(itemValue)}
+        >
+          <Picker.Item label="Månad" value="month" />
+          <Picker.Item label="Kvartal" value="quarter" />
+          <Picker.Item label="Yearly" value="year" />
+        </Picker>
+
         <CTAButtonSmall
           title="Nästa"
           variant="primary"

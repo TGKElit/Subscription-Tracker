@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, TextInput } from "react-native";
+import { View, Text, SafeAreaView, TextInput, Pressable } from "react-native";
 import { getAuth } from "firebase/auth";
 import { Card } from "../src/Components/Card/Card";
 import React from "react";
@@ -8,6 +8,7 @@ import { StyleSheet } from "react-native";
 import { CTAButtonSmall } from "../src/Components/CTAButton/CTAButtonSmall";
 import { ref, set, getDatabase, get, push } from "firebase/database";
 import { Picker } from "@react-native-picker/picker";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 const AddSubscriptionScreen = ({ navigation }) => {
   const auth = getAuth();
@@ -23,9 +24,37 @@ const AddSubscriptionScreen = ({ navigation }) => {
   const [priceVisible, setPriceVisible] = useState(false);
   const [price, setPrice] = useState("");
   const [startDateVisible, setStartDateVisible] = useState(false);
-  const [startDate, setStartDate] = useState("");
+
   const [descriptionVisible, setDescriptionVisible] = useState(false);
   const [description, setDescription] = useState("");
+
+  //Datepicker
+  const [startDate, setStartDate] = useState("");
+  const [mode, setMode] = useState("date");
+  const [show, setShow] = useState(false);
+
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate;
+    setShow(false);
+    // const selectedDateOnly = new Date(
+    //   currentDate.getFullYear(),
+    //   currentDate.getMonth(),
+    //   currentDate.getDate()
+    // );
+    setStartDate(currentDate);
+    // setStartDate(selectedDateOnly);
+  };
+
+  const showMode = (currentMode) => {
+    setShow(true);
+    setMode(currentMode);
+  };
+
+  const showDatepicker = () => {
+    showMode("date");
+  };
+
+  //add all data to database
   function addData() {
     const db = getDatabase();
     const newSubscriptionRef = push(ref(db, "users/" + user.uid));
@@ -38,7 +67,6 @@ const AddSubscriptionScreen = ({ navigation }) => {
     });
     console.log("data added", newSubscriptionRef.key);
   }
-
   return (
     <SafeAreaView>
       <View>
@@ -90,16 +118,11 @@ const AddSubscriptionScreen = ({ navigation }) => {
       >
         <Text>Faktureringsperiod</Text>
         <Text>Välj din Faktureringsperiod</Text>
-        {/* <TextInput
-          placeholder="Skriv här ..."
-          value={billingPeriod}
-          onChangeText={(text) => setBillingPeriod(text)}
-          style={styles.input}
-        /> */}
         <Picker
           selectedValue={billingPeriod}
           onValueChange={(itemValue, itemIndex) => setBillingPeriod(itemValue)}
         >
+          <Picker.Item label="Välj" value="" />
           <Picker.Item label="Månad" value="month" />
           <Picker.Item label="Kvartal" value="quarter" />
           <Picker.Item label="Yearly" value="year" />
@@ -109,9 +132,13 @@ const AddSubscriptionScreen = ({ navigation }) => {
           title="Nästa"
           variant="primary"
           onPress={() => {
-            console.log(name);
-            setBillingPeriodVisible(false);
-            setPriceVisible(true);
+            if (billingPeriod === "") {
+              alert("Du måste välja en faktureringsperiod");
+            } else {
+              console.log(name);
+              setBillingPeriodVisible(false);
+              setPriceVisible(true);
+            }
           }}
         />
       </View>
@@ -128,8 +155,12 @@ const AddSubscriptionScreen = ({ navigation }) => {
           title="Nästa"
           variant="primary"
           onPress={() => {
-            setPriceVisible(false);
-            setStartDateVisible(true);
+            if (price === "") {
+              alert("Du måste skriva in ett pris");
+            } else {
+              setPriceVisible(false);
+              setStartDateVisible(true);
+            }
           }}
         />
       </View>
@@ -139,18 +170,52 @@ const AddSubscriptionScreen = ({ navigation }) => {
       >
         <Text>Startdatum</Text>
         <Text>Välj startdatum</Text>
+
         <TextInput
-          placeholder="Skriv här ..."
+          placeholder="dag/månad/år"
           value={startDate}
           onChangeText={(text) => setStartDate(text)}
           style={styles.input}
         />
+
+        {/* <CTAButtonBig onPress={showDatepicker} title="Pick a date" />
+        <Text>{startDate.toLocaleDateString()}</Text>
+        <Text>selected: {startDate.toLocaleDateString()}</Text>
+        {show && (
+          <DateTimePicker
+            testID="dateTimePicker"
+            value={startDate}
+            mode={mode}
+            is24Hour={true}
+            onChange={onChange}
+          />
+        )} */}
+        {/* <Text>selected: {startDate.toLocaleString()}</Text>
+        <DateTimePicker
+          testID="dateTimePicker"
+          value={startDate}
+          mode="date"
+          is24Hour={true}
+          display="default"
+          onChange={() => {
+            setStartDate(startDate);
+          }}
+        /> */}
+
         <CTAButtonSmall
           title="Nästa"
           variant="primary"
           onPress={() => {
-            setStartDateVisible(false);
-            setDescriptionVisible(true);
+            if (startDate === "") {
+              alert("Du måste välja ett startdatum");
+            } else {
+              // const startDateConversion = startDate.toLocaleDateString();
+              // setStartDate(startDateConversion);
+
+              console.log(startDate);
+              setStartDateVisible(false);
+              setDescriptionVisible(true);
+            }
           }}
         />
       </View>

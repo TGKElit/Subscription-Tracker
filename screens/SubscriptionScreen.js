@@ -5,10 +5,27 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { CTAButtonBig } from "../src/Components/CTAButton/CTAButtonBig";
 import { useState } from "react";
 import { HeaderContainer } from "../src/Components/HeaderContainer/HeaderContainer";
+import { ref, set, getDatabase } from "firebase/database";
 
 const SubscriptionScreen = () => {
   const auth = getAuth();
   const user = auth.currentUser;
+  const [subscription, setSubscription] = useState("");
+
+  // const addData = () => {
+  //   const db = ref(getDatabase());
+  //   set(ref(db, "users/" + user.uid), {
+  //     subscription: subscription,
+  //   });
+  // };
+
+  function addData() {
+    const db = getDatabase();
+    set(ref(db, "users/" + user.uid), {
+      subscription: subscription,
+    });
+    console.log("data added" + subscription);
+  }
 
   const signOut = () => {
     auth.signOut();
@@ -35,6 +52,12 @@ const SubscriptionScreen = () => {
     <SafeAreaView>
       <HeaderContainer title="Prenumationer" />
       <Text>Welcome {user.email} </Text>
+      <TextInput
+        placeholder="Prenumeration"
+        onChangeText={(text) => setSubscription(text)}
+      />
+      <CTAButtonBig title="Lägg till" onPress={addData} />
+
       <CTAButtonBig title="Logga ut" onPress={signOut} />
     </SafeAreaView>
   );

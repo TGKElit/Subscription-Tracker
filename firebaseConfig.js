@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app";
+import { getDatabase } from "firebase/database";
 import {
   getAuth,
   signInWithEmailAndPassword,
@@ -19,11 +20,18 @@ const firebaseApp = {
   messagingSenderId: "224186763641",
   appId: "1:224186763641:web:bd67d8f5053b3565c1c7a8",
   measurementId: "G-FQR3KH7G08",
+  databaseURL:
+    "https://subscriptiontracker-b0f27-default-rtdb.europe-west1.firebasedatabase.app/",
 };
 
 export const startFirebaseApp = () => {
-  initializeApp(firebaseApp);
+  const app = initializeApp(firebaseApp);
+  app;
 };
+
+// const db = getDatabase();
+// export { db };
+// export const db = getDatabase();
 
 // const auth = getAuth(firebaseApp);
 

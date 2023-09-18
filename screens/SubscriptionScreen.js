@@ -8,15 +8,18 @@ import { useState } from "react";
 import { HeaderContainer } from "../src/Components/HeaderContainer/HeaderContainer";
 import { ref, set, getDatabase, get } from "firebase/database";
 import { Navbar } from "../src/Components/Navbar/Navbar";
+import { useFocusEffect } from "@react-navigation/native";
 
 const SubscriptionScreen = ({ navigation }) => {
   const auth = getAuth();
   const user = auth.currentUser;
   const [subscriptions, setSubscriptions] = useState([]);
 
-  useEffect(() => {
-    getData();
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      getData();
+    }, [])
+  );
 
   function getData() {
     const db = getDatabase();

@@ -6,7 +6,7 @@ import SettingsScreen from "./screens/SettingsScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 import { startFirebaseApp } from "./firebaseConfig";
 import LandingScreen from "./screens/LandingScreen";
-import {StatisticsScreen} from "./screens/StatisticsScreen";
+import StatisticsScreen from "./screens/StatisticsScreen";
 import {
   useFonts,
   Inter_600SemiBold,

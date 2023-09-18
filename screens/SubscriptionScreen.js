@@ -5,12 +5,14 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { CTAButtonBig } from "../src/Components/CTAButton/CTAButtonBig";
 import { useState } from "react";
 import { HeaderContainer } from "../src/Components/HeaderContainer/HeaderContainer";
-import { ref, set, getDatabase } from "firebase/database";
+import { ref, set, getDatabase, get } from "firebase/database";
+import { Navbar } from "../src/Components/Navbar/Navbar";
 
-const SubscriptionScreen = () => {
+const SubscriptionScreen = ({ navigation }) => {
   const auth = getAuth();
   const user = auth.currentUser;
   const [subscription, setSubscription] = useState("");
+  getData();
 
   // const addData = () => {
   //   const db = ref(getDatabase());
@@ -25,6 +27,22 @@ const SubscriptionScreen = () => {
       subscription: subscription,
     });
     console.log("data added" + subscription);
+  }
+
+  function getData() {
+    const db = getDatabase();
+    const userData = ref(db, "users/" + user.uid);
+    get(userData)
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          console.log(snapshot.val());
+        } else {
+          console.log("No data available");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
   const signOut = () => {
@@ -56,7 +74,11 @@ const SubscriptionScreen = () => {
         placeholder="Prenumeration"
         onChangeText={(text) => setSubscription(text)}
       />
-      <CTAButtonBig title="Lägg till" onPress={addData} />
+      <CTAButtonBig title="Lägg till test" onPress={addData} />
+      <CTAButtonBig
+        title="Lägg till prenumation"
+        onPress={() => navigation.navigate("AddSubscription")}
+      />
 
       <CTAButtonBig title="Logga ut" onPress={signOut} />
     </SafeAreaView>

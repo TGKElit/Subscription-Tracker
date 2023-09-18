@@ -9,7 +9,7 @@ import { CTAButtonSmall } from "../src/Components/CTAButton/CTAButtonSmall";
 import { ref, set, getDatabase, get, push } from "firebase/database";
 import { Picker } from "@react-native-picker/picker";
 
-const AddSubscriptionScreen = () => {
+const AddSubscriptionScreen = ({ navigation }) => {
   const auth = getAuth();
   const user = auth.currentUser;
 

@@ -80,23 +80,57 @@ const SubscriptionScreen = ({ navigation }) => {
   return (
     <SafeAreaView>
       <HeaderContainer title="Prenumationer" />
-      <Text>Welcome {user.email} </Text>
-      <Text>Total Cost: {totalCost}</Text>
-
-      <CTAButtonBig
-        title="Lägg till prenumation"
-        onPress={() => navigation.navigate("AddSubscription")}
-      />
-      <CTAButtonBig title="Logga ut" onPress={signOut} />
-      {Object.keys(subscriptions).map((key) => (
-        <View key={key}>
-          <Text>Name: {subscriptions[key].name}</Text>
-          <Text>Billing Period: {subscriptions[key].billingPeriod}</Text>
-          <Text>Description: {subscriptions[key].description}</Text>
-          <Text>Price: {subscriptions[key].price}</Text>
-          <Text>Start Date: {subscriptions[key].startDate}</Text>
+      <View style={{ paddingHorizontal: 12 }}>
+        <View
+          style={{
+            height: 134,
+            width: "100%",
+            borderRadius: 12,
+            borderWidth: 2,
+            paddingTop: 24,
+            paddingHorizontal: 12,
+            paddingBottom: 12,
+            marginTop: 24,
+            marginBottom: 24,
+          }}
+        >
+          <Text style={{ fontSize: 12, fontFamily: "Inter_400Regular" }}>
+            Denna månaden kommer du att betala:
+          </Text>
+          <Text style={{ fontSize: 36, fontFamily: "Inter_700Bold" }}>
+            {totalCost} kr
+          </Text>
         </View>
-      ))}
+
+        <View>
+          <Text style={{ fontSize: 24, fontFamily: "Inter_600SemiBold" }}>
+            Prenumationer
+          </Text>
+          {Object.keys(subscriptions).map((key) => (
+            <View key={key} style={{ width: "100%", height: 64 }}>
+              <Text>Name: {subscriptions[key].name}</Text>
+              <Text>
+                {subscriptions[key].price}kr /{" "}
+                {subscriptions[key].billingPeriod}
+              </Text>
+            </View>
+          ))}
+        </View>
+        <CTAButtonBig
+          title="Lägg till prenumation"
+          onPress={() => navigation.navigate("AddSubscription")}
+        />
+        <CTAButtonBig title="Logga ut" onPress={signOut} />
+        {/* {Object.keys(subscriptions).map((key) => (
+          <View key={key}>
+            <Text>Name: {subscriptions[key].name}</Text>
+            <Text>Billing Period: {subscriptions[key].billingPeriod}</Text>
+            <Text>Description: {subscriptions[key].description}</Text>
+            <Text>Price: {subscriptions[key].price}</Text>
+            <Text>Start Date: {subscriptions[key].startDate}</Text>
+          </View>
+        ))} */}
+      </View>
     </SafeAreaView>
   );
 };

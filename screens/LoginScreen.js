@@ -88,10 +88,11 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: "#fff",
-    paddingHorizontal: 15,
-    paddingVertical: 10,
-    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 12,
+    borderRadius: 12,
     marginTop: 5,
+    borderWidth: 2,
   },
   buttonContainer: {
     width: "60%",

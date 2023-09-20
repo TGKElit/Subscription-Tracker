@@ -59,52 +59,74 @@ const RegisterScreen = ({ navigation }) => {
   };
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior="padding">
-      <Text style={{ fontSize: 36, marginBottom: 64 }}>Registrera</Text>
-      <Text style={{ fontSize: 16, marginBottom: 8 }}>
-        Skriv i e-post och lösenord för att registrera
-      </Text>
-      <View style={styles.inputContainer}>
-        <TextInput
-          placeholder="E-post"
-          value={email}
-          onChangeText={(text) => setEmail(text)}
-          style={styles.input}
-        />
-        <TextInput
-          placeholder="Lösenord"
-          value={password}
-          onChangeText={(text) => setPassword(text)}
-          style={styles.input}
-          secureTextEntry
-        />
-      </View>
-
-      <View style={styles.checkBoxContainer}>
-        <Pressable onPress={toggleBox} style={[styles.checkBox]}>
-          {boxState ? (
-            <Text style={{ fontSize: 24, color: "black" }}>✓</Text>
-          ) : null}
-        </Pressable>
-        <Text style={{ marginLeft: 8 }}>
-          Genom att kryssa samtycker jag till{" "}
+    <KeyboardAvoidingView
+      style={{
+        alignContent: "center",
+        justifyContent: "center",
+        flex: 1,
+        backgroundColor: "white",
+      }}
+    >
+      <View style={styles.container}>
+        <Text
+          style={{
+            fontSize: 36,
+            marginBottom: 64,
+            fontFamily: "Inter_600SemiBold",
+          }}
+        >
+          Registrera
         </Text>
         <Text
-          onPress={() => setModalVisible(true)}
-          style={{ textDecorationLine: "underline" }}
+          style={{
+            fontSize: 16,
+            marginBottom: 8,
+            fontFamily: "Inter_400Regular",
+          }}
         >
-          villkoren
+          Skriv i e-post och lösenord för att registrera
         </Text>
-      </View>
-      {/* få registreringsknappen till vänster */}
-      <View style={{ justifyContent: "flex-start" }}>
-        <CTAButtonSmall
-          title="Registrera"
-          onPress={createAccount}
-          variant="primary"
-        />
-      </View>
+        <View style={styles.inputContainer}>
+          <TextInput
+            placeholder="E-post"
+            value={email}
+            onChangeText={(text) => setEmail(text)}
+            style={styles.input}
+          />
+          <TextInput
+            placeholder="Lösenord"
+            value={password}
+            onChangeText={(text) => setPassword(text)}
+            style={styles.input}
+            secureTextEntry
+          />
+        </View>
 
+        <View style={styles.checkBoxContainer}>
+          <Pressable onPress={toggleBox} style={[styles.checkBox]}>
+            {boxState ? (
+              <Text style={{ fontSize: 24, color: "black" }}>✓</Text>
+            ) : null}
+          </Pressable>
+          <Text style={{ marginLeft: 8 }}>
+            Genom att kryssa samtycker jag till{" "}
+          </Text>
+          <Text
+            onPress={() => setModalVisible(true)}
+            style={{ textDecorationLine: "underline" }}
+          >
+            villkoren
+          </Text>
+        </View>
+        {/* få registreringsknappen till vänster */}
+        <View style={{ justifyContent: "flex-start" }}>
+          <CTAButtonSmall
+            title="Registrera"
+            onPress={createAccount}
+            variant="primary"
+          />
+        </View>
+      </View>
       <View>
         <Modal
           animationType="slide"
@@ -170,10 +192,11 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: "#fff",
-    paddingHorizontal: 15,
-    paddingVertical: 10,
-    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 12,
+    borderRadius: 12,
     marginTop: 5,
+    borderWidth: 2,
   },
   buttonContainer: {
     width: "60%",

@@ -12,6 +12,7 @@ import {
   useFonts,
   Inter_600SemiBold,
   Inter_400Regular,
+  Inter_700Bold,
   Inter_900Black,
 } from "@expo-google-fonts/inter";
 
@@ -21,6 +22,7 @@ function App() {
   let [fontsLoaded, fontError] = useFonts({
     Inter_600SemiBold,
     Inter_400Regular,
+    Inter_700Bold,
     Inter_900Black,
   });
 

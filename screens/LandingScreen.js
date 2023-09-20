@@ -4,6 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import { CTAButtonBig } from "../src/Components/CTAButton/CTAButtonBig";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { Image } from "expo-image";
 
 const LandingScreen = ({ navigation }) => {
   const auth = getAuth();
@@ -30,15 +31,27 @@ const LandingScreen = ({ navigation }) => {
         justifyContent: "center",
         alignItems: "center",
         gap: 44,
-        marginHorizontal: 12,
+        paddingHorizontal: 12,
+        backgroundColor: "white",
       }}
     >
       <StatusBar style="dark" />
-      <View
-        style={{ height: "40%", backgroundColor: "grey", width: "100%" }}
-      ></View>
+      <View style={{ height: "40%", backgroundColor: "grey", width: "100%" }}>
+        <Image
+          source={require("../assets/landing.png")}
+          style={{ width: "100%", height: "100%" }}
+          contentFit="cover"
+        />
+      </View>
 
-      <View style={{ justifyContent: "center", alignItems: "center" }}>
+      <View
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          paddingHorizontal: 10,
+          paddingBottom: 10,
+        }}
+      >
         <Text style={{ fontFamily: "Inter_600SemiBold", fontSize: 48 }}>
           tracky.
         </Text>
@@ -47,6 +60,8 @@ const LandingScreen = ({ navigation }) => {
             fontFamily: "Inter_400Regular",
             fontSize: 16,
             textAlign: "center",
+            lineHeight: 22,
+            marginHorizontal: "6%",
           }}
         >
           Lorem ipsum dolor sit amet consectetur. Donec augue elit praesent
@@ -54,7 +69,7 @@ const LandingScreen = ({ navigation }) => {
         </Text>
       </View>
 
-      <View style={{ gap: 12 }}>
+      <View style={{ gap: 16 }}>
         <CTAButtonBig
           title="Logga in"
           onPress={() => navigation.navigate("Login")}
@@ -66,10 +81,10 @@ const LandingScreen = ({ navigation }) => {
           onPress={() => navigation.navigate("Register")}
           variant="secondary"
         />
-        <Button
+        {/* <Button
           title="Go to Settings"
           onPress={() => navigation.navigate("Settings")}
-        />
+        /> */}
       </View>
     </SafeAreaView>
   );

@@ -18,10 +18,11 @@ export const HeaderContainer: FC<HeaderProps> = ({ title }) => {
     <View
       style={{
         width: "100%",
+        height: 104,
         flex: 1,
         justifyContent: "center",
         borderBottomEndRadius: 8,
-        height: 60,
+        borderWidth: 2,
         alignItems: "center",
       }}
     >

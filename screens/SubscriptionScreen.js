@@ -14,6 +14,7 @@ const SubscriptionScreen = ({ navigation }) => {
   const auth = getAuth();
   const user = auth.currentUser;
   const [subscriptions, setSubscriptions] = useState([]);
+  let totalCost = 0;
 
   useFocusEffect(
     React.useCallback(() => {
@@ -59,10 +60,15 @@ const SubscriptionScreen = ({ navigation }) => {
     }
   });
 
+  Object.keys(subscriptions).map((key) => {
+    totalCost += parseInt(subscriptions[key].price);
+  });
+
   return (
     <SafeAreaView>
       <HeaderContainer title="Prenumationer" />
       <Text>Welcome {user.email} </Text>
+      <Text>Total Cost: {totalCost}</Text>
 
       <CTAButtonBig
         title="Lägg till prenumation"

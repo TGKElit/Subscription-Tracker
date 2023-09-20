@@ -123,9 +123,9 @@ const AddSubscriptionScreen = ({ navigation }) => {
           onValueChange={(itemValue, itemIndex) => setBillingPeriod(itemValue)}
         >
           <Picker.Item label="Välj" value="" />
-          <Picker.Item label="Månad" value="month" />
-          <Picker.Item label="Kvartal" value="quarter" />
-          <Picker.Item label="Yearly" value="year" />
+          <Picker.Item label="Månad" value="månad" />
+          <Picker.Item label="Kvartal" value="kvartal" />
+          <Picker.Item label="År" value="år" />
         </Picker>
 
         <CTAButtonSmall
@@ -144,11 +144,16 @@ const AddSubscriptionScreen = ({ navigation }) => {
       </View>
       <View id="price" style={{ display: priceVisible ? "flex" : "none" }}>
         <Text>Pris</Text>
-        <Text>Skriv i priset du betalar per månad</Text>
+        <Text>Skriv i priset du betalar per {billingPeriod}</Text>
         <TextInput
           placeholder="Skriv här ..."
           value={price}
-          onChangeText={(text) => setPrice(text)}
+          onChangeText={(text) => {
+            // Using a regular expression to allow only numeric input
+            text = text.replace(/[^0-9]/g, "");
+            setPrice(text);
+          }}
+          keyboardType="numeric" // This prop restricts the keyboard to show only numeric input
           style={styles.input}
         />
         <CTAButtonSmall

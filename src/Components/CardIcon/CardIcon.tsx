@@ -36,31 +36,31 @@ export const CardIcon: FC<CardIconProps> = ({
             break;
         case "disney":
             cardIcon =
-                <Image style={styles.icon} source={require('/assets/logoImages/disney.png')}/>
+                <Image style={styles.icon} source={require('./assets/logoImages/disney.png')}/>
             break;
         case "gp":
             cardIcon =
-                <Image style={styles.icon} source={require('/assets/logoImages/gp.png')}/>
+                <Image style={styles.icon} source={require('./assets/logoImages/gp.png')}/>
             break;
         case "hbo":
             cardIcon =
-                <Image style={styles.icon} source={require('/assets/logoImages/hbo.png')}/>
+                <Image style={styles.icon} source={require('./assets/logoImages/hbo.png')}/>
             break;
         case "netflix":
             cardIcon =
-                <Image style={styles.icon} source={require('/assets/logoImages/netflix.png')}/>
+                <Image style={styles.icon} source={require('./assets/logoImages/netflix.png')}/>
             break;
         case "prime":
             cardIcon =
-                <Image style={styles.icon} source={require('/assets/logoImages/prime.png')}/>
+                <Image style={styles.icon} source={require('./assets/logoImages/prime.png')}/>
             break;
         case "spotify":
             cardIcon =
-                <Image style={styles.icon} source={require('/assets/logoImages/spotify.png')}/>
+                <Image style={styles.icon} source={require('./assets/logoImages/spotify.png')}/>
             break;
         case "storytel":
             cardIcon =
-                <Image style={styles.icon} source={require('/assets/logoImages/storytel.png')}/>
+                <Image style={styles.icon} source={require('./assets/logoImages/storytel.png')}/>
             break;  
     }
 

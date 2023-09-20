@@ -50,11 +50,11 @@ function App() {
           name="Login"
           component={LoginScreen}
         />
-        {/* <Stack.Screen
+        <Stack.Screen
           options={{ headerShown: false }}
           name="Settings"
           component={SettingsScreen}
-        /> */}
+        />
         <Stack.Screen
           options={{ headerShown: false }}
           name="SubscriptionScreen"

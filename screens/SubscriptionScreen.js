@@ -14,7 +14,6 @@ const SubscriptionScreen = ({ navigation }) => {
   const auth = getAuth();
   const user = auth.currentUser;
   const [subscriptions, setSubscriptions] = useState([]);
-  let totalCost = 0;
 
   useFocusEffect(
     React.useCallback(() => {
@@ -60,8 +59,22 @@ const SubscriptionScreen = ({ navigation }) => {
     }
   });
 
+  let totalCost = 0;
+
   Object.keys(subscriptions).map((key) => {
-    totalCost += parseInt(subscriptions[key].price);
+    let monthlyCost = 0;
+    if (subscriptions[key].billingPeriod === "år") {
+      monthlyCost = subscriptions[key].price / 12;
+      monthlyCost = parseFloat(monthlyCost);
+    } else if (subscriptions[key].billingPeriod === "kvartal") {
+      monthlyCost = subscriptions[key].price / 4;
+      monthlyCost = parseFloat(monthlyCost);
+    } else if (subscriptions[key].billingPeriod === "månad") {
+      monthlyCost = subscriptions[key].price;
+      monthlyCost = parseFloat(monthlyCost);
+    }
+
+    totalCost += monthlyCost;
   });
 
   return (

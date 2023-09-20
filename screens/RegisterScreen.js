@@ -79,9 +79,11 @@ const RegisterScreen = ({ navigation }) => {
         </Text>
         <Text
           style={{
-            fontSize: 16,
+            fontSize: 12,
             marginBottom: 8,
             fontFamily: "Inter_400Regular",
+            lineHeight: 16,
+            alignSelf: "flex-start",
           }}
         >
           Skriv i e-post och lösenord för att registrera
@@ -108,18 +110,30 @@ const RegisterScreen = ({ navigation }) => {
               <Text style={{ fontSize: 24, color: "black" }}>✓</Text>
             ) : null}
           </Pressable>
-          <Text style={{ marginLeft: 8 }}>
+          <Text
+            style={{
+              marginLeft: 8,
+              fontFamily: "Inter_400Regular",
+              lineHeight: 16,
+              fontSize: 12,
+            }}
+          >
             Genom att kryssa samtycker jag till{" "}
           </Text>
           <Text
             onPress={() => setModalVisible(true)}
-            style={{ textDecorationLine: "underline" }}
+            style={{
+              textDecorationLine: "underline",
+              fontSize: 12,
+              lineHeight: 16,
+              fontFamily: "Inter_600SemiBold",
+            }}
           >
-            villkoren
+            Villkoren
           </Text>
         </View>
         {/* få registreringsknappen till vänster */}
-        <View style={{ justifyContent: "flex-start" }}>
+        <View style={{ alignSelf: "flex-start", marginTop: 12 }}>
           <CTAButtonSmall
             title="Registrera"
             onPress={createAccount}
@@ -184,9 +198,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    marginHorizontal: 24,
   },
   inputContainer: {
-    width: "80%",
+    width: "100%",
     gap: 8,
     marginBottom: 8,
   },
@@ -214,13 +229,13 @@ const styles = StyleSheet.create({
   checkBoxContainer: {
     flexDirection: "row",
     alignItems: "center",
+    alignSelf: "flex-start",
   },
 
   termsOfSeriveContainer: {
     justifyContent: "center",
     alignItems: "center",
     height: "50vh",
-    width: "80vw",
     backgroundColor: "white",
     paddingVertical: 24,
     paddingHorizontal: 12,

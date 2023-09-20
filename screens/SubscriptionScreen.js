@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import React from "react";
 import { useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -9,6 +9,7 @@ import { HeaderContainer } from "../src/Components/HeaderContainer/HeaderContain
 import { ref, set, getDatabase, get } from "firebase/database";
 import { Navbar } from "../src/Components/Navbar/Navbar";
 import { useFocusEffect } from "@react-navigation/native";
+import Svg, { Path } from "react-native-svg";
 
 const SubscriptionScreen = ({ navigation }) => {
   const auth = getAuth();
@@ -79,7 +80,31 @@ const SubscriptionScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView>
-      <HeaderContainer title="Prenumationer" />
+      <View
+        style={{
+          width: "100%",
+          height: 104,
+          flexDirection: "row",
+          justifyContent: "center",
+          borderBottomEndRadius: 8,
+          borderWidth: 2,
+          alignItems: "center",
+        }}
+      >
+        <Text style={styles.textStyle}>Prenumationer</Text>
+        <Pressable onPress={() => navigation.navigate("AddSubscription")}>
+          <Svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <Path
+              id="Subtract"
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M18 9C18 13.9706 13.9706 18 9 18C4.02944 18 0 13.9706 0 9C0 4.02944 4.02944 0 9 0C13.9706 0 18 4.02944 18 9ZM8.1 4.95C8.1 4.45294 8.50294 4.05 9 4.05C9.49706 4.05 9.9 4.45294 9.9 4.95V8.1H13.05C13.5471 8.1 13.95 8.50294 13.95 9C13.95 9.49706 13.5471 9.9 13.05 9.9H9.9V13.05C9.9 13.5471 9.49706 13.95 9 13.95C8.50294 13.95 8.1 13.5471 8.1 13.05V9.9H4.95C4.45294 9.9 4.05 9.49706 4.05 9C4.05 8.50294 4.45294 8.1 4.95 8.1H8.1V4.95Z"
+              fill="#EA0059"
+            ></Path>
+          </Svg>
+        </Pressable>
+      </View>
+
       <View style={{ paddingHorizontal: 12 }}>
         <View
           style={{
@@ -107,7 +132,10 @@ const SubscriptionScreen = ({ navigation }) => {
             Prenumationer
           </Text>
           {Object.keys(subscriptions).map((key) => (
-            <View key={key} style={{ width: "100%", height: 64 }}>
+            <View
+              key={key}
+              style={{ width: "100%", height: 64, flexDirection: "row" }}
+            >
               <Text>Name: {subscriptions[key].name}</Text>
               <Text>
                 {subscriptions[key].price}kr /{" "}
@@ -137,4 +165,11 @@ const SubscriptionScreen = ({ navigation }) => {
 
 export default SubscriptionScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  textStyle: {
+    fontSize: 24,
+    lineHeight: 28,
+    fontFamily: "Inter_600SemiBold",
+    color: "black",
+  },
+});

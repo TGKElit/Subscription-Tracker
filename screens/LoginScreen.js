@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import React from "react";
 import { useState } from "react";
-import { CTAButtonBig } from "../src/Components/CTAButton/CTAButtonBig";
+import { CTAButtonSmall } from "../src/Components/CTAButton/CTAButtonSmall";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 const LoginScreen = ({ navigation }) => {
@@ -49,8 +49,54 @@ const LoginScreen = ({ navigation }) => {
   };
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior="padding">
-      <Text style={{ fontFamily: "Inter_600SemiBold", fontSize: 36 }}>
+    <KeyboardAvoidingView
+      style={{
+        alignContent: "center",
+        justifyContent: "center",
+        flex: 1,
+        backgroundColor: "white",
+      }}
+    >
+      <View style={styles.container}>
+        <Text
+          style={{
+            fontSize: 36,
+            marginBottom: 64,
+            fontFamily: "Inter_600SemiBold",
+          }}
+        >
+          Logga in
+        </Text>
+        <Text
+          style={{
+            fontSize: 12,
+            marginBottom: 8,
+            fontFamily: "Inter_400Regular",
+            lineHeight: 16,
+            alignSelf: "flex-start",
+          }}
+        >
+          Skriv i e-post och lösenord för att logga in
+        </Text>
+        <View style={styles.inputContainer}>
+          <TextInput
+            placeholder="E-post"
+            value={email}
+            onChangeText={(text) => setEmail(text)}
+            style={styles.input}
+          />
+          <TextInput
+            placeholder="Lösenord"
+            value={password}
+            onChangeText={(text) => setPassword(text)}
+            style={styles.input}
+            secureTextEntry
+          />
+        </View>
+        <View style={{ alignSelf: "flex-start", marginTop: 12 }}>
+          <CTAButtonSmall title="Logga in" onPress={login} variant="primary" />
+        </View>
+        {/* <Text style={{ fontFamily: "Inter_600SemiBold", fontSize: 36 }}>
         Logga in
       </Text>
       <View style={styles.inputContainer}>
@@ -70,6 +116,7 @@ const LoginScreen = ({ navigation }) => {
       </View>
       <View>
         <CTAButtonBig title="Logga in" onPress={login} variant="primary" />
+      </View> */}
       </View>
     </KeyboardAvoidingView>
   );
@@ -82,9 +129,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    marginHorizontal: 24,
   },
   inputContainer: {
-    width: "80%",
+    width: "100%",
+    gap: 8,
+    marginBottom: 8,
   },
   input: {
     backgroundColor: "#fff",
@@ -100,27 +150,75 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 40,
   },
-  button: {
-    backgroundColor: "#0782F9",
-    width: "100%",
-    padding: 15,
-    borderRadius: 10,
-    alignItems: "center",
+  checkBox: {
+    height: 32,
+    width: 32,
+    borderColor: "black",
+    borderWidth: 2,
+    borderRadius: 5,
   },
-  buttonOutline: {
-    backgroundColor: "#fff",
-    marginTop: 5,
-    borderColor: "#0782F9",
+  checkBoxContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    alignSelf: "flex-start",
+  },
+
+  termsOfSeriveContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    height: "50vh",
+    backgroundColor: "white",
+    paddingVertical: 24,
+    paddingHorizontal: 12,
+    gap: 24,
+    borderRadius: 12,
+  },
+  modalView: {
+    justifyContent: "space-between",
+    alignItems: "center",
+    height: "100%",
+    width: "100%",
+  },
+  termsOfServiceHeader: {
+    fontSize: 24,
+    fontWeight: "600",
+    lineHeight: 28,
+    fontStyle: "normal",
+  },
+  termsOfServiceTextContainer: {
+    marginTop: 20,
+    height: "20vh",
+    width: "100%",
+  },
+
+  // gör spacebetween
+  termsOfServiceButtonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  termsOfServiceButton: {
+    width: 126,
+    paddingVertical: 12,
+    paddingHorizontal: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 10,
+    borderRadius: 12,
+    borderColor: "black",
     borderWidth: 2,
   },
-  buttonText: {
-    color: "black",
-    fontSize: 16,
-    fontWeight: "700",
+
+  denyButton: {
+    backgroundColor: "white",
   },
-  buttonOutlineText: {
-    color: "#0782F9",
-    fontSize: 16,
-    fontWeight: "700",
+  acceptButton: {
+    backgroundColor: "black",
+  },
+
+  textBlack: {
+    color: "black",
+  },
+  textWhite: {
+    color: "white",
   },
 });

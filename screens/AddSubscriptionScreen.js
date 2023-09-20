@@ -9,6 +9,7 @@ import { CTAButtonSmall } from "../src/Components/CTAButton/CTAButtonSmall";
 import { ref, set, getDatabase, get, push } from "firebase/database";
 import { Picker } from "@react-native-picker/picker";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { HeaderContainer } from "../src/Components/HeaderContainer/HeaderContainer";
 
 const AddSubscriptionScreen = ({ navigation }) => {
   const auth = getAuth();
@@ -69,6 +70,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
   }
   return (
     <SafeAreaView>
+      <HeaderContainer title="Prenumera" />
       <View>
         <Text>Welcome {user.email} </Text>
         <Text>Hej du har nått add subscriton sidan</Text>

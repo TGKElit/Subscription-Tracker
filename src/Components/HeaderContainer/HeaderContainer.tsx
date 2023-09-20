@@ -19,7 +19,7 @@ export const HeaderContainer: FC<HeaderProps> = ({ title }) => {
       style={{
         width: "100%",
         height: 104,
-        flex: 1,
+
         justifyContent: "center",
         borderBottomEndRadius: 8,
         borderWidth: 2,

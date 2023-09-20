@@ -107,7 +107,10 @@ const SubscriptionScreen = ({ navigation }) => {
             Prenumationer
           </Text>
           {Object.keys(subscriptions).map((key) => (
-            <View key={key} style={{ width: "100%", height: 64 }}>
+            <View
+              key={key}
+              style={{ width: "100%", height: 64, flexDirection: "row" }}
+            >
               <Text>Name: {subscriptions[key].name}</Text>
               <Text>
                 {subscriptions[key].price}kr /{" "}

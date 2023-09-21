@@ -132,23 +132,35 @@ const SubscriptionScreen = ({ navigation }) => {
             Prenumationer
           </Text>
           {Object.keys(subscriptions).map((key) => (
-            <View
-              key={key}
-              style={{ width: "100%", height: 64, flexDirection: "row" }}
+            <Pressable
+              onPress={() =>
+                navigation.navigate("SubscriptionInfo", {
+                  name: subscriptions[key].name,
+                  price: subscriptions[key].price,
+                  billingPeriod: subscriptions[key].billingPeriod,
+                  description: subscriptions[key].description,
+                  startDate: subscriptions[key].startDate,
+                })
+              }
             >
-              <Text>Name: {subscriptions[key].name}</Text>
-              <Text>
-                {subscriptions[key].price}kr /{" "}
-                {subscriptions[key].billingPeriod}
-              </Text>
-            </View>
+              <View
+                key={key}
+                style={{ width: "100%", height: 64, flexDirection: "row" }}
+              >
+                <Text>Name: {subscriptions[key].name}</Text>
+                <Text>
+                  {subscriptions[key].price}kr /{" "}
+                  {subscriptions[key].billingPeriod}
+                </Text>
+              </View>
+            </Pressable>
           ))}
         </View>
-        <CTAButtonBig
+        {/* <CTAButtonBig
           title="Lägg till prenumation"
           onPress={() => navigation.navigate("AddSubscription")}
         />
-        <CTAButtonBig title="Logga ut" onPress={signOut} />
+        <CTAButtonBig title="Logga ut" onPress={signOut} /> */}
         {/* {Object.keys(subscriptions).map((key) => (
           <View key={key}>
             <Text>Name: {subscriptions[key].name}</Text>
@@ -158,6 +170,7 @@ const SubscriptionScreen = ({ navigation }) => {
             <Text>Start Date: {subscriptions[key].startDate}</Text>
           </View>
         ))} */}
+        <Navbar />
       </View>
     </SafeAreaView>
   );

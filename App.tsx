@@ -8,6 +8,7 @@ import { startFirebaseApp } from "./firebaseConfig";
 import LandingScreen from "./screens/LandingScreen";
 import StatisticsScreen from "./screens/StatisticsScreen";
 import AddSubscriptionScreen from "./screens/AddSubscriptionScreen";
+import SubscriptionInfoScreen from "./screens/SubscriptionInfoScreen";
 import {
   useFonts,
   Inter_600SemiBold,
@@ -64,6 +65,11 @@ function App() {
           options={{ headerShown: false }}
           name="Statistics"
           component={StatisticsScreen}
+        />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="SubscriptionInfo"
+          component={SubscriptionInfoScreen}
         />
         <Stack.Screen
           options={{ headerShown: false }}

@@ -9,8 +9,8 @@ const SettingsScreen = ({navigation}) => {
     <SafeAreaView style={styles.body}>
       <View>
         <Text>Inställningar</Text>
-        <Card variant="settings" title="Om oss" icon="storytel"></Card>
-        <Card variant="settings" title="Villkor" icon="default" color="orange"></Card>
+        <Card variant="settings" title="Om oss" icon="disney"></Card>
+        <Card variant="settings" title="Villkor" icon="terms" color="orange"></Card>
         <Card variant="settings" title="Hjäp" icon="help"></Card>
         <Image style={styles.illustration}/>
         <Button

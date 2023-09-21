@@ -69,8 +69,8 @@ export const CardIcon: FC<CardIconProps> = ({
                 <Image style={styles.icon} source={require('./assets/logoImages/spotify' + os + '.png')}/>
             break;
         case "storytel":
-            cardIcon =
-                <Image style={styles.icon} source={require('./assets/logoImages/storytel' + os + '.png')}/>
+            //cardIcon =
+                //<Image style={styles.icon} source={require('./assets/logoImages/storytel' + os + '.png')}/>
             break;  
     }
 

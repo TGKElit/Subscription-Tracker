@@ -6,7 +6,7 @@ import React from "react";
 
 const SettingsScreen = ({navigation}) => {
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.body}>
       <View>
         <Text>Inställningar</Text>
         <Card variant="settings" title="Om oss" icon="storytel"></Card>
@@ -17,8 +17,8 @@ const SettingsScreen = ({navigation}) => {
           title="Logga ut"
           onPress={() => navigation.navigate("Landing")}
         />
-        <Navbar navigation={navigation}/>
       </View>
+      <Navbar navigation={navigation} screen="settings"/>
     </SafeAreaView>
   );
 };
@@ -26,6 +26,10 @@ const SettingsScreen = ({navigation}) => {
 export default SettingsScreen;
 
 const styles = StyleSheet.create({
+  body: {
+    height: window.innerHeight
+  },
+
   illustration: {
     width: 200,
     height: 200,

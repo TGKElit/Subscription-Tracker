@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
         width: window.innerWidth,
         display: "flex",
         flexDirection: "row",
-        justifyContent: "space-evenly",
+        justifyContent: "space-around",
         position: "absolute",
         bottom: 0,
         backgroundColor: "white",

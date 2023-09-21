@@ -9,9 +9,14 @@ const SettingsScreen = ({navigation}) => {
     <SafeAreaView style={styles.body}>
       <View>
         <Text>Inställningar</Text>
-        <Card variant="settings" title="Om oss" icon="disney"></Card>
-        <Card variant="settings" title="Villkor" icon="terms" color="orange"></Card>
-        <Card variant="settings" title="Hjäp" icon="help"></Card>
+        <Card variant="settings" title="Om oss" icon="terms"/>
+        <Card variant="settings" title="Villkor" icon="terms" color="orange"/>
+        <Card variant="settings" title="Hjäp" icon="help"/>
+        
+        <Card variant="basic" title="Example" icon="default" iconColor="blue" color="gray"/>
+        <Card variant="default" title="Test" color="red" icon="netflix" info="455kr/mån"/>
+        <Card variant="basic" title="Basic" info="Basic"/>
+        <Card variant="basic" title="Lägg till egen" icon="plus"/> 
         <Image style={styles.illustration}/>
         <Button
           title="Logga ut"
@@ -27,7 +32,8 @@ export default SettingsScreen;
 
 const styles = StyleSheet.create({
   body: {
-    height: window.innerHeight
+    height: window.innerHeight,
+    backgroundColor: "white",
   },
 
   illustration: {

@@ -170,7 +170,7 @@ const SubscriptionScreen = ({ navigation }) => {
             <Text>Start Date: {subscriptions[key].startDate}</Text>
           </View>
         ))} */}
-        <Navbar />
+        <Navbar navigation={navigation}/>
       </View>
     </SafeAreaView>
   );

@@ -94,7 +94,10 @@ const SubscriptionScreen = ({ navigation }) => {
         }}
       >
         <Text style={styles.textStyle}>Prenumationer</Text>
-        <Pressable onPress={() => navigation.navigate("AddSubscription")}>
+        <Pressable
+          style={{ position: "absolute", right: 0, marginRight: 18 }}
+          onPress={() => navigation.navigate("AddSubscription")}
+        >
           <Svg width="18" height="18" viewBox="0 0 18 18" fill="none">
             <Path
               id="Subtract"
@@ -146,6 +149,23 @@ const SubscriptionScreen = ({ navigation }) => {
                 })
               }
             >
+              {subscriptions[key].type === "custom" && (
+                <Card
+                  onPress={() =>
+                    navigation.navigate("SubscriptionInfo", {
+                      name: subscriptions[key].name,
+                      price: subscriptions[key].price,
+                      billingPeriod: subscriptions[key].billingPeriod,
+                      description: subscriptions[key].description,
+                      startDate: subscriptions[key].startDate,
+                    })
+                  }
+                  variant="default"
+                  title={subscriptions[key].name}
+                  color="#FC9100"
+                  info={`${subscriptions[key].price}kr / ${subscriptions[key].billingPeriod}`}
+                />
+              )}
               {subscriptions[key].name === "Netflix" && (
                 <Card
                   onPress={() =>

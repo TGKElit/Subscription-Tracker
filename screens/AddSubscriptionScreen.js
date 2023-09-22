@@ -13,6 +13,27 @@ import { HeaderContainer } from "../src/Components/HeaderContainer/HeaderContain
 import { Navbar } from "../src/Components/Navbar/Navbar";
 
 const AddSubscriptionScreen = ({ navigation }) => {
+  const plans = {
+    Netflix: {
+      basic: {
+        price: 89,
+        billingPeriod: "månad",
+      },
+      standard: {
+        price: 129,
+        billingPeriod: "månad",
+      },
+      premium: {
+        price: 159,
+        billingPeriod: "månad",
+      },
+      custom: {
+        price: "",
+        billingPeriod: "",
+      },
+    },
+  };
+
   const auth = getAuth();
   const user = auth.currentUser;
 
@@ -20,6 +41,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
   const [customNameVisible, setCustomNameVisible] = useState(false);
   const [name, setName] = useState("");
   const [type, setType] = useState("");
+  const [planVisible, setPlanVisible] = useState(false);
   const [plan, setPlan] = useState("");
   const [billingPeriodVisible, setBillingPeriodVisible] = useState(false);
   const [billingPeriod, setBillingPeriod] = useState("");
@@ -57,19 +79,25 @@ const AddSubscriptionScreen = ({ navigation }) => {
   };
 
   //add all data to database
-  function addData() {
+  async function addData() {
     const db = getDatabase();
     const newSubscriptionRef = push(ref(db, "users/" + user.uid));
-    set(newSubscriptionRef, {
-      name: name,
-      billingPeriod: billingPeriod,
-      price: price,
-      startDate: startDate,
-      description: description,
-      type: type,
-    });
-    console.log("data added", newSubscriptionRef.key);
+
+    try {
+      await set(newSubscriptionRef, {
+        name: name,
+        billingPeriod: billingPeriod,
+        price: price,
+        startDate: startDate,
+        description: description,
+        type: type,
+      });
+      console.log("Data added successfully", newSubscriptionRef.key);
+    } catch (error) {
+      console.error("Error adding data: ", error);
+    }
   }
+
   return (
     <SafeAreaView>
       <HeaderContainer title="Prenumera" />
@@ -83,7 +111,6 @@ const AddSubscriptionScreen = ({ navigation }) => {
       >
         <Card
           onPress={() => {
-            console.log("tryckt");
             setType("custom");
             setStartViewVisible(false);
             setCustomNameVisible(true); // Show customName view;
@@ -98,7 +125,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
           onPress={() => {
             setType("preset");
             setStartViewVisible(false);
-            setBillingPeriodVisible(true);
+            setPlanVisible(true);
             setName("Netflix"); // Show customName view;
           }}
           variant="default"
@@ -110,7 +137,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
           onPress={() => {
             setType("preset");
             setStartViewVisible(false);
-            setBillingPeriodVisible(true);
+            setPlanVisible(true);
             setName("HBO Max"); // Show customName view;
           }}
           variant="default"
@@ -122,7 +149,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
           onPress={() => {
             setType("preset");
             setStartViewVisible(false);
-            setBillingPeriodVisible(true);
+            setPlanVisible(true);
             setName("Amazon Prime"); // Show customName view;
           }}
           variant="default"
@@ -134,7 +161,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
           onPress={() => {
             setType("preset");
             setStartViewVisible(false);
-            setBillingPeriodVisible(true);
+            setPlanVisible(true);
             setName("Spotify"); // Show customName view;
           }}
           variant="default"
@@ -146,7 +173,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
           onPress={() => {
             setType("preset");
             setStartViewVisible(false);
-            setBillingPeriodVisible(true);
+            setPlanVisible(true);
             setName("Storytel"); // Show customName view;
           }}
           variant="default"
@@ -158,7 +185,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
           onPress={() => {
             setType("preset");
             setStartViewVisible(false);
-            setBillingPeriodVisible(true);
+            setPlanVisible(true);
             setName("Disney+"); // Show customName view;
           }}
           variant="default"
@@ -170,7 +197,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
           onPress={() => {
             setType("preset");
             setStartViewVisible(false);
-            setBillingPeriodVisible(true);
+            setPlanVisible(true);
             setName("GP"); // Show customName view;
           }}
           variant="default"
@@ -181,6 +208,72 @@ const AddSubscriptionScreen = ({ navigation }) => {
       </View>
 
       {/* All the views for setting props */}
+
+      <View id="presetPlan" style={{ display: planVisible ? "flex" : "none" }}>
+        <View
+          style={{
+            width: "100%",
+            height: 200,
+          }}
+        >
+          {/* bild ska in här */}
+          <Text>{name}</Text>
+        </View>
+        <View>
+          <Text
+            style={{
+              fontSize: 24,
+              fontFamily: "Inter_600SemiBold",
+              lineHeight: 28,
+            }}
+          >
+            Välj plan
+          </Text>
+          {plans[name] && (
+            <View>
+              {Object.keys(plans[name]).map((key) => (
+                // <Text>
+                //   {key}
+                //   {plans[name][key].price} {plans[name][key].billingPeriod}{" "}
+                // </Text>
+
+                <Card
+                  key={key}
+                  variant="default"
+                  title={key}
+                  onPress={() => {
+                    setPlan(key);
+                    setPrice(plans[name][key].price);
+                    setBillingPeriod(plans[name][key].billingPeriod);
+                    setDescription("");
+                    setStartDate("");
+
+                    console.log(
+                      plan,
+                      name,
+                      price,
+                      billingPeriod,
+                      description,
+                      startDate
+                    );
+
+                    // addData();
+                    // navigation.navigate("SubscriptionInfo", {
+                    //   name: subscriptions[key].name,
+                    //   plan: subscriptions[key].plan,
+                    //   price: subscriptions[key].price,
+                    //   billingPeriod: subscriptions[key].billingPeriod,
+                    //   description: subscriptions[key].description,
+                    //   startDate: subscriptions[key].startDate,
+                    // });
+                  }}
+                />
+              ))}
+            </View>
+          )}
+        </View>
+      </View>
+
       <View
         id="customName"
         style={{ display: customNameVisible ? "flex" : "none" }}

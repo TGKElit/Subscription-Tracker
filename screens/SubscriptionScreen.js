@@ -10,6 +10,7 @@ import { ref, set, getDatabase, get } from "firebase/database";
 import { Navbar } from "../src/Components/Navbar/Navbar";
 import { useFocusEffect } from "@react-navigation/native";
 import Svg, { Path } from "react-native-svg";
+import { Card } from "../src/Components/Card/Card";
 
 const SubscriptionScreen = ({ navigation }) => {
   const auth = getAuth();
@@ -127,10 +128,11 @@ const SubscriptionScreen = ({ navigation }) => {
           </Text>
         </View>
 
-        <View>
+        <View style={{ gap: 12 }}>
           <Text style={{ fontSize: 24, fontFamily: "Inter_600SemiBold" }}>
             Prenumationer
           </Text>
+
           {Object.keys(subscriptions).map((key) => (
             <Pressable
               onPress={() =>
@@ -143,16 +145,134 @@ const SubscriptionScreen = ({ navigation }) => {
                 })
               }
             >
-              <View
-                key={key}
-                style={{ width: "100%", height: 64, flexDirection: "row" }}
-              >
-                <Text>Name: {subscriptions[key].name}</Text>
-                <Text>
-                  {subscriptions[key].price}kr /{" "}
-                  {subscriptions[key].billingPeriod}
-                </Text>
-              </View>
+              {subscriptions[key].name === "Netflix" && (
+                <Card
+                  onPress={() =>
+                    navigation.navigate("SubscriptionInfo", {
+                      name: subscriptions[key].name,
+                      price: subscriptions[key].price,
+                      billingPeriod: subscriptions[key].billingPeriod,
+                      description: subscriptions[key].description,
+                      startDate: subscriptions[key].startDate,
+                    })
+                  }
+                  variant="default"
+                  title={subscriptions[key].name}
+                  color="red"
+                  icon="netflix"
+                  info={`${subscriptions[key].price}kr / ${subscriptions[key].billingPeriod}`}
+                />
+              )}
+
+              {subscriptions[key].name === "HBO Max" && (
+                <Card
+                  onPress={() =>
+                    navigation.navigate("SubscriptionInfo", {
+                      name: subscriptions[key].name,
+                      price: subscriptions[key].price,
+                      billingPeriod: subscriptions[key].billingPeriod,
+                      description: subscriptions[key].description,
+                      startDate: subscriptions[key].startDate,
+                    })
+                  }
+                  variant="default"
+                  title={subscriptions[key].name}
+                  color="purple"
+                  icon="hbo"
+                  info={`${subscriptions[key].price}kr / ${subscriptions[key].billingPeriod}`}
+                />
+              )}
+
+              {subscriptions[key].name === "Amazon Prime" && (
+                <Card
+                  onPress={() =>
+                    navigation.navigate("SubscriptionInfo", {
+                      name: subscriptions[key].name,
+                      price: subscriptions[key].price,
+                      billingPeriod: subscriptions[key].billingPeriod,
+                      description: subscriptions[key].description,
+                      startDate: subscriptions[key].startDate,
+                    })
+                  }
+                  variant="default"
+                  title={subscriptions[key].name}
+                  color="blue"
+                  icon="prime"
+                  info={`${subscriptions[key].price}kr / ${subscriptions[key].billingPeriod}`}
+                />
+              )}
+              {subscriptions[key].name === "Spotify" && (
+                <Card
+                  onPress={() =>
+                    navigation.navigate("SubscriptionInfo", {
+                      name: subscriptions[key].name,
+                      price: subscriptions[key].price,
+                      billingPeriod: subscriptions[key].billingPeriod,
+                      description: subscriptions[key].description,
+                      startDate: subscriptions[key].startDate,
+                    })
+                  }
+                  variant="default"
+                  title={subscriptions[key].name}
+                  color="green"
+                  icon="spotify"
+                  info={`${subscriptions[key].price}kr / ${subscriptions[key].billingPeriod}`}
+                />
+              )}
+              {subscriptions[key].name === "Storytel" && (
+                <Card
+                  onPress={() =>
+                    navigation.navigate("SubscriptionInfo", {
+                      name: subscriptions[key].name,
+                      price: subscriptions[key].price,
+                      billingPeriod: subscriptions[key].billingPeriod,
+                      description: subscriptions[key].description,
+                      startDate: subscriptions[key].startDate,
+                    })
+                  }
+                  variant="default"
+                  title={subscriptions[key].name}
+                  color="yellow"
+                  icon="storytel"
+                  info={`${subscriptions[key].price}kr / ${subscriptions[key].billingPeriod}`}
+                />
+              )}
+              {subscriptions[key].name === "Disney+" && (
+                <Card
+                  onPress={() =>
+                    navigation.navigate("SubscriptionInfo", {
+                      name: subscriptions[key].name,
+                      price: subscriptions[key].price,
+                      billingPeriod: subscriptions[key].billingPeriod,
+                      description: subscriptions[key].description,
+                      startDate: subscriptions[key].startDate,
+                    })
+                  }
+                  variant="default"
+                  title={subscriptions[key].name}
+                  color="blue"
+                  icon="disney"
+                  info={`${subscriptions[key].price}kr / ${subscriptions[key].billingPeriod}`}
+                />
+              )}
+              {subscriptions[key].name === "GP" && (
+                <Card
+                  onPress={() =>
+                    navigation.navigate("SubscriptionInfo", {
+                      name: subscriptions[key].name,
+                      price: subscriptions[key].price,
+                      billingPeriod: subscriptions[key].billingPeriod,
+                      description: subscriptions[key].description,
+                      startDate: subscriptions[key].startDate,
+                    })
+                  }
+                  variant="default"
+                  title={subscriptions[key].name}
+                  color="violet"
+                  icon="gp"
+                  info={`${subscriptions[key].price}kr / ${subscriptions[key].billingPeriod}`}
+                />
+              )}
             </Pressable>
           ))}
         </View>
@@ -161,17 +281,8 @@ const SubscriptionScreen = ({ navigation }) => {
           onPress={() => navigation.navigate("AddSubscription")}
         />
         <CTAButtonBig title="Logga ut" onPress={signOut} /> */}
-        {/* {Object.keys(subscriptions).map((key) => (
-          <View key={key}>
-            <Text>Name: {subscriptions[key].name}</Text>
-            <Text>Billing Period: {subscriptions[key].billingPeriod}</Text>
-            <Text>Description: {subscriptions[key].description}</Text>
-            <Text>Price: {subscriptions[key].price}</Text>
-            <Text>Start Date: {subscriptions[key].startDate}</Text>
-          </View>
-        ))} */}
-        <Navbar navigation={navigation}/>
       </View>
+      {/* <Navbar navigation={navigation} /> */}
     </SafeAreaView>
   );
 };

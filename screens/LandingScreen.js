@@ -81,10 +81,10 @@ const LandingScreen = ({ navigation }) => {
           onPress={() => navigation.navigate("Register")}
           variant="secondary"
         />
-        {/* <Button
+        <Button
           title="Go to Settings"
           onPress={() => navigation.navigate("Settings")}
-        /> */}
+        />
       </View>
     </SafeAreaView>
   );

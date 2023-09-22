@@ -10,6 +10,7 @@ import { ref, set, getDatabase, get, push } from "firebase/database";
 import { Picker } from "@react-native-picker/picker";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { HeaderContainer } from "../src/Components/HeaderContainer/HeaderContainer";
+import { Navbar } from "../src/Components/Navbar/Navbar";
 
 const AddSubscriptionScreen = ({ navigation }) => {
   const auth = getAuth();
@@ -65,29 +66,121 @@ const AddSubscriptionScreen = ({ navigation }) => {
       price: price,
       startDate: startDate,
       description: description,
+      type: type,
     });
     console.log("data added", newSubscriptionRef.key);
   }
   return (
     <SafeAreaView>
       <HeaderContainer title="Prenumera" />
-      <View>
-        <Text>Welcome {user.email} </Text>
-        <Text>Hej du har nått add subscriton sidan</Text>
-      </View>
       <View
         id="startView"
-        style={{ display: startViewVisible ? "flex" : "none" }}
+        style={{
+          marginTop: 24,
+          gap: 12,
+          display: startViewVisible ? "flex" : "none",
+        }}
       >
-        <CTAButtonBig
-          title="Lägg till"
+        <Card
           onPress={() => {
             console.log("tryckt");
+            setType("custom");
             setStartViewVisible(false);
             setCustomNameVisible(true); // Show customName view;
           }}
+          variant="default"
+          title="Lägg till egen"
+          color="white"
+          icon="plus"
+        />
+        {/* preset */}
+        <Card
+          onPress={() => {
+            setType("preset");
+            setStartViewVisible(false);
+            setBillingPeriodVisible(true);
+            setName("Netflix"); // Show customName view;
+          }}
+          variant="default"
+          title="Netflix"
+          color="red"
+          icon="netflix"
+        />
+        <Card
+          onPress={() => {
+            setType("preset");
+            setStartViewVisible(false);
+            setBillingPeriodVisible(true);
+            setName("HBO Max"); // Show customName view;
+          }}
+          variant="default"
+          title="HBO Max"
+          color="purple"
+          icon="hbo"
+        />
+        <Card
+          onPress={() => {
+            setType("preset");
+            setStartViewVisible(false);
+            setBillingPeriodVisible(true);
+            setName("Amazon Prime"); // Show customName view;
+          }}
+          variant="default"
+          title="Amazon Prime"
+          color="blue"
+          icon="prime"
+        />
+        <Card
+          onPress={() => {
+            setType("preset");
+            setStartViewVisible(false);
+            setBillingPeriodVisible(true);
+            setName("Spotify"); // Show customName view;
+          }}
+          variant="default"
+          title="Spotify"
+          color="green"
+          icon="spotify"
+        />
+        <Card
+          onPress={() => {
+            setType("preset");
+            setStartViewVisible(false);
+            setBillingPeriodVisible(true);
+            setName("Storytel"); // Show customName view;
+          }}
+          variant="default"
+          title="Storytel"
+          color="orange"
+          icon="storytel"
+        />
+        <Card
+          onPress={() => {
+            setType("preset");
+            setStartViewVisible(false);
+            setBillingPeriodVisible(true);
+            setName("Disney+"); // Show customName view;
+          }}
+          variant="default"
+          title="Disney+"
+          color="blue"
+          icon="disney"
+        />
+        <Card
+          onPress={() => {
+            setType("preset");
+            setStartViewVisible(false);
+            setBillingPeriodVisible(true);
+            setName("GP"); // Show customName view;
+          }}
+          variant="default"
+          title="GP"
+          color="violet"
+          icon="gp"
         />
       </View>
+
+      {/* All the views for setting props */}
       <View
         id="customName"
         style={{ display: customNameVisible ? "flex" : "none" }}
@@ -248,6 +341,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
           }}
         />
       </View>
+      {/* <Navbar navigation={navigation} /> */}
     </SafeAreaView>
   );
 };

@@ -11,6 +11,7 @@ import { Picker } from "@react-native-picker/picker";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { HeaderContainer } from "../src/Components/HeaderContainer/HeaderContainer";
 import { Navbar } from "../src/Components/Navbar/Navbar";
+import { useRef } from "react";
 
 const AddSubscriptionScreen = ({ navigation }) => {
   const plans = {
@@ -36,6 +37,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
 
   const auth = getAuth();
   const user = auth.currentUser;
+  const isStateUpdated = useRef(false);
 
   const [startViewVisible, setStartViewVisible] = useState(true);
   const [customNameVisible, setCustomNameVisible] = useState(false);
@@ -98,6 +100,19 @@ const AddSubscriptionScreen = ({ navigation }) => {
     }
   }
 
+  //weird solution to make sure the data is added to the database before navigating to the next screen when u press a plan.
+  if (isStateUpdated.current) {
+    console.log(plan, name, price, billingPeriod, description, startDate);
+    addData();
+    navigation.navigate("SubscriptionInfo", {
+      name: name,
+      plan: plan,
+      price: price,
+      billingPeriod: billingPeriod,
+      description: description,
+      startDate: startDate,
+    });
+  }
   return (
     <SafeAreaView>
       <HeaderContainer title="Prenumera" />
@@ -219,6 +234,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
           {/* bild ska in här */}
           <Text>{name}</Text>
         </View>
+
         <View>
           <Text
             style={{
@@ -236,7 +252,15 @@ const AddSubscriptionScreen = ({ navigation }) => {
                 //   {key}
                 //   {plans[name][key].price} {plans[name][key].billingPeriod}{" "}
                 // </Text>
-
+                // addData();
+                // navigation.navigate("SubscriptionInfo", {
+                //   name: subscriptions[key].name,
+                //   plan: subscriptions[key].plan,
+                //   price: subscriptions[key].price,
+                //   billingPeriod: subscriptions[key].billingPeriod,
+                //   description: subscriptions[key].description,
+                //   startDate: subscriptions[key].startDate,
+                // });
                 <Card
                   key={key}
                   variant="default"
@@ -247,25 +271,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
                     setBillingPeriod(plans[name][key].billingPeriod);
                     setDescription("");
                     setStartDate("");
-
-                    console.log(
-                      plan,
-                      name,
-                      price,
-                      billingPeriod,
-                      description,
-                      startDate
-                    );
-
-                    // addData();
-                    // navigation.navigate("SubscriptionInfo", {
-                    //   name: subscriptions[key].name,
-                    //   plan: subscriptions[key].plan,
-                    //   price: subscriptions[key].price,
-                    //   billingPeriod: subscriptions[key].billingPeriod,
-                    //   description: subscriptions[key].description,
-                    //   startDate: subscriptions[key].startDate,
-                    // });
+                    isStateUpdated.current = true;
                   }}
                 />
               ))}

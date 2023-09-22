@@ -222,20 +222,37 @@ const AddSubscriptionScreen = ({ navigation }) => {
           <Picker.Item label="Kvartal" value="kvartal" />
           <Picker.Item label="År" value="år" />
         </Picker>
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+          <CTAButtonSmall
+            title="Tillbaka"
+            variant="secondary"
+            onPress={() => {
+              if (type === "preset") {
+                setBillingPeriodVisible(false);
+                setStartViewVisible(true);
+                setBillingPeriod("");
+                setName("");
+              } else {
+                setBillingPeriodVisible(false);
+                setCustomNameVisible(true);
+              }
+            }}
+          />
 
-        <CTAButtonSmall
-          title="Nästa"
-          variant="primary"
-          onPress={() => {
-            if (billingPeriod === "") {
-              alert("Du måste välja en faktureringsperiod");
-            } else {
-              console.log(name);
-              setBillingPeriodVisible(false);
-              setPriceVisible(true);
-            }
-          }}
-        />
+          <CTAButtonSmall
+            title="Nästa"
+            variant="primary"
+            onPress={() => {
+              if (billingPeriod === "") {
+                alert("Du måste välja en faktureringsperiod");
+              } else {
+                console.log(name);
+                setBillingPeriodVisible(false);
+                setPriceVisible(true);
+              }
+            }}
+          />
+        </View>
       </View>
       <View id="price" style={{ display: priceVisible ? "flex" : "none" }}>
         <Text>Pris</Text>
@@ -251,18 +268,29 @@ const AddSubscriptionScreen = ({ navigation }) => {
           keyboardType="numeric" // This prop restricts the keyboard to show only numeric input
           style={styles.input}
         />
-        <CTAButtonSmall
-          title="Nästa"
-          variant="primary"
-          onPress={() => {
-            if (price === "") {
-              alert("Du måste skriva in ett pris");
-            } else {
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+          <CTAButtonSmall
+            title="Tillbaka"
+            variant="secondary"
+            onPress={() => {
+              setPrice("");
               setPriceVisible(false);
-              setStartDateVisible(true);
-            }
-          }}
-        />
+              setBillingPeriod(true);
+            }}
+          />
+          <CTAButtonSmall
+            title="Nästa"
+            variant="primary"
+            onPress={() => {
+              if (price === "") {
+                alert("Du måste skriva in ett pris");
+              } else {
+                setPriceVisible(false);
+                setStartDateVisible(true);
+              }
+            }}
+          />
+        </View>
       </View>
       <View
         id="startDate"
@@ -301,23 +329,33 @@ const AddSubscriptionScreen = ({ navigation }) => {
             setStartDate(startDate);
           }}
         /> */}
-
-        <CTAButtonSmall
-          title="Nästa"
-          variant="primary"
-          onPress={() => {
-            if (startDate === "") {
-              alert("Du måste välja ett startdatum");
-            } else {
-              // const startDateConversion = startDate.toLocaleDateString();
-              // setStartDate(startDateConversion);
-
-              console.log(startDate);
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+          <CTAButtonSmall
+            title="Tillbaka"
+            variant="secondary"
+            onPress={() => {
+              setStartDate("");
               setStartDateVisible(false);
-              setDescriptionVisible(true);
-            }
-          }}
-        />
+              setPriceVisible(true);
+            }}
+          />
+          <CTAButtonSmall
+            title="Nästa"
+            variant="primary"
+            onPress={() => {
+              if (startDate === "") {
+                alert("Du måste välja ett startdatum");
+              } else {
+                // const startDateConversion = startDate.toLocaleDateString();
+                // setStartDate(startDateConversion);
+
+                console.log(startDate);
+                setStartDateVisible(false);
+                setDescriptionVisible(true);
+              }
+            }}
+          />
+        </View>
       </View>
       <View
         id="description "
@@ -331,15 +369,27 @@ const AddSubscriptionScreen = ({ navigation }) => {
           onChangeText={(text) => setDescription(text)}
           style={styles.input}
         />
-        <CTAButtonSmall
-          title="Nästa"
-          variant="primary"
-          onPress={() => {
-            setDescriptionVisible(false);
-            addData();
-            navigation.navigate("SubscriptionScreen");
-          }}
-        />
+
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+          <CTAButtonSmall
+            title="Tillbaka"
+            variant="secondary"
+            onPress={() => {
+              setDescription("");
+              setDescriptionVisible(false);
+              setStartDateVisible(true);
+            }}
+          />
+          <CTAButtonSmall
+            title="Nästa"
+            variant="primary"
+            onPress={() => {
+              setDescriptionVisible(false);
+              addData();
+              navigation.navigate("SubscriptionScreen");
+            }}
+          />
+        </View>
       </View>
       {/* <Navbar navigation={navigation} /> */}
     </SafeAreaView>

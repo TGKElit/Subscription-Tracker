@@ -90,7 +90,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
           }}
           variant="default"
           title="Lägg till egen"
-          color="white"
+          color="#FFFFFF"
           icon="plus"
         />
         {/* preset */}
@@ -103,7 +103,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
           }}
           variant="default"
           title="Netflix"
-          color="red"
+          color="#E60000"
           icon="netflix"
         />
         <Card
@@ -115,7 +115,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
           }}
           variant="default"
           title="HBO Max"
-          color="purple"
+          color="#9C00AF"
           icon="hbo"
         />
         <Card
@@ -127,7 +127,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
           }}
           variant="default"
           title="Amazon Prime"
-          color="blue"
+          color="#0097EC"
           icon="prime"
         />
         <Card
@@ -139,7 +139,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
           }}
           variant="default"
           title="Spotify"
-          color="green"
+          color="#00863F"
           icon="spotify"
         />
         <Card
@@ -151,7 +151,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
           }}
           variant="default"
           title="Storytel"
-          color="orange"
+          color="#FF3D00"
           icon="storytel"
         />
         <Card
@@ -163,7 +163,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
           }}
           variant="default"
           title="Disney+"
-          color="blue"
+          color="#0097EC"
           icon="disney"
         />
         <Card
@@ -175,7 +175,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
           }}
           variant="default"
           title="GP"
-          color="violet"
+          color="#4443BC"
           icon="gp"
         />
       </View>

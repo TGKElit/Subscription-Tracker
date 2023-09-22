@@ -81,6 +81,7 @@ const SubscriptionScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView>
+      {/* custom header */}
       <View
         style={{
           width: "100%",
@@ -158,7 +159,7 @@ const SubscriptionScreen = ({ navigation }) => {
                   }
                   variant="default"
                   title={subscriptions[key].name}
-                  color="red"
+                  color="#E60000"
                   icon="netflix"
                   info={`${subscriptions[key].price}kr / ${subscriptions[key].billingPeriod}`}
                 />
@@ -177,7 +178,7 @@ const SubscriptionScreen = ({ navigation }) => {
                   }
                   variant="default"
                   title={subscriptions[key].name}
-                  color="purple"
+                  color="#9C00AF"
                   icon="hbo"
                   info={`${subscriptions[key].price}kr / ${subscriptions[key].billingPeriod}`}
                 />
@@ -196,7 +197,7 @@ const SubscriptionScreen = ({ navigation }) => {
                   }
                   variant="default"
                   title={subscriptions[key].name}
-                  color="blue"
+                  color="#0097EC"
                   icon="prime"
                   info={`${subscriptions[key].price}kr / ${subscriptions[key].billingPeriod}`}
                 />
@@ -214,7 +215,7 @@ const SubscriptionScreen = ({ navigation }) => {
                   }
                   variant="default"
                   title={subscriptions[key].name}
-                  color="green"
+                  color="#00863F"
                   icon="spotify"
                   info={`${subscriptions[key].price}kr / ${subscriptions[key].billingPeriod}`}
                 />
@@ -232,7 +233,7 @@ const SubscriptionScreen = ({ navigation }) => {
                   }
                   variant="default"
                   title={subscriptions[key].name}
-                  color="yellow"
+                  color="#FF3D00"
                   icon="storytel"
                   info={`${subscriptions[key].price}kr / ${subscriptions[key].billingPeriod}`}
                 />
@@ -250,7 +251,7 @@ const SubscriptionScreen = ({ navigation }) => {
                   }
                   variant="default"
                   title={subscriptions[key].name}
-                  color="blue"
+                  color="#0097EC"
                   icon="disney"
                   info={`${subscriptions[key].price}kr / ${subscriptions[key].billingPeriod}`}
                 />
@@ -268,7 +269,7 @@ const SubscriptionScreen = ({ navigation }) => {
                   }
                   variant="default"
                   title={subscriptions[key].name}
-                  color="violet"
+                  color="#4443BC"
                   icon="gp"
                   info={`${subscriptions[key].price}kr / ${subscriptions[key].billingPeriod}`}
                 />

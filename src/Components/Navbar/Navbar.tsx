@@ -14,7 +14,7 @@ export const Navbar: FC<any> = ({navigation, screen}) => {
     }
     return(
         <>
-            <View style={[styles.border, offset]}></View>
+           <View style={[styles.border, offset]}></View>
             <View style={styles.container}>
                 <Pressable onPress={() => navigation.navigate("Settings")}>
                 <Svg style={styles.icon} width="32" height="32" viewBox="0 0 32 32" fill="none">
@@ -43,7 +43,7 @@ export const Navbar: FC<any> = ({navigation, screen}) => {
 const styles = StyleSheet.create({
     container: {
         height: 64,
-        width: window.innerWidth,
+        width: "100%",
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-around",
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     },
 
     border: {
-        width: window.innerWidth/3,
+        width: "33%",
         height: 2,
         backgroundColor: "red",
         position: "absolute",
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     },
 
     subscriptionOffset: {
-        left: window.innerWidth/3,
+        left: "33%",
     },
 
     statitsicsOffset: {

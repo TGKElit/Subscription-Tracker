@@ -72,7 +72,7 @@ export const Card: FC<CardProps> = ({
 const styles = (color: string) =>
   StyleSheet.create({
     container: {
-      height: 64,
+      
       width: "100%",
       display: "flex",
       flexDirection: "row",
@@ -82,11 +82,13 @@ const styles = (color: string) =>
     },
 
     defaultContainer: {
+      height: 64,
       backgroundColor: color,
       borderRadius: 12,
     },
 
     settingsContainer: {
+      height: 56,
       backgroundColor: "white",
       borderBottomColor: "black",
       borderBottomWidth: 2,

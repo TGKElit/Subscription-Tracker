@@ -26,7 +26,7 @@ const LandingScreen = ({ navigation }) => {
   return (
     <SafeAreaView
       style={{
-        flex: "1",
+        flex: 1,
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",

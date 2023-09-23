@@ -130,7 +130,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
             setStartViewVisible(false);
             setCustomNameVisible(true); // Show customName view;
           }}
-          variant="default"
+          variant="basic"
           title="Lägg till egen"
           color="#FFFFFF"
           icon="plus"

@@ -22,7 +22,7 @@ const SettingsScreen = ({navigation}) => {
         <Card variant="settings" title="Villkor" icon="terms" color="orange"/>
         <Card variant="settings" title="Hjäp" icon="help"/>
         
-        {/*<Card variant="basic" title="Example" icon="default" iconColor="blue" color="gray"/>
+        {/* <Card variant="basic" title="Example" icon="default" iconColor="blue" color="gray"/>
         <Card variant="default" title="Test" color="red" icon="netflix" info="455kr/mån"/>
         <Card variant="basic" title="Basic" info="Basic"/>
         <Card variant="basic" title="Lägg till egen" icon="plus"/> */}
@@ -63,7 +63,8 @@ const styles = StyleSheet.create({
 
   logout: {
     color:"#E60000",
-    
+    fontFamily: "Inter_600SemiBold",
+    fontSize: 16,
     margin: 12,
     marginLeft: 24,
   },

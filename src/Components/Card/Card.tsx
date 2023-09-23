@@ -37,6 +37,7 @@ export const Card: FC<CardProps> = ({
   color,
   onPress,
 }) => {
+
   const containerStyle =
     variant === "default"
       ? styles(color).defaultContainer
@@ -44,25 +45,49 @@ export const Card: FC<CardProps> = ({
       ? styles(color).settingsContainer
       : styles(color).basicContainer;
 
+  const titleStyle =
+    variant === "default"
+      ? styles(color).defaultTitle
+      : variant === "settings"
+      ? styles(color).settingsTitle
+      : styles(color).basicTitle;
+
+  const infoStyle =
+  variant === "default"
+    ? styles(color).defaultInfo
+    : variant === "settings"
+    ? styles(color).settingsInfo
+    : styles(color).basicInfo;
+
+  const arrowColor =
+    variant === "default"
+    ? "white"
+    : "black"
+
+  const basicSize =
+    icon && variant === "basic"
+    ? styles(color).largeBasic
+    : null;
+
   return (
     <Pressable
       onPress={onPress}
-      style={[containerStyle, styles(color).container]}
+      style={[containerStyle, styles(color).container, basicSize]}
     >
       <CardIcon
         icon={icon}
         letter={title.charAt(0)}
         color={iconColor}
       ></CardIcon>
-      <Text style={styles(color).title}>{title}</Text>
-      <Text style={styles(color).info}>{info}</Text>
+      <Text style={[titleStyle, styles(color).title]}>{title}</Text>
+      <Text style={[infoStyle, styles(color).info]}>{info}</Text>
       <Svg width="32" height="32" viewBox="0 0 32 32" fill="none">
         <Path
           d="M11.5 25L20.5 16L11.5 7"
-          stroke="black"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          stroke={arrowColor}
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </Svg>
     </Pressable>
@@ -98,13 +123,49 @@ const styles = (color: string) =>
       borderRadius: 12,
       borderWidth: 2,
       borderColor: "#7D7D7D",
+      height: 56,
+    },
+
+    largeBasic: {
+      height: 64,
     },
 
     title: {
       marginRight: "auto",
+      fontFamily: "Inter_600SemiBold",
+      
+    },
+
+    defaultTitle: {
+      fontSize: 20,
+      color: "white",
+    },
+
+    settingsTitle: {
+      fontSize: 16,
+      color: "black",
+    },
+
+    basicTitle: {
+      fontSize: 20,
+      color: "black"
     },
 
     info: {
-      margin: 8,
+      marginRight: 8,
+      fontFamily: "Inter_400Regular",
+      fontSize: 16,
+    },
+
+    defaultInfo: {
+      color: "white",
+    },
+
+    settingsInfo: {
+      color: "black",
+    },
+
+    basicInfo: {
+      color: "black",
     },
   });

@@ -80,7 +80,7 @@ const SubscriptionScreen = ({ navigation }) => {
   });
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ height: "100%" }}>
       {/* custom header */}
       <View
         style={{

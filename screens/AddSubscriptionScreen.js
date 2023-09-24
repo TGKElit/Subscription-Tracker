@@ -93,6 +93,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
         startDate: startDate,
         description: description,
         type: type,
+        plan: plan,
       });
       console.log("Data added successfully", newSubscriptionRef.key);
     } catch (error) {
@@ -248,22 +249,9 @@ const AddSubscriptionScreen = ({ navigation }) => {
           {plans[name] && (
             <View>
               {Object.keys(plans[name]).map((key) => (
-                // <Text>
-                //   {key}
-                //   {plans[name][key].price} {plans[name][key].billingPeriod}{" "}
-                // </Text>
-                // addData();
-                // navigation.navigate("SubscriptionInfo", {
-                //   name: subscriptions[key].name,
-                //   plan: subscriptions[key].plan,
-                //   price: subscriptions[key].price,
-                //   billingPeriod: subscriptions[key].billingPeriod,
-                //   description: subscriptions[key].description,
-                //   startDate: subscriptions[key].startDate,
-                // });
                 <Card
                   key={key}
-                  variant="default"
+                  variant="basic"
                   title={key}
                   onPress={() => {
                     setPlan(key);

@@ -39,7 +39,7 @@ export const HeaderContainer: FC<HeaderProps> = ({ title, navigation, backArrow,
           style={styles.plus}
           onPress={() => navigation.navigate("AddSubscription")}
         >
-          <Svg width="18" height="22" viewBox="0 2 18 18" fill="none">
+          <Svg width="18" height="24" viewBox="0 2 18 18" fill="none">
             <Path
               id="subtract"
               fillRule="evenodd"
@@ -76,8 +76,8 @@ const styles = StyleSheet.create({
 
   plus: {
     position: "absolute", 
-    right: 0, 
-    marginRight: 20,
+    right: 20, 
+    bottom: 20,
   },
 
   textStyle: {

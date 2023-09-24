@@ -1,14 +1,59 @@
+import React from "react";
 import { StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { HeaderContainer } from "../src/Components/HeaderContainer/HeaderContainer";
 import { Navbar } from "../src/Components/Navbar/Navbar";
 import { Text } from "react-native";
 import Svg, { Path } from "react-native-svg";
+import { ref, getDatabase, get } from "firebase/database";
+import { useState } from "react";
+import { useFocusEffect } from "@react-navigation/native";
+import { getAuth } from "firebase/auth";
 
 const StatisticsScreen = ({navigation}) => {
-  const monthlyCosts = 2;
-  const yearlyCosts = 3;
-  const totalCost = 27;
+
+  const auth = getAuth();
+  const user = auth.currentUser;
+  const [subscriptions, setSubscriptions] = useState([]);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      getData();
+    }, [])
+  );
+
+  function getData() {
+    const db = getDatabase();
+    const userData = ref(db, "users/" + user.uid);
+    get(userData)
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          setSubscriptions(snapshot.val());
+        } else {
+          console.log("No data available");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
+  let monthlyCosts = 0;
+  let yearlyCosts = 0;
+  let totalCost = 0;
+  Object.keys(subscriptions).map((key) => {
+    if (subscriptions[key].billingPeriod === "år") {
+      totalCost += parseFloat(subscriptions[key].price);
+      yearlyCosts += parseFloat(subscriptions[key].price);
+    } else if (subscriptions[key].billingPeriod === "kvartal") {
+      totalCost += parseFloat(subscriptions[key].price) * 4;
+    } else if (subscriptions[key].billingPeriod === "månad") {
+      totalCost += parseFloat(subscriptions[key].price) * 12;
+      monthlyCosts += parseFloat(subscriptions[key].price);
+    }
+  });
+
+
   return (
     <SafeAreaView style={styles.body}>
       <HeaderContainer title="Statistik" />

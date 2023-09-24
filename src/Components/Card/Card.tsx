@@ -115,7 +115,7 @@ const styles = (color: string) =>
     settingsContainer: {
       height: 56,
       backgroundColor: "white",
-      borderBottomColor: "black",
+      borderBottomColor: "#7D7D7D",
       borderBottomWidth: 2,
     },
 

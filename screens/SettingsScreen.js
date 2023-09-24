@@ -17,7 +17,7 @@ const SettingsScreen = ({navigation}) => {
   return (
     <SafeAreaView style={styles.body}>
       <HeaderContainer title="Inställningar" />
-      <View id="test" style={styles.menu}>
+      <View style={styles.menu}>
         <Card variant="settings" title="Om oss" icon="terms"/>
         <Card variant="settings" title="Villkor" icon="terms" color="orange"/>
         <Card variant="settings" title="Hjäp" icon="help"/>

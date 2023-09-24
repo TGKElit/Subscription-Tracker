@@ -3,13 +3,17 @@ import { View, Text, Pressable } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { HeaderContainer } from "../src/Components/HeaderContainer/HeaderContainer";
 import { Card } from "../src/Components/Card/Card";
+import { Navbar } from "../src/Components/Navbar/Navbar";
+import Svg, { Path } from "react-native-svg";
+import { InfoBox } from "../src/Components/InfoBox/InfoBox";
+import { CTAButtonBig } from "../src/Components/CTAButton/CTAButtonBig";
 
-const SubscriptionInfo = ({ route }) => {
+const SubscriptionInfo = ({ route, navigation }) => {
   console.log(route);
   return (
     <SafeAreaView>
       <HeaderContainer title="Prenumerationer" />
-      <View style={{ paddingHorizontal: 24 }}>
+      <View style={{ paddingHorizontal: 12 }}>
         <View
           style={{
             width: "100%",
@@ -18,6 +22,8 @@ const SubscriptionInfo = ({ route }) => {
             borderRadius: 12,
             justifyContent: "center",
             alignItems: "center",
+
+            marginVertical: 24,
           }}
         >
           <Text
@@ -40,69 +46,54 @@ const SubscriptionInfo = ({ route }) => {
             </Pressable>
           )}
         </View>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            marginBottom: "4%",
+            width: "100%",
+          }}
+        >
+          <InfoBox
+            title="Period"
+            info={route.params.billingPeriod}
+            variant="primary"
+            onPress={() => {
+              console.log("pressed");
+            }}
+          />
+          <InfoBox
+            title="Pris"
+            info={route.params.price + "kr"}
+            variant="primary"
+          />
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            marginBottom: "4%",
+            width: "100%",
+          }}
+        >
+          <InfoBox
+            title="Startdatum"
+            info={route.params.startDate}
+            variant="primary"
+          />
+          <InfoBox title="Nästa betalning" info="no info" variant="primary" />
+        </View>
 
-        <View style={{ flexDirection: "row" }}>
-          <View
-            style={{
-              height: 75,
-              width: "40vw",
-              padding: 10,
-              borderRadius: 12,
-              borderWidth: 2,
-            }}
-          >
-            <Text>Period</Text>
-            <Text>{route.params.billingPeriod}</Text>
-          </View>
-          <View
-            style={{
-              height: 75,
-              width: "40vw",
-              padding: 10,
-              borderRadius: 12,
-              borderWidth: 2,
-            }}
-          >
-            <Text>Pris</Text>
-            <Text>{route.params.price}kr</Text>
-          </View>
-        </View>
-        <View
-          style={{
-            height: 75,
-            width: "50vw",
-            padding: 10,
-            borderRadius: 12,
-            borderWidth: 2,
-          }}
-        >
-          <Text>Startdatum</Text>
-          <Text>{route.params.startDate}</Text>
-        </View>
-        <View
-          style={{
-            height: 75,
-            width: "50vw",
-            padding: 10,
-            borderRadius: 12,
-            borderWidth: 2,
-          }}
-        >
-          <Text>Nästa betalning</Text>
-        </View>
-        <View
-          style={{
-            height: 75,
-            width: "50vw",
-            padding: 10,
-            borderRadius: 12,
-            borderWidth: 2,
-          }}
-        >
-          <Text>Beskrivning</Text>
-          <Text>{route.params.description}</Text>
+        <InfoBox
+          title="Beskrivning"
+          info={route.params.description}
+          variant="secondary"
+        />
+        <View style={{ marginTop: 12, marginBottom: 24 }}>
+          <CTAButtonBig title="Ta bort prenumation" variant="primary" />
         </View>
       </View>
+      <Navbar navigation={navigation} />
     </SafeAreaView>
   );
 };

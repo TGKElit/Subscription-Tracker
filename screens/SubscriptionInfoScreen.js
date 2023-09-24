@@ -7,8 +7,72 @@ import { Navbar } from "../src/Components/Navbar/Navbar";
 import Svg, { Path } from "react-native-svg";
 import { InfoBox } from "../src/Components/InfoBox/InfoBox";
 import { CTAButtonBig } from "../src/Components/CTAButton/CTAButtonBig";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { ref, set, getDatabase, get } from "firebase/database";
+import { useState } from "react";
+import { useFocusEffect } from "@react-navigation/native";
 
 const SubscriptionInfo = ({ route, navigation }) => {
+  const auth = getAuth();
+  const user = auth.currentUser;
+  const [subscriptions, setSubscriptions] = useState([]);
+  const [targetData, setTargetData] = useState([]);
+  useFocusEffect(
+    React.useCallback(() => {
+      getData();
+    }, [])
+  );
+
+  function getData() {
+    const db = getDatabase();
+    const userData = ref(db, "users/" + user.uid);
+    get(userData)
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          setSubscriptions(snapshot.val());
+          console.log(snapshot.val());
+        } else {
+          console.log("No data available");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+  getData();
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/auth.user
+      const uid = user.uid;
+      const email = user.email;
+      console.log(uid);
+      console.log(email);
+      // ...
+    } else {
+      console.log("no user");
+      // User is signed out
+      // ...
+    }
+  });
+
+  // subscriptions.map((subscription) => {
+  //   if (
+  //     subscription.name === route.params.name &&
+  //     subscription.plan === route.params.plan &&
+  //     subscription.price === route.params.price &&
+  //     subscription.billingPeriod === route.params.billingPeriod &&
+  //     subscription.startDate === route.params.startDate &&
+  //     subscription.description === route.params.description
+  //   ) {
+  //     setTargetData(subscription);
+  //     console.log(targetData);
+  //   } else {
+  //     console.log("no match");
+  //   }
+  // });
+
   console.log(route);
   return (
     <SafeAreaView style={{ height: "100%", width: "100vw" }}>

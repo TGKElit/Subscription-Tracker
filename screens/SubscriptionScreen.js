@@ -1,4 +1,11 @@
-import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 import React from "react";
 import { useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -80,7 +87,7 @@ const SubscriptionScreen = ({ navigation }) => {
   });
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ height: "100%", width: "100vw" }}>
       {/* custom header */}
       <View
         style={{
@@ -109,210 +116,211 @@ const SubscriptionScreen = ({ navigation }) => {
           </Svg>
         </Pressable>
       </View>
+      <ScrollView>
+        <View style={{ paddingHorizontal: 12 }}>
+          <View
+            style={{
+              height: 134,
+              width: "100%",
+              borderRadius: 12,
+              borderWidth: 2,
+              paddingTop: 24,
+              paddingHorizontal: 12,
+              paddingBottom: 12,
+              marginTop: 24,
+              marginBottom: 24,
+            }}
+          >
+            <Text style={{ fontSize: 12, fontFamily: "Inter_400Regular" }}>
+              Denna månaden kommer du att betala:
+            </Text>
+            <Text style={{ fontSize: 36, fontFamily: "Inter_700Bold" }}>
+              {totalCost} kr
+            </Text>
+          </View>
 
-      <View style={{ paddingHorizontal: 12 }}>
-        <View
-          style={{
-            height: 134,
-            width: "100%",
-            borderRadius: 12,
-            borderWidth: 2,
-            paddingTop: 24,
-            paddingHorizontal: 12,
-            paddingBottom: 12,
-            marginTop: 24,
-            marginBottom: 24,
-          }}
-        >
-          <Text style={{ fontSize: 12, fontFamily: "Inter_400Regular" }}>
-            Denna månaden kommer du att betala:
-          </Text>
-          <Text style={{ fontSize: 36, fontFamily: "Inter_700Bold" }}>
-            {totalCost} kr
-          </Text>
-        </View>
+          <View style={{ gap: 12 }}>
+            <Text style={{ fontSize: 24, fontFamily: "Inter_600SemiBold" }}>
+              Prenumationer
+            </Text>
 
-        <View style={{ gap: 12 }}>
-          <Text style={{ fontSize: 24, fontFamily: "Inter_600SemiBold" }}>
-            Prenumationer
-          </Text>
+            {Object.keys(subscriptions).map((key) => (
+              <Pressable
+                onPress={() =>
+                  navigation.navigate("SubscriptionInfo", {
+                    name: subscriptions[key].name,
+                    price: subscriptions[key].price,
+                    billingPeriod: subscriptions[key].billingPeriod,
+                    description: subscriptions[key].description,
+                    startDate: subscriptions[key].startDate,
+                  })
+                }
+              >
+                {subscriptions[key].type === "custom" && (
+                  <Card
+                    onPress={() =>
+                      navigation.navigate("SubscriptionInfo", {
+                        name: subscriptions[key].name,
+                        price: subscriptions[key].price,
+                        billingPeriod: subscriptions[key].billingPeriod,
+                        description: subscriptions[key].description,
+                        startDate: subscriptions[key].startDate,
+                        plan: subscriptions[key].plan,
+                      })
+                    }
+                    variant="default"
+                    title={subscriptions[key].name}
+                    color="#FC9100"
+                    info={`${subscriptions[key].price}kr / ${subscriptions[key].billingPeriod}`}
+                    icon="default"
+                    iconColor="blue"
+                  />
+                )}
+                {subscriptions[key].name === "Netflix" && (
+                  <Card
+                    onPress={() =>
+                      navigation.navigate("SubscriptionInfo", {
+                        name: subscriptions[key].name,
+                        price: subscriptions[key].price,
+                        billingPeriod: subscriptions[key].billingPeriod,
+                        description: subscriptions[key].description,
+                        startDate: subscriptions[key].startDate,
+                        plan: subscriptions[key].plan,
+                      })
+                    }
+                    variant="default"
+                    title={subscriptions[key].name}
+                    color="#E60000"
+                    icon="netflix"
+                    info={`${subscriptions[key].price}kr / ${subscriptions[key].billingPeriod}`}
+                  />
+                )}
 
-          {Object.keys(subscriptions).map((key) => (
-            <Pressable
-              onPress={() =>
-                navigation.navigate("SubscriptionInfo", {
-                  name: subscriptions[key].name,
-                  price: subscriptions[key].price,
-                  billingPeriod: subscriptions[key].billingPeriod,
-                  description: subscriptions[key].description,
-                  startDate: subscriptions[key].startDate,
-                })
-              }
-            >
-              {subscriptions[key].type === "custom" && (
-                <Card
-                  onPress={() =>
-                    navigation.navigate("SubscriptionInfo", {
-                      name: subscriptions[key].name,
-                      price: subscriptions[key].price,
-                      billingPeriod: subscriptions[key].billingPeriod,
-                      description: subscriptions[key].description,
-                      startDate: subscriptions[key].startDate,
-                      plan: subscriptions[key].plan,
-                    })
-                  }
-                  variant="default"
-                  title={subscriptions[key].name}
-                  color="#FC9100"
-                  info={`${subscriptions[key].price}kr / ${subscriptions[key].billingPeriod}`}
-                  icon="default"
-                  iconColor="blue"
-                />
-              )}
-              {subscriptions[key].name === "Netflix" && (
-                <Card
-                  onPress={() =>
-                    navigation.navigate("SubscriptionInfo", {
-                      name: subscriptions[key].name,
-                      price: subscriptions[key].price,
-                      billingPeriod: subscriptions[key].billingPeriod,
-                      description: subscriptions[key].description,
-                      startDate: subscriptions[key].startDate,
-                      plan: subscriptions[key].plan,
-                    })
-                  }
-                  variant="default"
-                  title={subscriptions[key].name}
-                  color="#E60000"
-                  icon="netflix"
-                  info={`${subscriptions[key].price}kr / ${subscriptions[key].billingPeriod}`}
-                />
-              )}
+                {subscriptions[key].name === "HBO Max" && (
+                  <Card
+                    onPress={() =>
+                      navigation.navigate("SubscriptionInfo", {
+                        name: subscriptions[key].name,
+                        price: subscriptions[key].price,
+                        billingPeriod: subscriptions[key].billingPeriod,
+                        description: subscriptions[key].description,
+                        startDate: subscriptions[key].startDate,
+                        plan: subscriptions[key].plan,
+                      })
+                    }
+                    variant="default"
+                    title={subscriptions[key].name}
+                    color="#9C00AF"
+                    icon="hbo"
+                    info={`${subscriptions[key].price}kr / ${subscriptions[key].billingPeriod}`}
+                  />
+                )}
 
-              {subscriptions[key].name === "HBO Max" && (
-                <Card
-                  onPress={() =>
-                    navigation.navigate("SubscriptionInfo", {
-                      name: subscriptions[key].name,
-                      price: subscriptions[key].price,
-                      billingPeriod: subscriptions[key].billingPeriod,
-                      description: subscriptions[key].description,
-                      startDate: subscriptions[key].startDate,
-                      plan: subscriptions[key].plan,
-                    })
-                  }
-                  variant="default"
-                  title={subscriptions[key].name}
-                  color="#9C00AF"
-                  icon="hbo"
-                  info={`${subscriptions[key].price}kr / ${subscriptions[key].billingPeriod}`}
-                />
-              )}
-
-              {subscriptions[key].name === "Amazon Prime" && (
-                <Card
-                  onPress={() =>
-                    navigation.navigate("SubscriptionInfo", {
-                      name: subscriptions[key].name,
-                      price: subscriptions[key].price,
-                      billingPeriod: subscriptions[key].billingPeriod,
-                      description: subscriptions[key].description,
-                      startDate: subscriptions[key].startDate,
-                      plan: subscriptions[key].plan,
-                    })
-                  }
-                  variant="default"
-                  title={subscriptions[key].name}
-                  color="#0097EC"
-                  icon="prime"
-                  info={`${subscriptions[key].price}kr / ${subscriptions[key].billingPeriod}`}
-                />
-              )}
-              {subscriptions[key].name === "Spotify" && (
-                <Card
-                  onPress={() =>
-                    navigation.navigate("SubscriptionInfo", {
-                      name: subscriptions[key].name,
-                      price: subscriptions[key].price,
-                      billingPeriod: subscriptions[key].billingPeriod,
-                      description: subscriptions[key].description,
-                      startDate: subscriptions[key].startDate,
-                      plan: subscriptions[key].plan,
-                    })
-                  }
-                  variant="default"
-                  title={subscriptions[key].name}
-                  color="#00863F"
-                  icon="spotify"
-                  info={`${subscriptions[key].price}kr / ${subscriptions[key].billingPeriod}`}
-                />
-              )}
-              {subscriptions[key].name === "Storytel" && (
-                <Card
-                  onPress={() =>
-                    navigation.navigate("SubscriptionInfo", {
-                      name: subscriptions[key].name,
-                      price: subscriptions[key].price,
-                      billingPeriod: subscriptions[key].billingPeriod,
-                      description: subscriptions[key].description,
-                      startDate: subscriptions[key].startDate,
-                      plan: subscriptions[key].plan,
-                    })
-                  }
-                  variant="default"
-                  title={subscriptions[key].name}
-                  color="#FF3D00"
-                  icon="storytel"
-                  info={`${subscriptions[key].price}kr / ${subscriptions[key].billingPeriod}`}
-                />
-              )}
-              {subscriptions[key].name === "Disney+" && (
-                <Card
-                  onPress={() =>
-                    navigation.navigate("SubscriptionInfo", {
-                      name: subscriptions[key].name,
-                      price: subscriptions[key].price,
-                      billingPeriod: subscriptions[key].billingPeriod,
-                      description: subscriptions[key].description,
-                      startDate: subscriptions[key].startDate,
-                      plan: subscriptions[key].plan,
-                    })
-                  }
-                  variant="default"
-                  title={subscriptions[key].name}
-                  color="#0097EC"
-                  icon="disney"
-                  info={`${subscriptions[key].price}kr / ${subscriptions[key].billingPeriod}`}
-                />
-              )}
-              {subscriptions[key].name === "GP" && (
-                <Card
-                  onPress={() =>
-                    navigation.navigate("SubscriptionInfo", {
-                      name: subscriptions[key].name,
-                      price: subscriptions[key].price,
-                      billingPeriod: subscriptions[key].billingPeriod,
-                      description: subscriptions[key].description,
-                      startDate: subscriptions[key].startDate,
-                      plan: subscriptions[key].plan,
-                    })
-                  }
-                  variant="default"
-                  title={subscriptions[key].name}
-                  color="#4443BC"
-                  icon="gp"
-                  info={`${subscriptions[key].price}kr / ${subscriptions[key].billingPeriod}`}
-                />
-              )}
-            </Pressable>
-          ))}
-        </View>
-        {/* <CTAButtonBig
+                {subscriptions[key].name === "Amazon Prime" && (
+                  <Card
+                    onPress={() =>
+                      navigation.navigate("SubscriptionInfo", {
+                        name: subscriptions[key].name,
+                        price: subscriptions[key].price,
+                        billingPeriod: subscriptions[key].billingPeriod,
+                        description: subscriptions[key].description,
+                        startDate: subscriptions[key].startDate,
+                        plan: subscriptions[key].plan,
+                      })
+                    }
+                    variant="default"
+                    title={subscriptions[key].name}
+                    color="#0097EC"
+                    icon="prime"
+                    info={`${subscriptions[key].price}kr / ${subscriptions[key].billingPeriod}`}
+                  />
+                )}
+                {subscriptions[key].name === "Spotify" && (
+                  <Card
+                    onPress={() =>
+                      navigation.navigate("SubscriptionInfo", {
+                        name: subscriptions[key].name,
+                        price: subscriptions[key].price,
+                        billingPeriod: subscriptions[key].billingPeriod,
+                        description: subscriptions[key].description,
+                        startDate: subscriptions[key].startDate,
+                        plan: subscriptions[key].plan,
+                      })
+                    }
+                    variant="default"
+                    title={subscriptions[key].name}
+                    color="#00863F"
+                    icon="spotify"
+                    info={`${subscriptions[key].price}kr / ${subscriptions[key].billingPeriod}`}
+                  />
+                )}
+                {subscriptions[key].name === "Storytel" && (
+                  <Card
+                    onPress={() =>
+                      navigation.navigate("SubscriptionInfo", {
+                        name: subscriptions[key].name,
+                        price: subscriptions[key].price,
+                        billingPeriod: subscriptions[key].billingPeriod,
+                        description: subscriptions[key].description,
+                        startDate: subscriptions[key].startDate,
+                        plan: subscriptions[key].plan,
+                      })
+                    }
+                    variant="default"
+                    title={subscriptions[key].name}
+                    color="#FF3D00"
+                    icon="storytel"
+                    info={`${subscriptions[key].price}kr / ${subscriptions[key].billingPeriod}`}
+                  />
+                )}
+                {subscriptions[key].name === "Disney+" && (
+                  <Card
+                    onPress={() =>
+                      navigation.navigate("SubscriptionInfo", {
+                        name: subscriptions[key].name,
+                        price: subscriptions[key].price,
+                        billingPeriod: subscriptions[key].billingPeriod,
+                        description: subscriptions[key].description,
+                        startDate: subscriptions[key].startDate,
+                        plan: subscriptions[key].plan,
+                      })
+                    }
+                    variant="default"
+                    title={subscriptions[key].name}
+                    color="#0097EC"
+                    icon="disney"
+                    info={`${subscriptions[key].price}kr / ${subscriptions[key].billingPeriod}`}
+                  />
+                )}
+                {subscriptions[key].name === "GP" && (
+                  <Card
+                    onPress={() =>
+                      navigation.navigate("SubscriptionInfo", {
+                        name: subscriptions[key].name,
+                        price: subscriptions[key].price,
+                        billingPeriod: subscriptions[key].billingPeriod,
+                        description: subscriptions[key].description,
+                        startDate: subscriptions[key].startDate,
+                        plan: subscriptions[key].plan,
+                      })
+                    }
+                    variant="default"
+                    title={subscriptions[key].name}
+                    color="#4443BC"
+                    icon="gp"
+                    info={`${subscriptions[key].price}kr / ${subscriptions[key].billingPeriod}`}
+                  />
+                )}
+              </Pressable>
+            ))}
+          </View>
+          {/* <CTAButtonBig
           title="Lägg till prenumation"
           onPress={() => navigation.navigate("AddSubscription")}
         />
         <CTAButtonBig title="Logga ut" onPress={signOut} /> */}
-      </View>
+        </View>
+      </ScrollView>
       <Navbar navigation={navigation} />
     </SafeAreaView>
   );

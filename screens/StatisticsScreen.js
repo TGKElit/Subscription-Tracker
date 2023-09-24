@@ -94,7 +94,6 @@ const StatisticsScreen = ({navigation}) => {
           <Text style={styles.cost}>
             {totalCost}kr <Text style={styles.period}>/år</Text>
           </Text>
-          
         </View>
       </View>
       <Navbar navigation={navigation} screen="statistics"/>
@@ -124,7 +123,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
 
-    zIndex: 100,
+
 
     borderWidth: 2,
     borderColor: "#7D7D7D",
@@ -135,10 +134,6 @@ const styles = StyleSheet.create({
     marginTop: 24,
     fontFamily: "Inter_400Regular",
     fontSize: 16,
-  },
-
-  illustration: {
-    zIndex: 0,
   },
 
   box: {

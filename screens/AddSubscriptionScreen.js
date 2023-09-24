@@ -116,7 +116,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
   }
   return (
     <SafeAreaView>
-      <HeaderContainer title="Prenumera" />
+      <HeaderContainer title="Prenumera" backArrow={() => {navigation.navigate("SubscriptionScreen")}}/>
       <View
         id="startView"
         style={{

@@ -1,7 +1,8 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, Pressable } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { HeaderContainer } from "../src/Components/HeaderContainer/HeaderContainer";
+import { Card } from "../src/Components/Card/Card";
 
 const SubscriptionInfo = ({ route }) => {
   console.log(route);
@@ -29,6 +30,17 @@ const SubscriptionInfo = ({ route }) => {
             {route.params.name}
           </Text>
         </View>
+
+        <View>
+          {route.params.plan !== "" && (
+            <Pressable>
+              <Card title="Plan" variant="basic">
+                <Text>{route.params.plan}</Text>
+              </Card>
+            </Pressable>
+          )}
+        </View>
+
         <View style={{ flexDirection: "row" }}>
           <View
             style={{
@@ -55,7 +67,6 @@ const SubscriptionInfo = ({ route }) => {
             <Text>{route.params.price}kr</Text>
           </View>
         </View>
-
         <View
           style={{
             height: 75,
@@ -79,7 +90,6 @@ const SubscriptionInfo = ({ route }) => {
         >
           <Text>Nästa betalning</Text>
         </View>
-
         <View
           style={{
             height: 75,

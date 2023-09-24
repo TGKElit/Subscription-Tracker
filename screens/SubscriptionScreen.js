@@ -158,6 +158,7 @@ const SubscriptionScreen = ({ navigation }) => {
                       billingPeriod: subscriptions[key].billingPeriod,
                       description: subscriptions[key].description,
                       startDate: subscriptions[key].startDate,
+                      plan: subscriptions[key].plan,
                     })
                   }
                   variant="default"
@@ -177,6 +178,7 @@ const SubscriptionScreen = ({ navigation }) => {
                       billingPeriod: subscriptions[key].billingPeriod,
                       description: subscriptions[key].description,
                       startDate: subscriptions[key].startDate,
+                      plan: subscriptions[key].plan,
                     })
                   }
                   variant="default"
@@ -196,6 +198,7 @@ const SubscriptionScreen = ({ navigation }) => {
                       billingPeriod: subscriptions[key].billingPeriod,
                       description: subscriptions[key].description,
                       startDate: subscriptions[key].startDate,
+                      plan: subscriptions[key].plan,
                     })
                   }
                   variant="default"
@@ -215,6 +218,7 @@ const SubscriptionScreen = ({ navigation }) => {
                       billingPeriod: subscriptions[key].billingPeriod,
                       description: subscriptions[key].description,
                       startDate: subscriptions[key].startDate,
+                      plan: subscriptions[key].plan,
                     })
                   }
                   variant="default"
@@ -233,6 +237,7 @@ const SubscriptionScreen = ({ navigation }) => {
                       billingPeriod: subscriptions[key].billingPeriod,
                       description: subscriptions[key].description,
                       startDate: subscriptions[key].startDate,
+                      plan: subscriptions[key].plan,
                     })
                   }
                   variant="default"
@@ -251,6 +256,7 @@ const SubscriptionScreen = ({ navigation }) => {
                       billingPeriod: subscriptions[key].billingPeriod,
                       description: subscriptions[key].description,
                       startDate: subscriptions[key].startDate,
+                      plan: subscriptions[key].plan,
                     })
                   }
                   variant="default"
@@ -269,6 +275,7 @@ const SubscriptionScreen = ({ navigation }) => {
                       billingPeriod: subscriptions[key].billingPeriod,
                       description: subscriptions[key].description,
                       startDate: subscriptions[key].startDate,
+                      plan: subscriptions[key].plan,
                     })
                   }
                   variant="default"
@@ -287,6 +294,7 @@ const SubscriptionScreen = ({ navigation }) => {
                       billingPeriod: subscriptions[key].billingPeriod,
                       description: subscriptions[key].description,
                       startDate: subscriptions[key].startDate,
+                      plan: subscriptions[key].plan,
                     })
                   }
                   variant="default"

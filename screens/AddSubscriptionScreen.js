@@ -128,6 +128,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
         <Card
           onPress={() => {
             setType("custom");
+            setPlan("");
             setStartViewVisible(false);
             setCustomNameVisible(true); // Show customName view;
           }}
@@ -247,7 +248,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
             Välj plan
           </Text>
           {plans[name] && (
-            <View>
+            <Pressable>
               {Object.keys(plans[name]).map((key) => (
                 <Card
                   key={key}
@@ -263,7 +264,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
                   }}
                 />
               ))}
-            </View>
+            </Pressable>
           )}
         </View>
       </View>

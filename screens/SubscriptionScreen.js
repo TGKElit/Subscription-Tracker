@@ -123,17 +123,7 @@ const SubscriptionScreen = ({ navigation }) => {
             </Text>
 
             {Object.keys(subscriptions).map((key) => (
-              <Pressable
-                onPress={() =>
-                  navigation.navigate("SubscriptionInfo", {
-                    name: subscriptions[key].name,
-                    price: subscriptions[key].price,
-                    billingPeriod: subscriptions[key].billingPeriod,
-                    description: subscriptions[key].description,
-                    startDate: subscriptions[key].startDate,
-                  })
-                }
-              >
+              <Pressable>
                 {subscriptions[key].type === "custom" && (
                   <Card
                     onPress={() =>

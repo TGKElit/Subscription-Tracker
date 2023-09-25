@@ -11,17 +11,31 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { ref, set, getDatabase, get } from "firebase/database";
 import { useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
+import { useEffect } from "react";
+import { useRef } from "react";
 
 const SubscriptionInfo = ({ route, navigation }) => {
   const auth = getAuth();
   const user = auth.currentUser;
   const [subscriptions, setSubscriptions] = useState([]);
-  const [targetData, setTargetData] = useState([]);
-  useFocusEffect(
-    React.useCallback(() => {
-      getData();
-    }, [])
-  );
+  const [targetDataKey, setTargetDataKey] = useState([]);
+  const [period, setPeriod] = useState("");
+  const [price, setPrice] = useState(0);
+  const [startDate, setStartDate] = useState("");
+  const [description, setDescription] = useState("");
+  const [plan, setPlan] = useState("");
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  useEffect(() => {
+    console.log(subscriptions);
+    findTarget();
+  }, [subscriptions]);
+  useEffect(() => {
+    console.log(targetDataKey);
+  }, [targetDataKey]);
 
   function getData() {
     const db = getDatabase();
@@ -32,14 +46,13 @@ const SubscriptionInfo = ({ route, navigation }) => {
           setSubscriptions(snapshot.val());
           console.log(snapshot.val());
         } else {
-          console.log("No data available");
+          // console.log("No data available");
         }
       })
       .catch((error) => {
-        console.error(error);
+        // console.error(error);
       });
   }
-  getData();
 
   onAuthStateChanged(auth, (user) => {
     if (user) {
@@ -47,8 +60,8 @@ const SubscriptionInfo = ({ route, navigation }) => {
       // https://firebase.google.com/docs/reference/js/auth.user
       const uid = user.uid;
       const email = user.email;
-      console.log(uid);
-      console.log(email);
+      // console.log(uid);
+      // console.log(email);
       // ...
     } else {
       console.log("no user");
@@ -56,24 +69,26 @@ const SubscriptionInfo = ({ route, navigation }) => {
       // ...
     }
   });
+  const findTarget = () => {
+    for (const key in subscriptions) {
+      const subscription = subscriptions[key];
+      if (
+        subscription.name === route.params.name &&
+        subscription.plan === route.params.plan &&
+        subscription.price === route.params.price &&
+        subscription.billingPeriod === route.params.billingPeriod &&
+        subscription.startDate === route.params.startDate &&
+        subscription.description === route.params.description
+      ) {
+        console.log("Match found:", key);
+        setTargetDataKey(subscription);
+        break; // Exit the loop after finding a match
+      } else {
+        console.log("no match");
+      }
+    }
+  };
 
-  // subscriptions.map((subscription) => {
-  //   if (
-  //     subscription.name === route.params.name &&
-  //     subscription.plan === route.params.plan &&
-  //     subscription.price === route.params.price &&
-  //     subscription.billingPeriod === route.params.billingPeriod &&
-  //     subscription.startDate === route.params.startDate &&
-  //     subscription.description === route.params.description
-  //   ) {
-  //     setTargetData(subscription);
-  //     console.log(targetData);
-  //   } else {
-  //     console.log("no match");
-  //   }
-  // });
-
-  console.log(route);
   return (
     <SafeAreaView style={{ height: "100%", width: "100vw" }}>
       <HeaderContainer title="Prenumerationer" />
@@ -121,7 +136,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
           >
             <InfoBox
               title="Period"
-              info={route.params.billingPeriod}
+              valueInput={route.params.billingPeriod}
               variant="primary"
               onPress={() => {
                 console.log("pressed");
@@ -129,7 +144,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
             />
             <InfoBox
               title="Pris"
-              info={route.params.price + "kr"}
+              valueInput={route.params.price + "kr"}
               variant="primary"
             />
           </View>
@@ -143,7 +158,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
           >
             <InfoBox
               title="Startdatum"
-              info={route.params.startDate}
+              valueInput={route.params.startDate}
               variant="primary"
             />
             <InfoBox title="Nästa betalning" info="no info" variant="primary" />
@@ -151,7 +166,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
 
           <InfoBox
             title="Beskrivning"
-            info={route.params.description}
+            valueInput={route.params.description}
             variant="secondary"
           />
           <View style={{ marginTop: 12, marginBottom: 24 }}>

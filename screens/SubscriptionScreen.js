@@ -89,9 +89,13 @@ const SubscriptionScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={{ height: "100%", width: "100vw" }}>
       {/* custom header */}
-      <HeaderContainer title="Prenumerationer" navigation={navigation} addSubscription={true}/>
+      <HeaderContainer
+        title="Prenumerationer"
+        navigation={navigation}
+        addSubscription={true}
+      />
       <ScrollView>
-        <View style={{ paddingHorizontal: 12 }}>
+        <View style={{ paddingHorizontal: 12, marginBottom: 24 }}>
           <View
             style={{
               height: 134,
@@ -287,6 +291,15 @@ const SubscriptionScreen = ({ navigation }) => {
                 )}
               </Pressable>
             ))}
+            <Card
+              onPress={() => {
+                navigation.navigate("AddSubscription"); // Show customName view;
+              }}
+              variant="basic"
+              title="Lägg till egen"
+              color="#FFFFFF"
+              icon="plus"
+            />
           </View>
           {/* <CTAButtonBig
           title="Lägg till prenumation"
@@ -295,7 +308,7 @@ const SubscriptionScreen = ({ navigation }) => {
         <CTAButtonBig title="Logga ut" onPress={signOut} /> */}
         </View>
       </ScrollView>
-      <Navbar navigation={navigation} />
+      {/* <Navbar navigation={navigation} /> */}
     </SafeAreaView>
   );
 };

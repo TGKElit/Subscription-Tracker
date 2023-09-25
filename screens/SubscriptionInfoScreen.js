@@ -30,7 +30,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
   const [targetDataKey, setTargetDataKey] = useState("");
   const [billingPeriodVisible, setBillingPeriodVisible] = useState(false);
   const [billingPeriod, setBillingPeriod] = useState("");
-  const [price, setPrice] = useState(0);
+  const [price, setPrice] = useState("");
   const [startDate, setStartDate] = useState("");
   const [description, setDescription] = useState("");
   const [plan, setPlan] = useState("");
@@ -47,6 +47,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
   useEffect(() => {
     console.log(subscriptions);
     findTarget();
+    console.log(price);
   }, [subscriptions]);
   useEffect(() => {
     console.log(targetDataKey);

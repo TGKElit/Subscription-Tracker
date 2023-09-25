@@ -16,21 +16,103 @@ import { useRef } from "react";
 const AddSubscriptionScreen = ({ navigation }) => {
   const plans = {
     Netflix: {
-      basic: {
-        price: 89,
+      Basic: {
+        price: "99",
         billingPeriod: "månad",
       },
-      standard: {
-        price: 129,
+      Standard: {
+        price: "128",
         billingPeriod: "månad",
       },
-      premium: {
-        price: 159,
+      Premium: {
+        price: "179",
         billingPeriod: "månad",
       },
-      custom: {
-        price: "",
-        billingPeriod: "",
+    },
+
+    "HBO Max": {
+      Standard: {
+        price: "109",
+        billingPeriod: "månad",
+      },
+      "Standard Yearly": {
+        price: "699",
+        billingPeriod: "år",
+      },
+    },
+
+    Spotify: {
+      Premium: {
+        price: "119",
+        billingPeriod: "månad",
+      },
+      Duo: {
+        price: "149",
+        billingPeriod: "månad",
+      },
+      Family: {
+        price: "189",
+        billingPeriod: "månad",
+      },
+      Student: {
+        price: "65",
+        billingPeriod: "månad",
+      },
+    },
+
+    "Amazon Prime": {
+      "Prime monthly": {
+        price: "59",
+        billingPeriod: "månad",
+      },
+      "Prime yearly": {
+        price: "549",
+        billingPeriod: "år",
+      },
+    },
+
+    Storytel: {
+      Premium: {
+        price: "169",
+        billingPeriod: "månad",
+      },
+      Basic: {
+        price: "129",
+        billingPeriod: "månad",
+      },
+      Unlimited: {
+        price: "229",
+        billingPeriod: "månad",
+      },
+      Family: {
+        price: "228",
+        billingPeriod: "månad",
+      },
+    },
+
+    "Disney+": {
+      "Disney Plus Monthly": {
+        price: "89",
+        billingPeriod: "månad",
+      },
+      "Disney Plus Yearly": {
+        price: "979",
+        billingPeriod: "år",
+      },
+    },
+
+    GP: {
+      Nyhetssajt: {
+        price: "139",
+        billingPeriod: "månad",
+      },
+      Digital: {
+        price: "279",
+        billingPeriod: "månad",
+      },
+      "Digital och papper": {
+        price: "399",
+        billingPeriod: "månad",
       },
     },
   };
@@ -116,7 +198,12 @@ const AddSubscriptionScreen = ({ navigation }) => {
   }
   return (
     <SafeAreaView>
-      <HeaderContainer title="Prenumera" backArrow={() => {navigation.navigate("SubscriptionScreen")}}/>
+      <HeaderContainer
+        title="Prenumera"
+        backArrow={() => {
+          navigation.navigate("SubscriptionScreen");
+        }}
+      />
       <View
         id="startView"
         style={{

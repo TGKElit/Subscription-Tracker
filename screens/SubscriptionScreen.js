@@ -47,11 +47,6 @@ const SubscriptionScreen = ({ navigation }) => {
       });
   }
 
-  const signOut = () => {
-    auth.signOut();
-    navigation.navigate("Landing");
-  };
-
   onAuthStateChanged(auth, (user) => {
     if (user) {
       // User is signed in, see docs for a list of available properties
@@ -121,9 +116,8 @@ const SubscriptionScreen = ({ navigation }) => {
             <Text style={{ fontSize: 24, fontFamily: "Inter_600SemiBold" }}>
               Prenumationer
             </Text>
-
             {Object.keys(subscriptions).map((key) => (
-              <Pressable>
+              <React.Fragment key={key}>
                 {subscriptions[key].type === "custom" && (
                   <Card
                     onPress={() =>
@@ -277,7 +271,7 @@ const SubscriptionScreen = ({ navigation }) => {
                     info={`${subscriptions[key].price}kr / ${subscriptions[key].billingPeriod}`}
                   />
                 )}
-              </Pressable>
+              </React.Fragment>
             ))}
             <Card
               onPress={() => {
@@ -289,11 +283,6 @@ const SubscriptionScreen = ({ navigation }) => {
               icon="plus"
             />
           </View>
-          {/* <CTAButtonBig
-          title="Lägg till prenumation"
-          onPress={() => navigation.navigate("AddSubscription")}
-        />
-        <CTAButtonBig title="Logga ut" onPress={signOut} /> */}
         </View>
       </ScrollView>
       {/* <Navbar navigation={navigation} /> */}

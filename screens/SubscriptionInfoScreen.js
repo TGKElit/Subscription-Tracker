@@ -6,6 +6,7 @@ import { Card } from "../src/Components/Card/Card";
 import { Navbar } from "../src/Components/Navbar/Navbar";
 import Svg, { Path } from "react-native-svg";
 import { InfoBox } from "../src/Components/InfoBox/InfoBox";
+import { InfoBoxEditable } from "../src/Components/InfoBox/InfoBoxEditable";
 import { CTAButtonBig } from "../src/Components/CTAButton/CTAButtonBig";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { ref, set, getDatabase, get } from "firebase/database";
@@ -150,7 +151,13 @@ const SubscriptionInfo = ({ route, navigation }) => {
                 setBillingPeriodVisible(true);
               }}
             />
-            <InfoBox title="Pris" info={price + "kr"} variant="primary" />
+            <InfoBoxEditable
+              title="Pris"
+              value={price}
+              variant="primary"
+              keyBoardType="numeric"
+              onChangeText={(text) => setPrice(text)}
+            />
           </View>
           <View
             style={{

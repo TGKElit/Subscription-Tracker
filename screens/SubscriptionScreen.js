@@ -163,7 +163,6 @@ const SubscriptionScreen = ({ navigation }) => {
                     info={`${subscriptions[key].price}kr / ${subscriptions[key].billingPeriod}`}
                   />
                 )}
-
                 {subscriptions[key].name === "HBO Max" && (
                   <Card
                     onPress={() =>
@@ -183,7 +182,6 @@ const SubscriptionScreen = ({ navigation }) => {
                     info={`${subscriptions[key].price}kr / ${subscriptions[key].billingPeriod}`}
                   />
                 )}
-
                 {subscriptions[key].name === "Amazon Prime" && (
                   <Card
                     onPress={() =>

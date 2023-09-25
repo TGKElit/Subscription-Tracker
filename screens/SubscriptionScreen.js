@@ -1,22 +1,14 @@
-import {
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
+import { ScrollView, Text, View } from "react-native";
 import React from "react";
-import { useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { CTAButtonBig } from "../src/Components/CTAButton/CTAButtonBig";
+import { getAuth } from "firebase/auth";
+
 import { useState } from "react";
 import { HeaderContainer } from "../src/Components/HeaderContainer/HeaderContainer";
-import { ref, set, getDatabase, get } from "firebase/database";
+import { ref, getDatabase, get } from "firebase/database";
 import { Navbar } from "../src/Components/Navbar/Navbar";
 import { useFocusEffect } from "@react-navigation/native";
-import Svg, { Path } from "react-native-svg";
+
 import { Card } from "../src/Components/Card/Card";
 
 const SubscriptionScreen = ({ navigation }) => {
@@ -47,22 +39,6 @@ const SubscriptionScreen = ({ navigation }) => {
       });
   }
 
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/auth.user
-      const uid = user.uid;
-      const email = user.email;
-      console.log(uid);
-      console.log(email);
-      // ...
-    } else {
-      console.log("no user");
-      // User is signed out
-      // ...
-    }
-  });
-
   let totalCost = 0;
 
   Object.keys(subscriptions).map((key) => {
@@ -83,7 +59,6 @@ const SubscriptionScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={{ height: "100%", width: "100%" }}>
-      {/* custom header */}
       <HeaderContainer
         title="Prenumerationer"
         navigation={navigation}
@@ -291,12 +266,3 @@ const SubscriptionScreen = ({ navigation }) => {
 };
 
 export default SubscriptionScreen;
-
-const styles = StyleSheet.create({
-  textStyle: {
-    fontSize: 24,
-    lineHeight: 28,
-    fontFamily: "Inter_600SemiBold",
-    color: "black",
-  },
-});

@@ -13,14 +13,11 @@ import { Card } from "../src/Components/Card/Card";
 import { Navbar } from "../src/Components/Navbar/Navbar";
 import Svg, { Path } from "react-native-svg";
 import { InfoBox } from "../src/Components/InfoBox/InfoBox";
-import { InfoBoxEditable } from "../src/Components/InfoBox/InfoBoxEditable";
 import { CTAButtonBig } from "../src/Components/CTAButton/CTAButtonBig";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { ref, set, getDatabase, get, update } from "firebase/database";
+import { getAuth } from "firebase/auth";
+import { ref, getDatabase, get, update } from "firebase/database";
 import { useState } from "react";
-import { useFocusEffect } from "@react-navigation/native";
 import { useEffect } from "react";
-import { useRef } from "react";
 import { Picker } from "@react-native-picker/picker";
 
 const SubscriptionInfo = ({ route, navigation }) => {
@@ -92,21 +89,6 @@ const SubscriptionInfo = ({ route, navigation }) => {
       });
   }
 
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/auth.user
-      const uid = user.uid;
-      const email = user.email;
-      // console.log(uid);
-      // console.log(email);
-      // ...
-    } else {
-      console.log("no user");
-      // User is signed out
-      // ...
-    }
-  });
   const findTarget = () => {
     for (const key in subscriptions) {
       const subscription = subscriptions[key];

@@ -10,7 +10,6 @@ import { getAuth } from "firebase/auth";
 import { Card } from "../src/Components/Card/Card";
 import React from "react";
 import { useState } from "react";
-import { CTAButtonBig } from "../src/Components/CTAButton/CTAButtonBig";
 import { StyleSheet } from "react-native";
 import { CTAButtonSmall } from "../src/Components/CTAButton/CTAButtonSmall";
 import { ref, set, getDatabase, get, push } from "firebase/database";
@@ -204,7 +203,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
     });
   }
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ height: "100vh", width: "100%" }}>
       <HeaderContainer
         title="Prenumera"
         backArrow={() => {
@@ -217,6 +216,8 @@ const AddSubscriptionScreen = ({ navigation }) => {
           marginTop: 24,
           gap: 12,
           display: startViewVisible ? "flex" : "none",
+          marginBottom: 70,
+          paddingHorizontal: 12,
         }}
       >
         <Card
@@ -317,10 +318,14 @@ const AddSubscriptionScreen = ({ navigation }) => {
           icon="gp"
         />
       </ScrollView>
-
       {/* All the views for setting props */}
-
-      <View id="presetPlan" style={{ display: planVisible ? "flex" : "none" }}>
+      <View
+        id="presetPlan"
+        style={{
+          paddingHorizontal: 12,
+          display: planVisible ? "flex" : "none",
+        }}
+      >
         <View
           style={{
             width: "100%",
@@ -362,32 +367,57 @@ const AddSubscriptionScreen = ({ navigation }) => {
           )}
         </View>
       </View>
-
       <View
         id="customName"
-        style={{ display: customNameVisible ? "flex" : "none" }}
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          paddingHorizontal: 12,
+          display: customNameVisible ? "flex" : "none",
+        }}
       >
-        <Text>Namn</Text>
-        <Text>Skriv namn på din prenumation</Text>
+        <Text
+          style={{
+            fontSize: 36,
+            marginBottom: 64,
+            fontFamily: "Inter_600SemiBold",
+            alignSelf: "center",
+          }}
+        >
+          Namn
+        </Text>
+        <Text
+          style={{
+            fontSize: 12,
+            marginBottom: 8,
+            fontFamily: "Inter_400Regular",
+            lineHeight: 16,
+            alignSelf: "flex-start",
+          }}
+        >
+          Skriv in namnet på din prenumeration
+        </Text>
         <TextInput
           placeholder="Skriv här ..."
           value={name}
           onChangeText={(text) => setName(text)}
           style={styles.input}
         />
-        <CTAButtonSmall
-          title="Nästa"
-          variant="primary"
-          onPress={() => {
-            if (name === "") {
-              alert("Du måste skriva in ett namn");
-            } else {
-              console.log(name);
-              setCustomNameVisible(false);
-              setBillingPeriodVisible(true);
-            }
-          }}
-        />
+        <View style={{ alignItems: "flex-end", marginTop: 12 }}>
+          <CTAButtonSmall
+            title="Nästa"
+            variant="primary"
+            onPress={() => {
+              if (name === "") {
+                alert("Du måste skriva in ett namn");
+              } else {
+                console.log(name);
+                setCustomNameVisible(false);
+                setBillingPeriodVisible(true);
+              }
+            }}
+          />
+        </View>
       </View>
       <View
         id="billingPeriod"
@@ -573,7 +603,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
           />
         </View>
       </View>
-      {/* <Navbar navigation={navigation} /> */}
+      <Navbar navigation={navigation} />
     </SafeAreaView>
   );
 };

@@ -8,7 +8,7 @@ interface InfoProps {
   title: string;
   variant: InfoType;
   onPress: () => void;
-  inputValue: string;
+  value: string;
   onChange: (text: string) => void;
   keyBoardType?: "default" | "numeric";
 }
@@ -17,7 +17,7 @@ export const InfoBoxEditable: FC<InfoProps> = ({
   title,
   onPress,
   variant,
-  inputValue,
+  value,
   onChange,
   keyBoardType,
 }) => {
@@ -29,12 +29,11 @@ export const InfoBoxEditable: FC<InfoProps> = ({
         {title}
       </Text>
       <TextInput
-        value={inputValue}
-        onChangeText={onChange}
+        onChangeText={onChange} // Use the onChange prop to handle changes
         style={{ fontSize: 16, fontFamily: "Inter_400Regular", color: "black" }}
         keyboardType={keyBoardType}
-        placeholder="Varför funkar du ej?"
-      ></TextInput>
+        value={value} // Pass the value prop to the TextInput
+      />
 
       {/* <Text style={{ fontSize: 16, fontFamily: "Inter_400Regular" }}>
         {info}

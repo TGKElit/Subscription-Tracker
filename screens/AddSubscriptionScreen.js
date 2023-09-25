@@ -1,4 +1,11 @@
-import { View, Text, SafeAreaView, TextInput, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  SafeAreaView,
+  TextInput,
+  Pressable,
+  ScrollView,
+} from "react-native";
 import { getAuth } from "firebase/auth";
 import { Card } from "../src/Components/Card/Card";
 import React from "react";
@@ -204,7 +211,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
           navigation.navigate("SubscriptionScreen");
         }}
       />
-      <View
+      <ScrollView
         id="startView"
         style={{
           marginTop: 24,
@@ -309,7 +316,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
           color="#4443BC"
           icon="gp"
         />
-      </View>
+      </ScrollView>
 
       {/* All the views for setting props */}
 

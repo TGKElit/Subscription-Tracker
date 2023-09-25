@@ -3,26 +3,9 @@ import { View, Text, Button, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import { CTAButtonBig } from "../src/Components/CTAButton/CTAButtonBig";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { Image } from "expo-image";
 
 const LandingScreen = ({ navigation }) => {
-  const auth = getAuth();
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/auth.user
-      const uid = user.uid;
-      const email = user.email;
-      console.log(uid);
-      console.log(email);
-      // ...
-    } else {
-      console.log("no user");
-      // User is signed out
-      // ...
-    }
-  });
   return (
     <SafeAreaView
       style={{

@@ -130,7 +130,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
   return (
     <SafeAreaView style={{ height: "100%", width: "100vw" }}>
       <HeaderContainer title="Prenumerationer" />
-      <ScrollView>
+      <ScrollView style={{ marginBottom: 70 }}>
         <View style={{ paddingHorizontal: 12 }}>
           <View
             style={{
@@ -234,7 +234,6 @@ const SubscriptionInfo = ({ route, navigation }) => {
                 fontFamily: "Inter_400Regular",
                 fontSize: 16,
                 width: "100%",
-                height: "100%",
               }}
               value={description}
               onChangeText={(text) => setDescription(text)}

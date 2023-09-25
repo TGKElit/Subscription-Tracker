@@ -82,7 +82,7 @@ const SubscriptionScreen = ({ navigation }) => {
   });
 
   return (
-    <SafeAreaView style={{ height: "100%", width: "100vw" }}>
+    <SafeAreaView style={{ height: "100%", width: "100%" }}>
       {/* custom header */}
       <HeaderContainer
         title="Prenumerationer"
@@ -90,7 +90,7 @@ const SubscriptionScreen = ({ navigation }) => {
         addSubscription={true}
       />
       <ScrollView>
-        <View style={{ paddingHorizontal: 12, marginBottom: 24 }}>
+        <View style={{ paddingHorizontal: 12, marginBottom: 70 }}>
           <View
             style={{
               height: 134,
@@ -285,7 +285,7 @@ const SubscriptionScreen = ({ navigation }) => {
           </View>
         </View>
       </ScrollView>
-      {/* <Navbar navigation={navigation} /> */}
+      <Navbar navigation={navigation} />
     </SafeAreaView>
   );
 };

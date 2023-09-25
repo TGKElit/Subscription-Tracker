@@ -13,13 +13,15 @@ import { useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import { useEffect } from "react";
 import { useRef } from "react";
+import { Picker } from "@react-native-picker/picker";
 
 const SubscriptionInfo = ({ route, navigation }) => {
   const auth = getAuth();
   const user = auth.currentUser;
   const [subscriptions, setSubscriptions] = useState([]);
   const [targetDataKey, setTargetDataKey] = useState([]);
-  const [period, setPeriod] = useState("");
+  const [billingPeriodVisible, setBillingPeriodVisible] = useState(false);
+  const [billingPeriod, setBillingPeriod] = useState("");
   const [price, setPrice] = useState(0);
   const [startDate, setStartDate] = useState("");
   const [description, setDescription] = useState("");
@@ -27,6 +29,11 @@ const SubscriptionInfo = ({ route, navigation }) => {
 
   useEffect(() => {
     getData();
+    setBillingPeriod(route.params.billingPeriod);
+    setPrice(route.params.price);
+    setStartDate(route.params.startDate);
+    setDescription(route.params.description);
+    setPlan(route.params.plan);
   }, []);
 
   useEffect(() => {
@@ -121,7 +128,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
             {route.params.plan !== "" && (
               <Pressable style={{ marginBottom: 24 }}>
                 <Card title="Plan" variant="basic">
-                  <Text>{route.params.plan}</Text>
+                  <Text>{plan}</Text>
                 </Card>
               </Pressable>
             )}
@@ -136,17 +143,14 @@ const SubscriptionInfo = ({ route, navigation }) => {
           >
             <InfoBox
               title="Period"
-              valueInput={route.params.billingPeriod}
+              info={billingPeriod}
               variant="primary"
               onPress={() => {
                 console.log("pressed");
+                setBillingPeriodVisible(true);
               }}
             />
-            <InfoBox
-              title="Pris"
-              valueInput={route.params.price + "kr"}
-              variant="primary"
-            />
+            <InfoBox title="Pris" info={price + "kr"} variant="primary" />
           </View>
           <View
             style={{
@@ -156,22 +160,54 @@ const SubscriptionInfo = ({ route, navigation }) => {
               width: "100%",
             }}
           >
-            <InfoBox
-              title="Startdatum"
-              valueInput={route.params.startDate}
-              variant="primary"
-            />
+            <InfoBox title="Startdatum" info={startDate} variant="primary" />
             <InfoBox title="Nästa betalning" info="no info" variant="primary" />
           </View>
 
-          <InfoBox
-            title="Beskrivning"
-            valueInput={route.params.description}
-            variant="secondary"
-          />
+          <InfoBox title="Beskrivning" info={description} variant="secondary" />
           <View style={{ marginTop: 12, marginBottom: 24 }}>
             <CTAButtonBig title="Ta bort prenumation" variant="primary" />
           </View>
+        </View>
+
+        <View
+          id="billingPeriod"
+          style={{
+            height: "50vh",
+            width: "100%",
+            position: "absolute",
+            // justifyContent: "center",
+            // alignItems: "center",
+            backgroundColor: "white",
+            top: 0,
+            display: billingPeriodVisible ? "flex" : "none",
+          }}
+        >
+          <Text>Faktureringsperiod</Text>
+          <Text>Välj din Faktureringsperiod</Text>
+          <Picker
+            selectedValue={billingPeriod}
+            onValueChange={(itemValue, itemIndex) =>
+              setBillingPeriod(itemValue)
+            }
+          >
+            <Picker.Item label="Välj" value="" />
+            <Picker.Item label="Månad" value="månad" />
+            <Picker.Item label="Kvartal" value="kvartal" />
+            <Picker.Item label="År" value="år" />
+          </Picker>
+          <CTAButtonBig
+            title="Spara"
+            variant="primary"
+            onPress={() => {
+              if (billingPeriod === "") {
+                alert("Du måste välja en faktureringsperiod");
+              } else {
+                setBillingPeriod(billingPeriod);
+                setBillingPeriodVisible(false);
+              }
+            }}
+          />
         </View>
       </ScrollView>
       <Navbar navigation={navigation} />

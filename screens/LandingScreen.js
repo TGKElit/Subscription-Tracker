@@ -16,6 +16,7 @@ const LandingScreen = ({ navigation }) => {
         gap: 44,
         paddingHorizontal: 12,
         backgroundColor: "white",
+        height: "100%",
       }}
     >
       <StatusBar style="dark" />

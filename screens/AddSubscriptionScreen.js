@@ -203,7 +203,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
     });
   }
   return (
-    <SafeAreaView style={{ height: "100vh", width: "100%" }}>
+    <SafeAreaView style={{ height: "100%", width: "100%", marginBottom: 70 }}>
       <HeaderContainer
         title="Prenumera"
         backArrow={() => {
@@ -216,7 +216,6 @@ const AddSubscriptionScreen = ({ navigation }) => {
           marginTop: 24,
           gap: 12,
           display: startViewVisible ? "flex" : "none",
-          marginBottom: 70,
           paddingHorizontal: 12,
         }}
       >
@@ -367,12 +366,11 @@ const AddSubscriptionScreen = ({ navigation }) => {
           )}
         </View>
       </View>
-      <View
+      <SafeAreaView
         id="customName"
         style={{
-          flex: 1,
-          justifyContent: "center",
           paddingHorizontal: 12,
+          marginTop: "26%",
           display: customNameVisible ? "flex" : "none",
         }}
       >
@@ -418,7 +416,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
             }}
           />
         </View>
-      </View>
+      </SafeAreaView>
       <View
         id="billingPeriod"
         style={{ display: billingPeriodVisible ? "flex" : "none" }}

@@ -18,6 +18,7 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import { HeaderContainer } from "../src/Components/HeaderContainer/HeaderContainer";
 import { Navbar } from "../src/Components/Navbar/Navbar";
 import { useRef } from "react";
+import { Image } from "expo-image";
 
 const AddSubscriptionScreen = ({ navigation }) => {
   const plans = {
@@ -123,6 +124,37 @@ const AddSubscriptionScreen = ({ navigation }) => {
     },
   };
 
+  const colorsPicture = {
+    Netflix: {
+      color: "#E60000",
+      picture: require("../assets/logoImages/netflix.png"),
+    },
+    "HBO Max": {
+      color: "#9C00AF",
+      picture: require("../assets/logoImages/hbo.png"),
+    },
+    "Amazon Prime": {
+      color: "#0097EC",
+      picture: require("../assets/logoImages/prime.png"),
+    },
+    Spotify: {
+      color: "#00863F",
+      picture: require("../assets/logoImages/spotify.png"),
+    },
+    Storytel: {
+      color: "#FF3D00",
+      picture: require("../assets/logoImages/storytel.png"),
+    },
+    "Disney+": {
+      color: "#0097EC",
+      picture: require("../assets/logoImages/disney.png"),
+    },
+    GP: {
+      color: "#4443BC",
+      picture: require("../assets/logoImages/gp.png"),
+    },
+  };
+
   const auth = getAuth();
   const user = auth.currentUser;
   const isStateUpdated = useRef(false);
@@ -202,6 +234,8 @@ const AddSubscriptionScreen = ({ navigation }) => {
       startDate: startDate,
     });
   }
+
+  console.log(colorsPicture.Netflix.picture);
   return (
     <SafeAreaView style={{ height: "100%", width: "100%", marginBottom: 70 }}>
       <HeaderContainer
@@ -214,7 +248,6 @@ const AddSubscriptionScreen = ({ navigation }) => {
         id="startView"
         style={{
           marginTop: 24,
-          gap: 12,
           display: startViewVisible ? "flex" : "none",
           paddingHorizontal: 12,
         }}
@@ -231,6 +264,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
           color="#FFFFFF"
           icon="plus"
         />
+
         {/* preset */}
         <Card
           onPress={() => {
@@ -325,45 +359,56 @@ const AddSubscriptionScreen = ({ navigation }) => {
           display: planVisible ? "flex" : "none",
         }}
       >
-        <View
-          style={{
-            width: "100%",
-            height: 200,
-          }}
-        >
-          {/* bild ska in här */}
-          <Text>{name}</Text>
-        </View>
-
+        {colorsPicture[name] && (
+          <View
+            style={{
+              width: "100%",
+              height: 200,
+              backgroundColor: colorsPicture[name].color,
+              justifyContent: "center",
+              alignItems: "center",
+              borderRadius: 12,
+              marginBottom: 24,
+            }}
+          >
+            <Image
+              style={{ width: 64, height: 64, borderRadius: 12 }}
+              source={colorsPicture[name].picture}
+            />
+          </View>
+        )}
         <View>
           <Text
             style={{
               fontSize: 24,
               fontFamily: "Inter_600SemiBold",
               lineHeight: 28,
+              marginBottom: 12,
             }}
           >
             Välj plan
           </Text>
-          {plans[name] && (
-            <Pressable>
-              {Object.keys(plans[name]).map((key) => (
-                <Card
-                  key={key}
-                  variant="basic"
-                  title={key}
-                  onPress={() => {
-                    setPlan(key);
-                    setPrice(plans[name][key].price);
-                    setBillingPeriod(plans[name][key].billingPeriod);
-                    setDescription("");
-                    setStartDate("");
-                    isStateUpdated.current = true;
-                  }}
-                />
-              ))}
-            </Pressable>
-          )}
+          <View style={{ gap: 12 }}>
+            {plans[name] && (
+              <React.Fragment>
+                {Object.keys(plans[name]).map((key) => (
+                  <Card
+                    key={key}
+                    variant="basic"
+                    title={key}
+                    onPress={() => {
+                      setPlan(key);
+                      setPrice(plans[name][key].price);
+                      setBillingPeriod(plans[name][key].billingPeriod);
+                      setDescription("");
+                      setStartDate("");
+                      isStateUpdated.current = true;
+                    }}
+                  />
+                ))}
+              </React.Fragment>
+            )}
+          </View>
         </View>
       </View>
       <SafeAreaView
@@ -475,7 +520,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
             text = text.replace(/[^0-9]/g, "");
             setPrice(text);
           }}
-          keyboardType="numeric" // This prop restricts the keyboard to show only numeric input
+          inputMode="numeric" // This prop restricts the keyboard to show only numeric input
           style={styles.input}
         />
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>

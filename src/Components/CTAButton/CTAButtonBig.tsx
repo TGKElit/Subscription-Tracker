@@ -16,11 +16,18 @@ export const CTAButtonBig: FC<CTAButtonProps> = ({
   variant,
 }) => {
   const containerStyle =
-    variant === "primary" ? styles.containerPrimary : styles.containerSecondary;
+    variant === "primary"
+      ? styles.containerPrimary
+      : variant === "secondary"
+      ? styles.containerSecondary
+      : styles.containerRed;
 
   const textStyle =
-    variant === "primary" ? styles.textPrimary : styles.textSecondary;
-
+    variant === "primary"
+      ? styles.textPrimary
+      : variant === "secondary"
+      ? styles.textSecondary
+      : styles.textRed;
   return (
     <Pressable onPress={onPress} style={containerStyle}>
       <Text style={textStyle}>{title}</Text>
@@ -49,6 +56,14 @@ const styles = StyleSheet.create({
 
     borderRadius: 12,
   },
+  containerRed: {
+    height: 46,
+    width: 366,
+    backgroundColor: "#E60000",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 12,
+  },
   textPrimary: {
     fontSize: 16,
     fontFamily: "Inter_600SemiBold",
@@ -58,5 +73,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: "Inter_600SemiBold",
     color: "black",
+  },
+
+  textRed: {
+    fontSize: 16,
+    fontFamily: "Inter_600SemiBold",
+    color: "white",
   },
 });

@@ -435,7 +435,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
           <View style={{ marginTop: 12, marginBottom: 24 }}>
             <CTAButtonBig
               title="Ta bort prenumation"
-              variant="primary"
+              variant="red"
               onPress={() => {
                 setDeleteVisible(true);
                 // deleteData(targetDataKey);
@@ -518,7 +518,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
             />
             <CTAButtonSmall
               title="Okej"
-              variant="primary"
+              variant="red"
               onPress={() => {
                 deleteData(targetDataKey);
                 navigation.navigate("SubscriptionScreen");

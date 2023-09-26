@@ -20,6 +20,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { Picker } from "@react-native-picker/picker";
 import { Image } from "expo-image";
+import { CTAButtonSmall } from "../src/Components/CTAButton/CTAButtonSmall";
 
 const SubscriptionInfo = ({ route, navigation }) => {
   const plans = {
@@ -168,6 +169,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
   const [name, setName] = useState("");
   const [landingScreenVisible, setLandingScreenVisible] = useState(true);
   const [planVisible, setPlanVisible] = useState(false);
+  const [deleteVisible, setDeleteVisible] = useState(false);
 
   useEffect(() => {
     getData();
@@ -435,8 +437,9 @@ const SubscriptionInfo = ({ route, navigation }) => {
               title="Ta bort prenumation"
               variant="primary"
               onPress={() => {
-                deleteData(targetDataKey);
-                navigation.navigate("SubscriptionScreen");
+                setDeleteVisible(true);
+                // deleteData(targetDataKey);
+                // navigation.navigate("SubscriptionScreen");
               }}
             />
           </View>
@@ -480,6 +483,48 @@ const SubscriptionInfo = ({ route, navigation }) => {
               }
             }}
           />
+        </View>
+        <View
+          style={{
+            width: 342,
+            height: 224,
+            position: "absolute",
+            alignItems: "center",
+            display: deleteVisible ? "flex" : "none",
+            backgroundColor: "white",
+            borderRadius: 12,
+            paddingVertical: 24,
+            paddingHorizontal: 12,
+          }}
+        >
+          <Text style={{ fontSize: 24, fontFamily: "Inter_600SemiBold" }}>
+            Är du säker?
+          </Text>
+          <Text style={{ fontSize: 16, fontFamily: "Inter_400Regular" }}>
+            Genom att trycka “okej” raderas din prenumeration från tracky
+            permanent. Raderingen går inte att ångra.
+          </Text>
+          <View
+            style={{
+              justifyContent: "space-between",
+              flexDirection: "row",
+              marginTop: 24,
+            }}
+          >
+            <CTAButtonSmall
+              title="Tillbaka"
+              variant="secondary"
+              onPress={() => setDeleteVisible(false)}
+            />
+            <CTAButtonSmall
+              title="Okej"
+              variant="primary"
+              onPress={() => {
+                deleteData(targetDataKey);
+                navigation.navigate("SubscriptionScreen");
+              }}
+            />
+          </View>
         </View>
       </ScrollView>
       <View

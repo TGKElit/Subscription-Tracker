@@ -15,7 +15,7 @@ import Svg, { Path } from "react-native-svg";
 import { InfoBox } from "../src/Components/InfoBox/InfoBox";
 import { CTAButtonBig } from "../src/Components/CTAButton/CTAButtonBig";
 import { getAuth } from "firebase/auth";
-import { ref, getDatabase, get, update, set } from "firebase/database";
+import { ref, getDatabase, get, update, remove } from "firebase/database";
 import { useState } from "react";
 import { useEffect } from "react";
 import { Picker } from "@react-native-picker/picker";
@@ -227,6 +227,20 @@ const SubscriptionInfo = ({ route, navigation }) => {
       });
   }
 
+  function deleteData(uniqueID) {
+    const db = getDatabase();
+    const subscriptionRef = ref(db, `users/${user.uid}/${uniqueID}`);
+
+    // Remove the data
+    remove(subscriptionRef)
+      .then(() => {
+        console.log("Data deleted");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
   const findTarget = () => {
     for (const key in subscriptions) {
       const subscription = subscriptions[key];
@@ -417,7 +431,14 @@ const SubscriptionInfo = ({ route, navigation }) => {
             />
           </View>
           <View style={{ marginTop: 12, marginBottom: 24 }}>
-            <CTAButtonBig title="Ta bort prenumation" variant="primary" />
+            <CTAButtonBig
+              title="Ta bort prenumation"
+              variant="primary"
+              onPress={() => {
+                deleteData(targetDataKey);
+                navigation.navigate("SubscriptionScreen");
+              }}
+            />
           </View>
         </SafeAreaView>
 

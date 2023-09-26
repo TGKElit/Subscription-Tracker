@@ -91,6 +91,7 @@ const SubscriptionScreen = ({ navigation }) => {
             <Text style={{ fontSize: 24, fontFamily: "Inter_600SemiBold" }}>
               Prenumationer
             </Text>
+
             {Object.keys(subscriptions).map((key) => (
               <React.Fragment key={key}>
                 {subscriptions[key].type === "custom" && (

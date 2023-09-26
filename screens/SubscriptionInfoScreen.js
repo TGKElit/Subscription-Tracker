@@ -19,8 +19,142 @@ import { ref, getDatabase, get, update } from "firebase/database";
 import { useState } from "react";
 import { useEffect } from "react";
 import { Picker } from "@react-native-picker/picker";
+import { Image } from "expo-image";
 
 const SubscriptionInfo = ({ route, navigation }) => {
+  const plans = {
+    Netflix: {
+      Basic: {
+        price: "99",
+        billingPeriod: "månad",
+      },
+      Standard: {
+        price: "128",
+        billingPeriod: "månad",
+      },
+      Premium: {
+        price: "179",
+        billingPeriod: "månad",
+      },
+    },
+
+    "HBO Max": {
+      Standard: {
+        price: "109",
+        billingPeriod: "månad",
+      },
+      "Standard Yearly": {
+        price: "699",
+        billingPeriod: "år",
+      },
+    },
+
+    Spotify: {
+      Premium: {
+        price: "119",
+        billingPeriod: "månad",
+      },
+      Duo: {
+        price: "149",
+        billingPeriod: "månad",
+      },
+      Family: {
+        price: "189",
+        billingPeriod: "månad",
+      },
+      Student: {
+        price: "65",
+        billingPeriod: "månad",
+      },
+    },
+
+    "Amazon Prime": {
+      "Prime monthly": {
+        price: "59",
+        billingPeriod: "månad",
+      },
+      "Prime yearly": {
+        price: "549",
+        billingPeriod: "år",
+      },
+    },
+
+    Storytel: {
+      Premium: {
+        price: "169",
+        billingPeriod: "månad",
+      },
+      Basic: {
+        price: "129",
+        billingPeriod: "månad",
+      },
+      Unlimited: {
+        price: "229",
+        billingPeriod: "månad",
+      },
+      Family: {
+        price: "228",
+        billingPeriod: "månad",
+      },
+    },
+
+    "Disney+": {
+      "Disney Plus Monthly": {
+        price: "89",
+        billingPeriod: "månad",
+      },
+      "Disney Plus Yearly": {
+        price: "979",
+        billingPeriod: "år",
+      },
+    },
+
+    GP: {
+      Nyhetssajt: {
+        price: "139",
+        billingPeriod: "månad",
+      },
+      Digital: {
+        price: "279",
+        billingPeriod: "månad",
+      },
+      "Digital och papper": {
+        price: "399",
+        billingPeriod: "månad",
+      },
+    },
+  };
+
+  const colorsPicture = {
+    Netflix: {
+      color: "#E60000",
+      picture: require("../assets/logoImages/netflix.png"),
+    },
+    "HBO Max": {
+      color: "#9C00AF",
+      picture: require("../assets/logoImages/hbo.png"),
+    },
+    "Amazon Prime": {
+      color: "#0097EC",
+      picture: require("../assets/logoImages/prime.png"),
+    },
+    Spotify: {
+      color: "#00863F",
+      picture: require("../assets/logoImages/spotify.png"),
+    },
+    Storytel: {
+      color: "#FF3D00",
+      picture: require("../assets/logoImages/storytel.png"),
+    },
+    "Disney+": {
+      color: "#0097EC",
+      picture: require("../assets/logoImages/disney.png"),
+    },
+    GP: {
+      color: "#4443BC",
+      picture: require("../assets/logoImages/gp.png"),
+    },
+  };
   const auth = getAuth();
   const user = auth.currentUser;
   const [subscriptions, setSubscriptions] = useState([]);
@@ -31,6 +165,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
   const [startDate, setStartDate] = useState("");
   const [description, setDescription] = useState("");
   const [plan, setPlan] = useState("");
+  const [name, setName] = useState("");
 
   useEffect(() => {
     getData();
@@ -39,6 +174,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
     setStartDate(route.params.startDate);
     setDescription(route.params.description);
     setPlan(route.params.plan);
+    setName(route.params.name);
   }, []);
 
   useEffect(() => {
@@ -114,29 +250,58 @@ const SubscriptionInfo = ({ route, navigation }) => {
       <HeaderContainer title="Prenumerationer" />
       <ScrollView style={{ marginBottom: 70 }}>
         <View style={{ paddingHorizontal: 12 }}>
-          <View
-            style={{
-              width: "100%",
-              height: 200,
-              backgroundColor: "#FC9100",
-              borderRadius: 12,
-              justifyContent: "center",
-              alignItems: "center",
-
-              marginVertical: 24,
-            }}
-          >
-            <Text
+          {plan === "" && (
+            <View
               style={{
-                fontFamily: "Inter_600SemiBold",
-                fontSize: 48,
-                color: "white",
+                width: "100%",
+                height: 200,
+                backgroundColor: "orange",
+                justifyContent: "center",
+                alignItems: "center",
+                borderRadius: 12,
+                marginVertical: 24,
               }}
             >
-              {route.params.name}
-            </Text>
-          </View>
-
+              <Text
+                style={{
+                  fontSize: 48,
+                  fontFamily: " Inter_600SemiBold",
+                  color: "white",
+                }}
+              >
+                {name}
+              </Text>
+            </View>
+          )}
+          <React.Fragment>
+            {colorsPicture[name] && (
+              <View
+                style={{
+                  width: "100%",
+                  height: 200,
+                  backgroundColor: colorsPicture[name].color,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  borderRadius: 12,
+                  marginVertical: 24,
+                }}
+              >
+                <Image
+                  style={{ width: 64, height: 64, borderRadius: 12 }}
+                  source={colorsPicture[name].picture}
+                />
+                <Text
+                  style={{
+                    fontSize: 48,
+                    fontFamily: " Inter_600SemiBold",
+                    color: "white",
+                  }}
+                >
+                  {name}
+                </Text>
+              </View>
+            )}
+          </React.Fragment>
           <View>
             {route.params.plan !== "" && (
               <Pressable style={{ marginBottom: 24 }}>

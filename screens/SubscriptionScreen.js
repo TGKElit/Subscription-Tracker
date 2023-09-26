@@ -65,7 +65,7 @@ const SubscriptionScreen = ({ navigation }) => {
         addSubscription={true}
       />
       <ScrollView>
-        <View style={{ paddingHorizontal: 12, marginBottom: 70 }}>
+        <View style={{ paddingHorizontal: 12, marginBottom: 110 }}>
           <View
             style={{
               height: 134,

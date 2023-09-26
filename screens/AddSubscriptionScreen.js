@@ -368,7 +368,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
               justifyContent: "center",
               alignItems: "center",
               borderRadius: 12,
-              marginBottom: 24,
+              marginVertical: 24,
             }}
           >
             <Image
@@ -462,13 +462,37 @@ const AddSubscriptionScreen = ({ navigation }) => {
           />
         </View>
       </SafeAreaView>
-      <View
+      <SafeAreaView
         id="billingPeriod"
-        style={{ display: billingPeriodVisible ? "flex" : "none" }}
+        style={{
+          paddingHorizontal: 12,
+          marginTop: "26%",
+          display: billingPeriodVisible ? "flex" : "none",
+        }}
       >
-        <Text>Faktureringsperiod</Text>
-        <Text>Välj din Faktureringsperiod</Text>
+        <Text
+          style={{
+            fontSize: 30,
+            marginBottom: 64,
+            fontFamily: "Inter_600SemiBold",
+            alignSelf: "center",
+          }}
+        >
+          Faktureringsperiod
+        </Text>
+        <Text
+          style={{
+            fontSize: 12,
+            marginBottom: 8,
+            fontFamily: "Inter_400Regular",
+            lineHeight: 16,
+            alignSelf: "flex-start",
+          }}
+        >
+          Välj din Faktureringsperiod
+        </Text>
         <Picker
+          style={{ marginBottom: 12 }}
           selectedValue={billingPeriod}
           onValueChange={(itemValue, itemIndex) => setBillingPeriod(itemValue)}
         >
@@ -508,10 +532,36 @@ const AddSubscriptionScreen = ({ navigation }) => {
             }}
           />
         </View>
-      </View>
-      <View id="price" style={{ display: priceVisible ? "flex" : "none" }}>
-        <Text>Pris</Text>
-        <Text>Skriv i priset du betalar per {billingPeriod}</Text>
+      </SafeAreaView>
+      <SafeAreaView
+        id="price"
+        style={{
+          paddingHorizontal: 12,
+          marginTop: "26%",
+          display: priceVisible ? "flex" : "none",
+        }}
+      >
+        <Text
+          style={{
+            fontSize: 36,
+            marginBottom: 64,
+            fontFamily: "Inter_600SemiBold",
+            alignSelf: "center",
+          }}
+        >
+          Pris
+        </Text>
+        <Text
+          style={{
+            fontSize: 12,
+            marginBottom: 8,
+            fontFamily: "Inter_400Regular",
+            lineHeight: 16,
+            alignSelf: "flex-start",
+          }}
+        >
+          Skriv i priset du betalar per {billingPeriod}
+        </Text>
         <TextInput
           placeholder="Skriv här ..."
           value={price}
@@ -523,7 +573,13 @@ const AddSubscriptionScreen = ({ navigation }) => {
           inputMode="numeric" // This prop restricts the keyboard to show only numeric input
           style={styles.input}
         />
-        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+        <View
+          style={{
+            marginTop: 12,
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
           <CTAButtonSmall
             title="Tillbaka"
             variant="secondary"
@@ -546,13 +602,36 @@ const AddSubscriptionScreen = ({ navigation }) => {
             }}
           />
         </View>
-      </View>
-      <View
+      </SafeAreaView>
+      <SafeAreaView
         id="startDate"
-        style={{ display: startDateVisible ? "flex" : "none" }}
+        style={{
+          paddingHorizontal: 12,
+          marginTop: "26%",
+          display: startDateVisible ? "flex" : "none",
+        }}
       >
-        <Text>Startdatum</Text>
-        <Text>Välj startdatum</Text>
+        <Text
+          style={{
+            fontSize: 36,
+            marginBottom: 64,
+            fontFamily: "Inter_600SemiBold",
+            alignSelf: "center",
+          }}
+        >
+          Startdatum
+        </Text>
+        <Text
+          style={{
+            fontSize: 12,
+            marginBottom: 8,
+            fontFamily: "Inter_400Regular",
+            lineHeight: 16,
+            alignSelf: "flex-start",
+          }}
+        >
+          Skriv i datumet du började din prenumeration
+        </Text>
 
         <TextInput
           placeholder="dag/månad/år"
@@ -584,7 +663,13 @@ const AddSubscriptionScreen = ({ navigation }) => {
             setStartDate(startDate);
           }}
         /> */}
-        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+        <View
+          style={{
+            marginTop: 12,
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
           <CTAButtonSmall
             title="Tillbaka"
             variant="secondary"
@@ -611,13 +696,36 @@ const AddSubscriptionScreen = ({ navigation }) => {
             }}
           />
         </View>
-      </View>
-      <View
+      </SafeAreaView>
+      <SafeAreaView
         id="description "
-        style={{ display: descriptionVisible ? "flex" : "none" }}
+        style={{
+          paddingHorizontal: 12,
+          marginTop: "26%",
+          display: descriptionVisible ? "flex" : "none",
+        }}
       >
-        <Text>Beskrivning</Text>
-        <Text>Skriv en beskrivning av din prenumation</Text>
+        <Text
+          style={{
+            fontSize: 36,
+            marginBottom: 64,
+            fontFamily: "Inter_600SemiBold",
+            alignSelf: "center",
+          }}
+        >
+          Beskrivning
+        </Text>
+        <Text
+          style={{
+            fontSize: 12,
+            marginBottom: 8,
+            fontFamily: "Inter_400Regular",
+            lineHeight: 16,
+            alignSelf: "flex-start",
+          }}
+        >
+          Skriv en beskrivning av din prenumation
+        </Text>
         <TextInput
           placeholder="Skriv här ..."
           value={description}
@@ -625,7 +733,13 @@ const AddSubscriptionScreen = ({ navigation }) => {
           style={styles.input}
         />
 
-        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+        <View
+          style={{
+            marginTop: 12,
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
           <CTAButtonSmall
             title="Tillbaka"
             variant="secondary"
@@ -645,7 +759,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
             }}
           />
         </View>
-      </View>
+      </SafeAreaView>
       <Navbar navigation={navigation} />
     </SafeAreaView>
   );

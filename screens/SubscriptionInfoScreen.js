@@ -15,7 +15,7 @@ import Svg, { Path } from "react-native-svg";
 import { InfoBox } from "../src/Components/InfoBox/InfoBox";
 import { CTAButtonBig } from "../src/Components/CTAButton/CTAButtonBig";
 import { getAuth } from "firebase/auth";
-import { ref, getDatabase, get, update } from "firebase/database";
+import { ref, getDatabase, get, update, set } from "firebase/database";
 import { useState } from "react";
 import { useEffect } from "react";
 import { Picker } from "@react-native-picker/picker";
@@ -166,6 +166,8 @@ const SubscriptionInfo = ({ route, navigation }) => {
   const [description, setDescription] = useState("");
   const [plan, setPlan] = useState("");
   const [name, setName] = useState("");
+  const [landingScreenVisible, setLandingScreenVisible] = useState(true);
+  const [planVisible, setPlanVisible] = useState(false);
 
   useEffect(() => {
     getData();
@@ -248,8 +250,13 @@ const SubscriptionInfo = ({ route, navigation }) => {
   return (
     <SafeAreaView style={{ height: "100%", width: "100vw" }}>
       <HeaderContainer title="Prenumerationer" />
-      <ScrollView style={{ marginBottom: 70 }}>
-        <View style={{ paddingHorizontal: 12 }}>
+      <ScrollView
+        style={{
+          marginBottom: 70,
+          display: landingScreenVisible ? "flex" : "none",
+        }}
+      >
+        <SafeAreaView style={{ paddingHorizontal: 12 }}>
           {plan === "" && (
             <View
               style={{
@@ -305,9 +312,14 @@ const SubscriptionInfo = ({ route, navigation }) => {
           <View>
             {route.params.plan !== "" && (
               <Pressable style={{ marginBottom: 24 }}>
-                <Card title="Plan" variant="basic">
-                  <Text>{plan}</Text>
-                </Card>
+                <Card
+                  title="Plan"
+                  variant="basic"
+                  onPress={() => {
+                    setPlanVisible(true);
+                    setLandingScreenVisible(false);
+                  }}
+                />
               </Pressable>
             )}
           </View>
@@ -398,13 +410,16 @@ const SubscriptionInfo = ({ route, navigation }) => {
             <CTAButtonBig
               title="Spara"
               variant="primary"
-              onPress={updateData(targetDataKey)}
+              onPress={() => {
+                updateData(targetDataKey);
+                navigation.navigate("SubscriptionScreen");
+              }}
             />
           </View>
           <View style={{ marginTop: 12, marginBottom: 24 }}>
             <CTAButtonBig title="Ta bort prenumation" variant="primary" />
           </View>
-        </View>
+        </SafeAreaView>
 
         <View
           id="billingPeriod"
@@ -446,6 +461,66 @@ const SubscriptionInfo = ({ route, navigation }) => {
           />
         </View>
       </ScrollView>
+      <View
+        id="presetPlan"
+        style={{
+          paddingHorizontal: 12,
+          display: planVisible ? "flex" : "none",
+        }}
+      >
+        {colorsPicture[name] && (
+          <View
+            style={{
+              width: "100%",
+              height: 200,
+              backgroundColor: colorsPicture[name].color,
+              justifyContent: "center",
+              alignItems: "center",
+              borderRadius: 12,
+              marginVertical: 24,
+            }}
+          >
+            <Image
+              style={{ width: 64, height: 64, borderRadius: 12 }}
+              source={colorsPicture[name].picture}
+            />
+          </View>
+        )}
+        <View>
+          <Text
+            style={{
+              fontSize: 24,
+              fontFamily: "Inter_600SemiBold",
+              lineHeight: 28,
+              marginBottom: 12,
+            }}
+          >
+            Välj plan
+          </Text>
+          <View style={{ gap: 12 }}>
+            {plans[name] && (
+              <React.Fragment>
+                {Object.keys(plans[name]).map((key) => (
+                  <Card
+                    key={key}
+                    variant="basic"
+                    title={key}
+                    onPress={() => {
+                      setPlan(key);
+                      setPrice(plans[name][key].price);
+                      setBillingPeriod(plans[name][key].billingPeriod);
+                      setDescription("");
+                      setStartDate("");
+                      setPlanVisible(false);
+                      setLandingScreenVisible(true);
+                    }}
+                  />
+                ))}
+              </React.Fragment>
+            )}
+          </View>
+        </View>
+      </View>
       <Navbar navigation={navigation} />
     </SafeAreaView>
   );

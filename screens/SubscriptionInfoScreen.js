@@ -449,45 +449,48 @@ const SubscriptionInfo = ({ route, navigation }) => {
           </View>
         </SafeAreaView>
 
-        <View
-          id="billingPeriod"
-          style={{
-            height: "50vh",
-            width: "100%",
-            position: "absolute",
-            // justifyContent: "center",
-            // alignItems: "center",
-            backgroundColor: "white",
-            top: 0,
-            display: billingPeriodVisible ? "flex" : "none",
-          }}
-        >
-          <Text>Faktureringsperiod</Text>
-          <Text>Välj din Faktureringsperiod</Text>
-          <Picker
-            selectedValue={billingPeriod}
-            onValueChange={(itemValue, itemIndex) =>
-              setBillingPeriod(itemValue)
-            }
-          >
-            <Picker.Item label="Välj" value="" />
-            <Picker.Item label="Månad" value="månad" />
-            <Picker.Item label="Kvartal" value="kvartal" />
-            <Picker.Item label="År" value="år" />
-          </Picker>
-          <CTAButtonBig
-            title="Spara"
-            variant="primary"
-            onPress={() => {
-              if (billingPeriod === "") {
-                alert("Du måste välja en faktureringsperiod");
-              } else {
-                setBillingPeriod(billingPeriod);
-                setBillingPeriodVisible(false);
-              }
+        {plan === "" && (
+          <View
+            id="billingPeriod"
+            style={{
+              height: "50vh",
+              width: "100%",
+              position: "absolute",
+              // justifyContent: "center",
+              // alignItems: "center",
+              backgroundColor: "white",
+              top: 0,
+              display: billingPeriodVisible ? "flex" : "none",
             }}
-          />
-        </View>
+          >
+            <Text>Faktureringsperiod</Text>
+            <Text>Välj din Faktureringsperiod</Text>
+            <Picker
+              selectedValue={billingPeriod}
+              onValueChange={(itemValue, itemIndex) =>
+                setBillingPeriod(itemValue)
+              }
+            >
+              <Picker.Item label="Välj" value="" />
+              <Picker.Item label="Månad" value="månad" />
+              <Picker.Item label="Kvartal" value="kvartal" />
+              <Picker.Item label="År" value="år" />
+            </Picker>
+            <CTAButtonBig
+              title="Spara"
+              variant="primary"
+              onPress={() => {
+                if (billingPeriod === "") {
+                  alert("Du måste välja en faktureringsperiod");
+                } else {
+                  setBillingPeriod(billingPeriod);
+                  setBillingPeriodVisible(false);
+                }
+              }}
+            />
+          </View>
+        )}
+
         <View
           style={{
             width: 342,

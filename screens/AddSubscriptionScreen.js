@@ -238,7 +238,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
 
   console.log(colorsPicture.Netflix.picture);
   return (
-    <SafeAreaView style={{ height: "100%", width: "100%", marginBottom: 70 }}>
+    <SafeAreaView style={{ height: "100%", width: "100%" }}>
       <HeaderContainer
         title="Prenumera"
         backArrow={() => {
@@ -248,109 +248,111 @@ const AddSubscriptionScreen = ({ navigation }) => {
       <ScrollView
         id="startView"
         style={{
-          marginTop: 24,
+          paddingTop: 24,
           display: startViewVisible ? "flex" : "none",
           paddingHorizontal: 12,
         }}
       >
-        <Card
-          onPress={() => {
-            setType("custom");
-            setPlan("");
-            setStartViewVisible(false);
-            setCustomNameVisible(true); // Show customName view;
-          }}
-          variant="basic"
-          title="Lägg till egen"
-          color="#FFFFFF"
-          icon="plus"
-        />
+        <View style={{ gap: 12, marginBottom: 110 }}>
+          <Card
+            onPress={() => {
+              setType("custom");
+              setPlan("");
+              setStartViewVisible(false);
+              setCustomNameVisible(true); // Show customName view;
+            }}
+            variant="basic"
+            title="Lägg till egen"
+            color="#FFFFFF"
+            icon="plus"
+          />
 
-        {/* preset */}
-        <Card
-          onPress={() => {
-            setType("preset");
-            setStartViewVisible(false);
-            setPlanVisible(true);
-            setName("Netflix"); // Show customName view;
-          }}
-          variant="default"
-          title="Netflix"
-          color="#E60000"
-          icon="netflix"
-        />
-        <Card
-          onPress={() => {
-            setType("preset");
-            setStartViewVisible(false);
-            setPlanVisible(true);
-            setName("HBO Max"); // Show customName view;
-          }}
-          variant="default"
-          title="HBO Max"
-          color="#9C00AF"
-          icon="hbo"
-        />
-        <Card
-          onPress={() => {
-            setType("preset");
-            setStartViewVisible(false);
-            setPlanVisible(true);
-            setName("Amazon Prime"); // Show customName view;
-          }}
-          variant="default"
-          title="Amazon Prime"
-          color="#0097EC"
-          icon="prime"
-        />
-        <Card
-          onPress={() => {
-            setType("preset");
-            setStartViewVisible(false);
-            setPlanVisible(true);
-            setName("Spotify"); // Show customName view;
-          }}
-          variant="default"
-          title="Spotify"
-          color="#00863F"
-          icon="spotify"
-        />
-        <Card
-          onPress={() => {
-            setType("preset");
-            setStartViewVisible(false);
-            setPlanVisible(true);
-            setName("Storytel"); // Show customName view;
-          }}
-          variant="default"
-          title="Storytel"
-          color="#FF3D00"
-          icon="storytel"
-        />
-        <Card
-          onPress={() => {
-            setType("preset");
-            setStartViewVisible(false);
-            setPlanVisible(true);
-            setName("Disney+"); // Show customName view;
-          }}
-          variant="default"
-          title="Disney+"
-          color="#0097EC"
-          icon="disney"
-        />
-        <Card
-          onPress={() => {
-            setType("preset");
-            setStartViewVisible(false);
-            setPlanVisible(true);
-            setName("GP"); // Show customName view;
-          }}
-          variant="default"
-          title="GP"
-          color="#4443BC"
-          icon="gp"
-        />
+          {/* preset */}
+          <Card
+            onPress={() => {
+              setType("preset");
+              setStartViewVisible(false);
+              setPlanVisible(true);
+              setName("Netflix"); // Show customName view;
+            }}
+            variant="default"
+            title="Netflix"
+            color="#E60000"
+            icon="netflix"
+          />
+          <Card
+            onPress={() => {
+              setType("preset");
+              setStartViewVisible(false);
+              setPlanVisible(true);
+              setName("HBO Max"); // Show customName view;
+            }}
+            variant="default"
+            title="HBO Max"
+            color="#9C00AF"
+            icon="hbo"
+          />
+          <Card
+            onPress={() => {
+              setType("preset");
+              setStartViewVisible(false);
+              setPlanVisible(true);
+              setName("Amazon Prime"); // Show customName view;
+            }}
+            variant="default"
+            title="Amazon Prime"
+            color="#0097EC"
+            icon="prime"
+          />
+          <Card
+            onPress={() => {
+              setType("preset");
+              setStartViewVisible(false);
+              setPlanVisible(true);
+              setName("Spotify"); // Show customName view;
+            }}
+            variant="default"
+            title="Spotify"
+            color="#00863F"
+            icon="spotify"
+          />
+          <Card
+            onPress={() => {
+              setType("preset");
+              setStartViewVisible(false);
+              setPlanVisible(true);
+              setName("Storytel"); // Show customName view;
+            }}
+            variant="default"
+            title="Storytel"
+            color="#FF3D00"
+            icon="storytel"
+          />
+          <Card
+            onPress={() => {
+              setType("preset");
+              setStartViewVisible(false);
+              setPlanVisible(true);
+              setName("Disney+"); // Show customName view;
+            }}
+            variant="default"
+            title="Disney+"
+            color="#0097EC"
+            icon="disney"
+          />
+          <Card
+            onPress={() => {
+              setType("preset");
+              setStartViewVisible(false);
+              setPlanVisible(true);
+              setName("GP"); // Show customName view;
+            }}
+            variant="default"
+            title="GP"
+            color="#4443BC"
+            icon="gp"
+          />
+        </View>
       </ScrollView>
       {/* All the views for setting props */}
       <View

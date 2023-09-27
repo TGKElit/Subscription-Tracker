@@ -165,6 +165,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 134,
     paddingLeft: 12,
+    marginTop: 12,
 
     display: "flex",
     flexDirection: "row",

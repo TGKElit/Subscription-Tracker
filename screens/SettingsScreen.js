@@ -55,6 +55,7 @@ const styles = StyleSheet.create({
     gap: 12,
     padding: 12,
     marginBottom: 110,
+    paddingTop: 24,
   },
   illustration: {
     width: "100%",

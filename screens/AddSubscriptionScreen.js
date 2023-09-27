@@ -11,8 +11,10 @@ import { getAuth } from "firebase/auth";
 import { Card } from "../src/Components/Card/Card";
 import React from "react";
 import { useState } from "react";
+import { useEffect } from "react";
 import { StyleSheet } from "react-native";
 import { CTAButtonSmall } from "../src/Components/CTAButton/CTAButtonSmall";
+import { CTAButtonBig } from "../src/Components/CTAButton/CTAButtonBig";
 import { ref, set, getDatabase, get, push } from "firebase/database";
 import { Picker } from "@react-native-picker/picker";
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -174,31 +176,25 @@ const AddSubscriptionScreen = ({ navigation }) => {
 
   const [descriptionVisible, setDescriptionVisible] = useState(false);
   const [description, setDescription] = useState("");
+  const [startDate, setStartDate] = useState("");
 
   //Datepicker
-  const [startDate, setStartDate] = useState("");
+  const [date, setDate] = useState(new Date());
+
+  useEffect(() => {
+    console.log(date);
+    const removedTime = date.toLocaleDateString();
+    setStartDate(removedTime);
+    console.log(removedTime);
+  }, [date]);
+
   const [mode, setMode] = useState("date");
   const [show, setShow] = useState(false);
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate;
-    setShow(false);
-    // const selectedDateOnly = new Date(
-    //   currentDate.getFullYear(),
-    //   currentDate.getMonth(),
-    //   currentDate.getDate()
-    // );
-    setStartDate(currentDate);
-    // setStartDate(selectedDateOnly);
-  };
 
-  const showMode = (currentMode) => {
-    setShow(true);
-    setMode(currentMode);
-  };
-
-  const showDatepicker = () => {
-    showMode("date");
+    setDate(currentDate);
   };
 
   //add all data to database
@@ -477,14 +473,14 @@ const AddSubscriptionScreen = ({ navigation }) => {
         <Text
           style={{
             fontSize: 30,
-            marginBottom: 64,
+
             fontFamily: "Inter_600SemiBold",
             alignSelf: "center",
           }}
         >
           Faktureringsperiod
         </Text>
-        <Text
+        {/* <Text
           style={{
             fontSize: 12,
             marginBottom: 8,
@@ -494,9 +490,8 @@ const AddSubscriptionScreen = ({ navigation }) => {
           }}
         >
           Välj din Faktureringsperiod
-        </Text>
+        </Text> */}
         <Picker
-          style={{ marginBottom: 12 }}
           selectedValue={billingPeriod}
           onValueChange={(itemValue, itemIndex) => setBillingPeriod(itemValue)}
         >
@@ -576,6 +571,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
           }}
           inputMode="numeric" // This prop restricts the keyboard to show only numeric input
           style={styles.input}
+          returnKeyType="done"
         />
         <View
           style={{
@@ -590,7 +586,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
             onPress={() => {
               setPrice("");
               setPriceVisible(false);
-              setBillingPeriod(true);
+              setBillingPeriodVisible(true);
             }}
           />
           <CTAButtonSmall
@@ -618,14 +614,14 @@ const AddSubscriptionScreen = ({ navigation }) => {
         <Text
           style={{
             fontSize: 36,
-            marginBottom: 64,
+
             fontFamily: "Inter_600SemiBold",
             alignSelf: "center",
           }}
         >
           Startdatum
         </Text>
-        <Text
+        {/* <Text
           style={{
             fontSize: 12,
             marginBottom: 8,
@@ -635,38 +631,18 @@ const AddSubscriptionScreen = ({ navigation }) => {
           }}
         >
           Skriv i datumet du började din prenumeration
-        </Text>
+        </Text> */}
 
-        <TextInput
-          placeholder="dag/månad/år"
-          value={startDate}
-          onChangeText={(text) => setStartDate(text)}
-          style={styles.input}
-        />
-
-        {/* <CTAButtonBig onPress={showDatepicker} title="Pick a date" />
-        <Text>{startDate.toLocaleDateString()}</Text>
-        <Text>selected: {startDate.toLocaleDateString()}</Text>
-        {show && (
-          <DateTimePicker
-            testID="dateTimePicker"
-            value={startDate}
-            mode={mode}
-            is24Hour={true}
-            onChange={onChange}
-          />
-        )} */}
-        {/* <Text>selected: {startDate.toLocaleString()}</Text>
         <DateTimePicker
+          style={{ height: 200 }}
           testID="dateTimePicker"
-          value={startDate}
+          value={date}
           mode="date"
           is24Hour={true}
-          display="default"
-          onChange={() => {
-            setStartDate(startDate);
-          }}
-        /> */}
+          onChange={onChange}
+          display="spinner"
+        />
+
         <View
           style={{
             marginTop: 12,

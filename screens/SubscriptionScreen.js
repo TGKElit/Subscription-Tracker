@@ -77,6 +77,7 @@ const SubscriptionScreen = ({ navigation }) => {
               paddingBottom: 12,
               marginTop: 24,
               marginBottom: 24,
+              borderColor: "#7D7D7D",
             }}
           >
             <Text style={{ fontSize: 12, fontFamily: "Inter_400Regular" }}>

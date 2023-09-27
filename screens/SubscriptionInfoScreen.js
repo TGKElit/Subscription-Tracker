@@ -15,11 +15,12 @@ import Svg, { Path } from "react-native-svg";
 import { InfoBox } from "../src/Components/InfoBox/InfoBox";
 import { CTAButtonBig } from "../src/Components/CTAButton/CTAButtonBig";
 import { getAuth } from "firebase/auth";
-import { ref, getDatabase, get, update, remove } from "firebase/database";
+import { ref, getDatabase, get, update, remove, set } from "firebase/database";
 import { useState } from "react";
 import { useEffect } from "react";
 import { Picker } from "@react-native-picker/picker";
 import { Image } from "expo-image";
+import DateTimePicker from "@react-native-community/datetimepicker";
 import { CTAButtonSmall } from "../src/Components/CTAButton/CTAButtonSmall";
 
 const SubscriptionInfo = ({ route, navigation }) => {
@@ -163,6 +164,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
   const [billingPeriodVisible, setBillingPeriodVisible] = useState(false);
   const [billingPeriod, setBillingPeriod] = useState("");
   const [price, setPrice] = useState("");
+  const [startDateVisible, setStartDateVisible] = useState(false);
   const [startDate, setStartDate] = useState("");
   const [description, setDescription] = useState("");
   const [plan, setPlan] = useState("");
@@ -179,6 +181,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
     setDescription(route.params.description);
     setPlan(route.params.plan);
     setName(route.params.name);
+    displayNextPayment();
   }, []);
 
   useEffect(() => {
@@ -213,7 +216,6 @@ const SubscriptionInfo = ({ route, navigation }) => {
 
     const updates = {}; // Create an object to hold the updates
 
-    // Add only the fields you want to update
     updates["billingPeriod"] = billingPeriod;
     updates["description"] = description;
     updates["plan"] = plan;
@@ -263,6 +265,40 @@ const SubscriptionInfo = ({ route, navigation }) => {
     }
   };
 
+  //Datepicker
+
+  // useEffect(() => {
+  //   displayNextPayment();
+  // }, [date]);
+
+  // useEffect(() => {
+  //   console.log(date);
+  //   const removedTime = date.toLocaleDateString();
+  //   setStartDate(removedTime);
+  //   console.log(startDate);
+  // }, [date]);
+
+  const [mode, setMode] = useState("date");
+  const [show, setShow] = useState(false);
+  const [date, setDate] = useState(new Date());
+
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate;
+    setDate(currentDate);
+    setStartDate(currentDate.toLocaleDateString());
+  };
+  const [nextPayment, setNextPayment] = useState("");
+  //display next paymement
+  const displayNextPayment = () => {
+    const date = new Date(startDate);
+    console.log(date);
+    const nextPayment = new Date(
+      date.setMonth(date.getMonth() + 1)
+    ).toLocaleDateString();
+    console.log(nextPayment);
+    setNextPayment(nextPayment);
+  };
+
   return (
     <SafeAreaView style={{ height: "100%", width: "100vw" }}>
       <HeaderContainer title="Prenumerationer" />
@@ -288,7 +324,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
               <Text
                 style={{
                   fontSize: 48,
-                  fontFamily: " Inter_600SemiBold",
+                  fontFamily: "Inter_600SemiBold",
                   color: "white",
                 }}
               >
@@ -316,7 +352,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
                 <Text
                   style={{
                     fontSize: 48,
-                    fontFamily: " Inter_600SemiBold",
+                    fontFamily: "Inter_600SemiBold",
                     color: "white",
                   }}
                 >
@@ -369,6 +405,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
                 inputMode="numeric"
                 value={price}
                 onChangeText={(text) => setPrice(text)}
+                returnKeyType="done"
               />
               <View
                 style={{ alignSelf: "flex-end", position: "absolute", top: 0 }}
@@ -398,8 +435,20 @@ const SubscriptionInfo = ({ route, navigation }) => {
               width: "100%",
             }}
           >
-            <InfoBox title="Startdatum" info={startDate} variant="primary" />
-            <InfoBox title="Nästa betalning" info="no info" variant="primary" />
+            <InfoBox
+              title="Startdatum"
+              info={startDate}
+              variant="primary"
+              onPress={() => {
+                console.log("pressed");
+                setStartDateVisible(true);
+              }}
+            />
+            <InfoBox
+              title="Nästa betalning"
+              info={nextPayment}
+              variant="primary"
+            />
           </View>
 
           <Pressable style={styles.containerSecondary}>
@@ -582,8 +631,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
                       setPlan(key);
                       setPrice(plans[name][key].price);
                       setBillingPeriod(plans[name][key].billingPeriod);
-                      setDescription("");
-                      setStartDate("");
+
                       setPlanVisible(false);
                       setLandingScreenVisible(true);
                     }}
@@ -593,6 +641,55 @@ const SubscriptionInfo = ({ route, navigation }) => {
             )}
           </View>
         </View>
+      </View>
+
+      <View
+        id="date"
+        style={{
+          height: "80%",
+          display: startDateVisible ? "flex" : "none",
+        }}
+      >
+        <Text
+          style={{
+            fontSize: 36,
+
+            fontFamily: "Inter_600SemiBold",
+            alignSelf: "center",
+          }}
+        >
+          Startdatum
+        </Text>
+        {/* <Text
+          style={{
+            fontSize: 12,
+            marginBottom: 8,
+            fontFamily: "Inter_400Regular",
+            lineHeight: 16,
+            alignSelf: "flex-start",
+          }}
+        >
+          Skriv i datumet du började din prenumeration
+        </Text> */}
+
+        <DateTimePicker
+          style={{ height: 200 }}
+          testID="dateTimePicker"
+          value={date}
+          mode="date"
+          is24Hour={true}
+          onChange={onChange}
+          display="spinner"
+        />
+        <CTAButtonBig
+          title="Spara"
+          variant="primary"
+          onPress={() => {
+            console.log(startDate);
+            setStartDate(startDate);
+            setStartDateVisible(false);
+          }}
+        />
       </View>
       <Navbar navigation={navigation} />
     </SafeAreaView>

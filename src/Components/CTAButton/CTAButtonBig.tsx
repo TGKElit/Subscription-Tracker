@@ -38,7 +38,7 @@ export const CTAButtonBig: FC<CTAButtonProps> = ({
 const styles = StyleSheet.create({
   containerPrimary: {
     height: 46,
-    width: 366,
+    width: "100%",
     backgroundColor: "black",
     borderRadius: 12,
     justifyContent: "center",
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   },
   containerSecondary: {
     height: 46,
-    width: 366,
+    width: "100%",
     backgroundColor: "white",
     justifyContent: "center",
     alignItems: "center",
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   },
   containerRed: {
     height: 46,
-    width: 366,
+    width: "100%",
     backgroundColor: "#E60000",
     justifyContent: "center",
     alignItems: "center",

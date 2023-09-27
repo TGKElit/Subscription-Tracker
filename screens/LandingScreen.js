@@ -53,7 +53,7 @@ const LandingScreen = ({ navigation }) => {
         </Text>
       </View>
 
-      <View style={{ gap: 16 }}>
+      <View style={{ gap: 16, width: "100%" }}>
         <CTAButtonBig
           title="Logga in"
           onPress={() => navigation.navigate("Login")}

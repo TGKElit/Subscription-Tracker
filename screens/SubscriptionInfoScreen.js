@@ -630,7 +630,11 @@ const SubscriptionInfo = ({ route, navigation }) => {
       <View
         id="date"
         style={{
-          height: "80%",
+          height: "50%",
+          width: "100%",
+          top: 0,
+          position: "absolute",
+          backgroundColor: "white",
           display: startDateVisible ? "flex" : "none",
         }}
       >

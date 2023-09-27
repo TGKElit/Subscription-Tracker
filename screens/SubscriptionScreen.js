@@ -29,7 +29,6 @@ const SubscriptionScreen = ({ navigation }) => {
       .then((snapshot) => {
         if (snapshot.exists()) {
           setSubscriptions(snapshot.val());
-          console.log(snapshot.val());
         } else {
           console.log("No data available");
         }

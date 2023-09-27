@@ -182,10 +182,8 @@ const AddSubscriptionScreen = ({ navigation }) => {
   const [date, setDate] = useState(new Date());
 
   useEffect(() => {
-    console.log(date);
     const removedTime = date.toLocaleDateString();
     setStartDate(removedTime);
-    console.log(startDate);
   }, [date]);
 
   const onChange = (event, selectedDate) => {
@@ -209,7 +207,6 @@ const AddSubscriptionScreen = ({ navigation }) => {
         type: type,
         plan: plan,
       });
-      console.log("Data added successfully", newSubscriptionRef.key);
     } catch (error) {
       console.error("Error adding data: ", error);
     }
@@ -217,7 +214,6 @@ const AddSubscriptionScreen = ({ navigation }) => {
 
   //weird solution to make sure the data is added to the database before navigating to the next screen when u press a plan.
   if (isStateUpdated.current) {
-    console.log(plan, name, price, billingPeriod, description, startDate);
     addData();
     navigation.navigate("SubscriptionInfo", {
       name: name,
@@ -229,7 +225,6 @@ const AddSubscriptionScreen = ({ navigation }) => {
     });
   }
 
-  console.log(colorsPicture.Netflix.picture);
   return (
     <SafeAreaView style={{ height: "100%", width: "100%" }}>
       <HeaderContainer
@@ -443,7 +438,22 @@ const AddSubscriptionScreen = ({ navigation }) => {
           onChangeText={(text) => setName(text)}
           style={styles.input}
         />
-        <View style={{ alignItems: "flex-end", marginTop: 12 }}>
+        <View
+          style={{
+            justifyContent: "space-between",
+            marginTop: 12,
+            flexDirection: "row",
+          }}
+        >
+          <CTAButtonSmall
+            title="Tillbaka"
+            variant="secondary"
+            onPress={() => {
+              setName("");
+              setCustomNameVisible(false);
+              setStartViewVisible(true);
+            }}
+          />
           <CTAButtonSmall
             title="Nästa"
             variant="primary"
@@ -451,7 +461,6 @@ const AddSubscriptionScreen = ({ navigation }) => {
               if (name === "") {
                 alert("Du måste skriva in ett namn");
               } else {
-                console.log(name);
                 setCustomNameVisible(false);
                 setBillingPeriodVisible(true);
               }
@@ -521,7 +530,6 @@ const AddSubscriptionScreen = ({ navigation }) => {
               if (billingPeriod === "") {
                 alert("Du måste välja en faktureringsperiod");
               } else {
-                console.log(name);
                 setBillingPeriodVisible(false);
                 setPriceVisible(true);
               }
@@ -666,7 +674,6 @@ const AddSubscriptionScreen = ({ navigation }) => {
                 // const startDateConversion = startDate.toLocaleDateString();
                 // setStartDate(startDateConversion);
 
-                console.log(startDate);
                 setStartDateVisible(false);
                 setDescriptionVisible(true);
               }

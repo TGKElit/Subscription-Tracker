@@ -181,7 +181,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
     setDescription(route.params.description);
     setPlan(route.params.plan);
     setName(route.params.name);
-    displayNextPayment();
+    displayNextPayment(route.params.startDate);
   }, []);
 
   useEffect(() => {
@@ -189,9 +189,6 @@ const SubscriptionInfo = ({ route, navigation }) => {
     findTarget();
     console.log(price);
   }, [subscriptions]);
-  useEffect(() => {
-    console.log(targetDataKey);
-  }, [targetDataKey]);
 
   function getData() {
     const db = getDatabase();
@@ -267,19 +264,15 @@ const SubscriptionInfo = ({ route, navigation }) => {
 
   //Datepicker
 
-  // useEffect(() => {
-  //   displayNextPayment();
-  // }, [date]);
+  useEffect(() => {
+    displayNextPayment(startDate);
+  }, [date]);
 
-  // useEffect(() => {
-  //   console.log(date);
-  //   const removedTime = date.toLocaleDateString();
-  //   setStartDate(removedTime);
-  //   console.log(startDate);
-  // }, [date]);
+  useEffect(() => {
+    console.log("ditt startdatum är" + startDate);
+    displayNextPayment(startDate);
+  }, [startDate]);
 
-  const [mode, setMode] = useState("date");
-  const [show, setShow] = useState(false);
   const [date, setDate] = useState(new Date());
 
   const onChange = (event, selectedDate) => {
@@ -287,20 +280,28 @@ const SubscriptionInfo = ({ route, navigation }) => {
     setDate(currentDate);
     setStartDate(currentDate.toLocaleDateString());
   };
+
   const [nextPayment, setNextPayment] = useState("");
-  //display next paymement
-  const displayNextPayment = () => {
-    const date = new Date(startDate);
-    console.log(date);
-    const nextPayment = new Date(
-      date.setMonth(date.getMonth() + 1)
-    ).toLocaleDateString();
-    console.log(nextPayment);
-    setNextPayment(nextPayment);
-  };
+
+  function displayNextPayment(startDate) {
+    const [year, month, day] = startDate.split("-").map(Number);
+    const startDateObject = new Date(year, month - 1, day);
+
+    // Add one month
+    startDateObject.setMonth(startDateObject.getMonth() + 1);
+
+    // Format the date as YYYY-MM-DD
+    const newDate = `${startDateObject.getFullYear()}-${String(
+      startDateObject.getMonth() + 1
+    ).padStart(2, "0")}-${String(startDateObject.getDate()).padStart(2, "0")}`;
+
+    console.log("hallåå");
+    console.log(newDate);
+    setNextPayment(newDate);
+  }
 
   return (
-    <SafeAreaView style={{ height: "100%", width: "100vw" }}>
+    <SafeAreaView style={{ height: "100%", width: "100%" }}>
       <HeaderContainer title="Prenumerationer" />
       <ScrollView
         style={{
@@ -418,14 +419,6 @@ const SubscriptionInfo = ({ route, navigation }) => {
                 </Svg>
               </View>
             </Pressable>
-            {/* <InfoBoxEditable
-              title="Pris"
-              value={price}
-              // Convert price to string for input value
-              variant="primary"
-              keyBoardType="numeric"
-              onChangeText={(text) => setPrice(text)}
-            /> */}
           </View>
           <View
             style={{
@@ -491,8 +484,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
               variant="red"
               onPress={() => {
                 setDeleteVisible(true);
-                // deleteData(targetDataKey);
-                // navigation.navigate("SubscriptionScreen");
+                console.log("tryckt");
               }}
             />
           </View>
@@ -502,7 +494,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
           <View
             id="billingPeriod"
             style={{
-              height: "50vh",
+              height: "50%",
               width: "100%",
               position: "absolute",
               // justifyContent: "center",

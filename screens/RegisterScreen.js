@@ -19,9 +19,6 @@ const RegisterScreen = ({ navigation }) => {
   const [password, setPassword] = useState("");
   const [boxState, setBoxState] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
-  useEffect(() => {
-    console.log("Box state:", boxState);
-  }, [boxState]);
 
   const toggleBox = () => {
     setBoxState(!boxState);
@@ -207,11 +204,13 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: "#fff",
-    paddingHorizontal: 12,
+    paddingHorizontal: 16,
     paddingVertical: 12,
     borderRadius: 12,
     marginTop: 5,
     borderWidth: 2,
+    borderColor: "#7D7D7D",
+    height: 46,
   },
   buttonContainer: {
     width: "60%",

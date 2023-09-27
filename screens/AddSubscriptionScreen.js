@@ -5,6 +5,7 @@ import {
   TextInput,
   Pressable,
   ScrollView,
+  KeyboardAvoidingView,
 } from "react-native";
 import { getAuth } from "firebase/auth";
 import { Card } from "../src/Components/Card/Card";
@@ -411,11 +412,12 @@ const AddSubscriptionScreen = ({ navigation }) => {
           </View>
         </View>
       </View>
-      <SafeAreaView
+      <KeyboardAvoidingView
         id="customName"
         style={{
-          paddingHorizontal: 12,
           marginTop: "26%",
+          paddingHorizontal: 12,
+
           display: customNameVisible ? "flex" : "none",
         }}
       >
@@ -461,7 +463,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
             }}
           />
         </View>
-      </SafeAreaView>
+      </KeyboardAvoidingView>
       <SafeAreaView
         id="billingPeriod"
         style={{
@@ -770,9 +772,12 @@ export default AddSubscriptionScreen;
 const styles = StyleSheet.create({
   input: {
     backgroundColor: "#fff",
-    paddingHorizontal: 15,
-    paddingVertical: 10,
-    borderRadius: 10,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderRadius: 12,
     marginTop: 5,
+    borderWidth: 2,
+    borderColor: "#7D7D7D",
+    height: 46,
   },
 });

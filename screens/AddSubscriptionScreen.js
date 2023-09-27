@@ -176,20 +176,17 @@ const AddSubscriptionScreen = ({ navigation }) => {
 
   const [descriptionVisible, setDescriptionVisible] = useState(false);
   const [description, setDescription] = useState("");
+  //Datepicker
   const [startDate, setStartDate] = useState("");
 
-  //Datepicker
   const [date, setDate] = useState(new Date());
 
   useEffect(() => {
     console.log(date);
     const removedTime = date.toLocaleDateString();
     setStartDate(removedTime);
-    console.log(removedTime);
+    console.log(startDate);
   }, [date]);
-
-  const [mode, setMode] = useState("date");
-  const [show, setShow] = useState(false);
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate;
@@ -351,7 +348,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
         </View>
       </ScrollView>
       {/* All the views for setting props */}
-      <View
+      <ScrollView
         id="presetPlan"
         style={{
           paddingHorizontal: 12,
@@ -387,7 +384,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
           >
             Välj plan
           </Text>
-          <View style={{ gap: 12 }}>
+          <View style={{ gap: 12, marginBottom: 110 }}>
             {plans[name] && (
               <React.Fragment>
                 {Object.keys(plans[name]).map((key) => (
@@ -409,7 +406,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
             )}
           </View>
         </View>
-      </View>
+      </ScrollView>
       <KeyboardAvoidingView
         id="customName"
         style={{

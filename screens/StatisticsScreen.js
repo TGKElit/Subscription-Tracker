@@ -55,7 +55,7 @@ const StatisticsScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.body}>
       <HeaderContainer title="Statistik" />
-      <ScrollView style={{ marginBottom: 110 }}>
+      <ScrollView>
         <View style={styles.torso}>
           <View style={styles.titleBox}>
             <Text style={styles.boxTitle}> Subscription Overview</Text>
@@ -159,6 +159,7 @@ const styles = StyleSheet.create({
     display: "flex",
     gap: 12,
     padding: 12,
+    marginBottom: 110,
   },
 
   titleBox: {

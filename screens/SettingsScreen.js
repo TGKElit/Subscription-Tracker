@@ -54,7 +54,6 @@ const styles = StyleSheet.create({
     display: "flex",
     gap: 12,
     padding: 12,
-    marginBottom: 110,
     paddingTop: 24,
   },
   illustration: {
@@ -72,5 +71,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     margin: 12,
     marginLeft: 24,
+    marginBottom: 112,
   },
 });

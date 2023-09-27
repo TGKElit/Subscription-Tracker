@@ -185,9 +185,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
   }, []);
 
   useEffect(() => {
-    console.log(subscriptions);
     findTarget();
-    console.log(price);
   }, [subscriptions]);
 
   function getData() {
@@ -197,9 +195,8 @@ const SubscriptionInfo = ({ route, navigation }) => {
       .then((snapshot) => {
         if (snapshot.exists()) {
           setSubscriptions(snapshot.val());
-          console.log(snapshot.val());
         } else {
-          // console.log("No data available");
+          console.log("No data available");
         }
       })
       .catch((error) => {
@@ -220,9 +217,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
     updates["startDate"] = startDate;
 
     update(subscriptionRef, updates)
-      .then(() => {
-        console.log("Data updated");
-      })
+      .then(() => {})
       .catch((error) => {
         console.error(error);
       });
@@ -234,9 +229,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
 
     // Remove the data
     remove(subscriptionRef)
-      .then(() => {
-        console.log("Data deleted");
-      })
+      .then(() => {})
       .catch((error) => {
         console.error(error);
       });
@@ -253,11 +246,9 @@ const SubscriptionInfo = ({ route, navigation }) => {
         subscription.startDate === route.params.startDate &&
         subscription.description === route.params.description
       ) {
-        console.log("Match found:", key);
         setTargetDataKey(key);
         break; // Exit the loop after finding a match
       } else {
-        console.log("no match");
       }
     }
   };
@@ -269,7 +260,6 @@ const SubscriptionInfo = ({ route, navigation }) => {
   }, [date]);
 
   useEffect(() => {
-    console.log("ditt startdatum är" + startDate);
     displayNextPayment(startDate);
   }, [startDate]);
 
@@ -281,23 +271,28 @@ const SubscriptionInfo = ({ route, navigation }) => {
     setStartDate(currentDate.toLocaleDateString());
   };
 
+  //next payment
   const [nextPayment, setNextPayment] = useState("");
 
   function displayNextPayment(startDate) {
-    const [year, month, day] = startDate.split("-").map(Number);
-    const startDateObject = new Date(year, month - 1, day);
+    if (startDate === "") {
+      setNextPayment("Välj startdatum");
+    } else {
+      const [year, month, day] = startDate.split("-").map(Number);
+      const startDateObject = new Date(year, month - 1, day);
 
-    // Add one month
-    startDateObject.setMonth(startDateObject.getMonth() + 1);
+      // Add one month
+      startDateObject.setMonth(startDateObject.getMonth() + 1);
 
-    // Format the date as YYYY-MM-DD
-    const newDate = `${startDateObject.getFullYear()}-${String(
-      startDateObject.getMonth() + 1
-    ).padStart(2, "0")}-${String(startDateObject.getDate()).padStart(2, "0")}`;
-
-    console.log("hallåå");
-    console.log(newDate);
-    setNextPayment(newDate);
+      // Format the date as YYYY-MM-DD
+      const newDate = `${startDateObject.getFullYear()}-${String(
+        startDateObject.getMonth() + 1
+      ).padStart(2, "0")}-${String(startDateObject.getDate()).padStart(
+        2,
+        "0"
+      )}`;
+      setNextPayment(newDate);
+    }
   }
 
   return (
@@ -389,7 +384,6 @@ const SubscriptionInfo = ({ route, navigation }) => {
               info={billingPeriod}
               variant="primary"
               onPress={() => {
-                console.log("pressed");
                 setBillingPeriodVisible(true);
               }}
             />
@@ -433,7 +427,6 @@ const SubscriptionInfo = ({ route, navigation }) => {
               info={startDate}
               variant="primary"
               onPress={() => {
-                console.log("pressed");
                 setStartDateVisible(true);
               }}
             />
@@ -478,13 +471,12 @@ const SubscriptionInfo = ({ route, navigation }) => {
               }}
             />
           </View>
-          <View style={{ marginTop: 12, marginBottom: 24 }}>
+          <View style={{ marginBottom: 24 }}>
             <CTAButtonBig
               title="Ta bort prenumation"
               variant="red"
               onPress={() => {
                 setDeleteVisible(true);
-                console.log("tryckt");
               }}
             />
           </View>
@@ -677,7 +669,6 @@ const SubscriptionInfo = ({ route, navigation }) => {
           title="Spara"
           variant="primary"
           onPress={() => {
-            console.log(startDate);
             setStartDate(startDate);
             setStartDateVisible(false);
           }}

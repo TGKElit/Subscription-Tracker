@@ -297,7 +297,12 @@ const SubscriptionInfo = ({ route, navigation }) => {
 
   return (
     <SafeAreaView style={{ height: "100%", width: "100%" }}>
-      <HeaderContainer title="Prenumerationer" />
+      <HeaderContainer
+        title="Prenumerationer"
+        backArrow={() => {
+          navigation.navigate("SubscriptionScreen");
+        }}
+      />
       <ScrollView
         style={{
           marginBottom: 70,

@@ -172,6 +172,8 @@ const SubscriptionInfo = ({ route, navigation }) => {
   const [landingScreenVisible, setLandingScreenVisible] = useState(true);
   const [planVisible, setPlanVisible] = useState(false);
   const [deleteVisible, setDeleteVisible] = useState(false);
+  const [deleteConfirmationVisible, setDeleteConfirmationVisible] =
+    useState(false);
 
   useEffect(() => {
     getData();
@@ -416,7 +418,9 @@ const SubscriptionInfo = ({ route, navigation }) => {
                 }}
                 inputMode="numeric"
                 value={price}
-                onChangeText={(text) => setPrice(text)}
+                onChangeText={(text) =>
+                  setPrice(text) + setDeleteConfirmationVisible(true)
+                }
                 returnKeyType="done"
               />
               <View
@@ -444,7 +448,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
               info={startDate}
               variant="primary"
               onPress={() => {
-                setStartDateVisible(true);
+                setStartDateVisible(true) + setDeleteConfirmationVisible(true);
               }}
             />
             <InfoBox
@@ -465,7 +469,9 @@ const SubscriptionInfo = ({ route, navigation }) => {
                 width: "100%",
               }}
               value={description}
-              onChangeText={(text) => setDescription(text)}
+              onChangeText={(text) =>
+                setDescription(text) + setDeleteConfirmationVisible(true)
+              }
             />
             <View
               style={{ alignSelf: "flex-end", position: "absolute", top: 0 }}
@@ -481,12 +487,21 @@ const SubscriptionInfo = ({ route, navigation }) => {
           <View style={{ marginTop: 12, marginBottom: 12 }}>
             <CTAButtonBig
               title="Spara"
-              variant="primary"
+              enabled={deleteConfirmationVisible}
+              variant={deleteConfirmationVisible ? "primary" : "disabled"}
               onPress={() => {
                 updateData(targetDataKey);
                 navigation.navigate("SubscriptionScreen");
               }}
             />
+            {/* <CTAButtonBig
+              title="Spara"
+              variant="primary"
+              onPress={() => {
+                updateData(targetDataKey);
+                navigation.navigate("SubscriptionScreen");
+              }}
+            /> */}
           </View>
           <View style={{ marginBottom: 24 }}>
             <CTAButtonBig
@@ -518,7 +533,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
             <Picker
               selectedValue={billingPeriod}
               onValueChange={(itemValue, itemIndex) =>
-                setBillingPeriod(itemValue)
+                setBillingPeriod(itemValue) + setDeleteConfirmationVisible(true)
               }
             >
               <Picker.Item label="Välj" value="" />

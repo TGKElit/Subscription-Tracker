@@ -448,6 +448,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
               variant="primary"
               onPress={() => {
                 setBillingPeriodVisible(true);
+                setStartDateVisible(false);
               }}
             />
             <Pressable style={styles.containerPrimary}>
@@ -492,7 +493,9 @@ const SubscriptionInfo = ({ route, navigation }) => {
               info={startDate}
               variant="primary"
               onPress={() => {
-                setStartDateVisible(true) + setDeleteConfirmationVisible(true);
+                setStartDateVisible(true) +
+                  setDeleteConfirmationVisible(true) +
+                  setBillingPeriodVisible(false);
               }}
             />
             <InfoBox
@@ -580,7 +583,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
             <Picker
               selectedValue={billingPeriod}
               onValueChange={(itemValue, itemIndex) =>
-                setBillingPeriod(itemValue) + setDeleteConfirmationVisible(true)
+                setBillingPeriod(itemValue)
               }
             >
               <Picker.Item label="Välj" value="" />
@@ -597,6 +600,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
                 } else {
                   setBillingPeriod(billingPeriod);
                   setBillingPeriodVisible(false);
+                  setDeleteConfirmationVisible(true);
                 }
               }}
             />

@@ -12,7 +12,12 @@ interface HeaderProps {
   addSubscription: boolean;
 }
 
-export const HeaderContainer: FC<HeaderProps> = ({ title, navigation, backArrow, addSubscription}) => {
+export const HeaderContainer: FC<HeaderProps> = ({
+  title,
+  navigation,
+  backArrow,
+  addSubscription,
+}) => {
   // const containerStyle =
   //   variant === "primary" ? styles.containerPrimary : styles.containerSecondary;
 
@@ -21,7 +26,7 @@ export const HeaderContainer: FC<HeaderProps> = ({ title, navigation, backArrow,
 
   return (
     <View style={styles.box}>
-      {backArrow && 
+      {backArrow && (
         <Pressable style={styles.backArrow} onPress={backArrow}>
           <Svg width="28" height="28" viewBox="10 3 28 28" fill="none">
             <Path
@@ -29,12 +34,13 @@ export const HeaderContainer: FC<HeaderProps> = ({ title, navigation, backArrow,
               stroke="black"
               strokeWidth="2"
               strokeLinecap="round"
-              strokeLinejoin="round"/>
+              strokeLinejoin="round"
+            />
           </Svg>
         </Pressable>
-      }
+      )}
       <Text style={styles.textStyle}>{title}</Text>
-      {addSubscription &&
+      {addSubscription && (
         <Pressable
           style={styles.plus}
           onPress={() => navigation.navigate("AddSubscription")}
@@ -49,7 +55,7 @@ export const HeaderContainer: FC<HeaderProps> = ({ title, navigation, backArrow,
             />
           </Svg>
         </Pressable>
-      }
+      )}
     </View>
   );
 };
@@ -57,11 +63,12 @@ const styles = StyleSheet.create({
   box: {
     width: "100%",
     height: 104,
-    
+
     borderBottomRightRadius: 12,
     borderBottomLeftRadius: 12,
     borderColor: "#7D7D7D",
     borderWidth: 2,
+    borderTopWidth: 0,
     alignItems: "center",
 
     justifyContent: "flex-end",
@@ -75,8 +82,8 @@ const styles = StyleSheet.create({
   },
 
   plus: {
-    position: "absolute", 
-    right: 20, 
+    position: "absolute",
+    right: 20,
     bottom: 20,
   },
 
@@ -85,6 +92,5 @@ const styles = StyleSheet.create({
     lineHeight: 28,
     fontFamily: "Inter_600SemiBold",
     color: "black",
-    
   },
 });

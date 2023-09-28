@@ -15,11 +15,12 @@ import Svg, { Path } from "react-native-svg";
 import { InfoBox } from "../src/Components/InfoBox/InfoBox";
 import { CTAButtonBig } from "../src/Components/CTAButton/CTAButtonBig";
 import { getAuth } from "firebase/auth";
-import { ref, getDatabase, get, update, remove } from "firebase/database";
+import { ref, getDatabase, get, update, remove, set } from "firebase/database";
 import { useState } from "react";
 import { useEffect } from "react";
 import { Picker } from "@react-native-picker/picker";
 import { Image } from "expo-image";
+import DateTimePicker from "@react-native-community/datetimepicker";
 import { CTAButtonSmall } from "../src/Components/CTAButton/CTAButtonSmall";
 
 const SubscriptionInfo = ({ route, navigation }) => {
@@ -163,6 +164,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
   const [billingPeriodVisible, setBillingPeriodVisible] = useState(false);
   const [billingPeriod, setBillingPeriod] = useState("");
   const [price, setPrice] = useState("");
+  const [startDateVisible, setStartDateVisible] = useState(false);
   const [startDate, setStartDate] = useState("");
   const [description, setDescription] = useState("");
   const [plan, setPlan] = useState("");
@@ -179,16 +181,12 @@ const SubscriptionInfo = ({ route, navigation }) => {
     setDescription(route.params.description);
     setPlan(route.params.plan);
     setName(route.params.name);
+    displayNextPayment(route.params.startDate);
   }, []);
 
   useEffect(() => {
-    console.log(subscriptions);
     findTarget();
-    console.log(price);
   }, [subscriptions]);
-  useEffect(() => {
-    console.log(targetDataKey);
-  }, [targetDataKey]);
 
   function getData() {
     const db = getDatabase();
@@ -197,9 +195,8 @@ const SubscriptionInfo = ({ route, navigation }) => {
       .then((snapshot) => {
         if (snapshot.exists()) {
           setSubscriptions(snapshot.val());
-          console.log(snapshot.val());
         } else {
-          // console.log("No data available");
+          console.log("No data available");
         }
       })
       .catch((error) => {
@@ -213,7 +210,6 @@ const SubscriptionInfo = ({ route, navigation }) => {
 
     const updates = {}; // Create an object to hold the updates
 
-    // Add only the fields you want to update
     updates["billingPeriod"] = billingPeriod;
     updates["description"] = description;
     updates["plan"] = plan;
@@ -221,9 +217,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
     updates["startDate"] = startDate;
 
     update(subscriptionRef, updates)
-      .then(() => {
-        console.log("Data updated");
-      })
+      .then(() => {})
       .catch((error) => {
         console.error(error);
       });
@@ -235,9 +229,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
 
     // Remove the data
     remove(subscriptionRef)
-      .then(() => {
-        console.log("Data deleted");
-      })
+      .then(() => {})
       .catch((error) => {
         console.error(error);
       });
@@ -254,18 +246,63 @@ const SubscriptionInfo = ({ route, navigation }) => {
         subscription.startDate === route.params.startDate &&
         subscription.description === route.params.description
       ) {
-        console.log("Match found:", key);
         setTargetDataKey(key);
         break; // Exit the loop after finding a match
       } else {
-        console.log("no match");
       }
     }
   };
 
+  //Datepicker
+
+  useEffect(() => {
+    displayNextPayment(startDate);
+  }, [date]);
+
+  useEffect(() => {
+    displayNextPayment(startDate);
+  }, [startDate]);
+
+  const [date, setDate] = useState(new Date());
+
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate;
+    setDate(currentDate);
+    setStartDate(currentDate.toLocaleDateString());
+  };
+
+  //next payment
+  const [nextPayment, setNextPayment] = useState("");
+
+  function displayNextPayment(startDate) {
+    if (startDate === "") {
+      setNextPayment("Välj startdatum");
+    } else {
+      const [year, month, day] = startDate.split("-").map(Number);
+      const startDateObject = new Date(year, month - 1, day);
+
+      // Add one month
+      startDateObject.setMonth(startDateObject.getMonth() + 1);
+
+      // Format the date as YYYY-MM-DD
+      const newDate = `${startDateObject.getFullYear()}-${String(
+        startDateObject.getMonth() + 1
+      ).padStart(2, "0")}-${String(startDateObject.getDate()).padStart(
+        2,
+        "0"
+      )}`;
+      setNextPayment(newDate);
+    }
+  }
+
   return (
-    <SafeAreaView style={{ height: "100%", width: "100vw" }}>
-      <HeaderContainer title="Prenumerationer" />
+    <SafeAreaView style={{ height: "100%", width: "100%" }}>
+      <HeaderContainer
+        title="Prenumerationer"
+        backArrow={() => {
+          navigation.navigate("SubscriptionScreen");
+        }}
+      />
       <ScrollView
         style={{
           marginBottom: 70,
@@ -288,7 +325,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
               <Text
                 style={{
                   fontSize: 48,
-                  fontFamily: " Inter_600SemiBold",
+                  fontFamily: "Inter_600SemiBold",
                   color: "white",
                 }}
               >
@@ -316,7 +353,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
                 <Text
                   style={{
                     fontSize: 48,
-                    fontFamily: " Inter_600SemiBold",
+                    fontFamily: "Inter_600SemiBold",
                     color: "white",
                   }}
                 >
@@ -352,7 +389,6 @@ const SubscriptionInfo = ({ route, navigation }) => {
               info={billingPeriod}
               variant="primary"
               onPress={() => {
-                console.log("pressed");
                 setBillingPeriodVisible(true);
               }}
             />
@@ -369,6 +405,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
                 inputMode="numeric"
                 value={price}
                 onChangeText={(text) => setPrice(text)}
+                returnKeyType="done"
               />
               <View
                 style={{ alignSelf: "flex-end", position: "absolute", top: 0 }}
@@ -381,14 +418,6 @@ const SubscriptionInfo = ({ route, navigation }) => {
                 </Svg>
               </View>
             </Pressable>
-            {/* <InfoBoxEditable
-              title="Pris"
-              value={price}
-              // Convert price to string for input value
-              variant="primary"
-              keyBoardType="numeric"
-              onChangeText={(text) => setPrice(text)}
-            /> */}
           </View>
           <View
             style={{
@@ -398,8 +427,19 @@ const SubscriptionInfo = ({ route, navigation }) => {
               width: "100%",
             }}
           >
-            <InfoBox title="Startdatum" info={startDate} variant="primary" />
-            <InfoBox title="Nästa betalning" info="no info" variant="primary" />
+            <InfoBox
+              title="Startdatum"
+              info={startDate}
+              variant="primary"
+              onPress={() => {
+                setStartDateVisible(true);
+              }}
+            />
+            <InfoBox
+              title="Nästa betalning"
+              info={nextPayment}
+              variant="primary"
+            />
           </View>
 
           <Pressable style={styles.containerSecondary}>
@@ -436,14 +476,12 @@ const SubscriptionInfo = ({ route, navigation }) => {
               }}
             />
           </View>
-          <View style={{ marginTop: 12, marginBottom: 24 }}>
+          <View style={{ marginBottom: 24 }}>
             <CTAButtonBig
               title="Ta bort prenumation"
               variant="red"
               onPress={() => {
                 setDeleteVisible(true);
-                // deleteData(targetDataKey);
-                // navigation.navigate("SubscriptionScreen");
               }}
             />
           </View>
@@ -453,7 +491,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
           <View
             id="billingPeriod"
             style={{
-              height: "50vh",
+              height: "50%",
               width: "100%",
               position: "absolute",
               // justifyContent: "center",
@@ -582,8 +620,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
                       setPlan(key);
                       setPrice(plans[name][key].price);
                       setBillingPeriod(plans[name][key].billingPeriod);
-                      setDescription("");
-                      setStartDate("");
+
                       setPlanVisible(false);
                       setLandingScreenVisible(true);
                     }}
@@ -593,6 +630,58 @@ const SubscriptionInfo = ({ route, navigation }) => {
             )}
           </View>
         </View>
+      </View>
+
+      <View
+        id="date"
+        style={{
+          height: "50%",
+          width: "100%",
+          top: 0,
+          position: "absolute",
+          backgroundColor: "white",
+          display: startDateVisible ? "flex" : "none",
+        }}
+      >
+        <Text
+          style={{
+            fontSize: 36,
+
+            fontFamily: "Inter_600SemiBold",
+            alignSelf: "center",
+          }}
+        >
+          Startdatum
+        </Text>
+        {/* <Text
+          style={{
+            fontSize: 12,
+            marginBottom: 8,
+            fontFamily: "Inter_400Regular",
+            lineHeight: 16,
+            alignSelf: "flex-start",
+          }}
+        >
+          Skriv i datumet du började din prenumeration
+        </Text> */}
+
+        <DateTimePicker
+          style={{ height: 200 }}
+          testID="dateTimePicker"
+          value={date}
+          mode="date"
+          is24Hour={true}
+          onChange={onChange}
+          display="spinner"
+        />
+        <CTAButtonBig
+          title="Spara"
+          variant="primary"
+          onPress={() => {
+            setStartDate(startDate);
+            setStartDateVisible(false);
+          }}
+        />
       </View>
       <Navbar navigation={navigation} />
     </SafeAreaView>

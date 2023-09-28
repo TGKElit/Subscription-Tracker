@@ -29,7 +29,6 @@ const SubscriptionScreen = ({ navigation }) => {
       .then((snapshot) => {
         if (snapshot.exists()) {
           setSubscriptions(snapshot.val());
-          console.log(snapshot.val());
         } else {
           console.log("No data available");
         }
@@ -77,6 +76,7 @@ const SubscriptionScreen = ({ navigation }) => {
               paddingBottom: 12,
               marginTop: 24,
               marginBottom: 24,
+              borderColor: "#7D7D7D",
             }}
           >
             <Text style={{ fontSize: 12, fontFamily: "Inter_400Regular" }}>

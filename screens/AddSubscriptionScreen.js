@@ -5,13 +5,16 @@ import {
   TextInput,
   Pressable,
   ScrollView,
+  KeyboardAvoidingView,
 } from "react-native";
 import { getAuth } from "firebase/auth";
 import { Card } from "../src/Components/Card/Card";
 import React from "react";
 import { useState } from "react";
+import { useEffect } from "react";
 import { StyleSheet } from "react-native";
 import { CTAButtonSmall } from "../src/Components/CTAButton/CTAButtonSmall";
+import { CTAButtonBig } from "../src/Components/CTAButton/CTAButtonBig";
 import { ref, set, getDatabase, get, push } from "firebase/database";
 import { Picker } from "@react-native-picker/picker";
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -173,31 +176,20 @@ const AddSubscriptionScreen = ({ navigation }) => {
 
   const [descriptionVisible, setDescriptionVisible] = useState(false);
   const [description, setDescription] = useState("");
-
   //Datepicker
   const [startDate, setStartDate] = useState("");
-  const [mode, setMode] = useState("date");
-  const [show, setShow] = useState(false);
+
+  const [date, setDate] = useState(new Date());
+
+  useEffect(() => {
+    const removedTime = date.toLocaleDateString();
+    setStartDate(removedTime);
+  }, [date]);
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate;
-    setShow(false);
-    // const selectedDateOnly = new Date(
-    //   currentDate.getFullYear(),
-    //   currentDate.getMonth(),
-    //   currentDate.getDate()
-    // );
-    setStartDate(currentDate);
-    // setStartDate(selectedDateOnly);
-  };
 
-  const showMode = (currentMode) => {
-    setShow(true);
-    setMode(currentMode);
-  };
-
-  const showDatepicker = () => {
-    showMode("date");
+    setDate(currentDate);
   };
 
   //add all data to database
@@ -215,7 +207,6 @@ const AddSubscriptionScreen = ({ navigation }) => {
         type: type,
         plan: plan,
       });
-      console.log("Data added successfully", newSubscriptionRef.key);
     } catch (error) {
       console.error("Error adding data: ", error);
     }
@@ -223,7 +214,6 @@ const AddSubscriptionScreen = ({ navigation }) => {
 
   //weird solution to make sure the data is added to the database before navigating to the next screen when u press a plan.
   if (isStateUpdated.current) {
-    console.log(plan, name, price, billingPeriod, description, startDate);
     addData();
     navigation.navigate("SubscriptionInfo", {
       name: name,
@@ -235,9 +225,8 @@ const AddSubscriptionScreen = ({ navigation }) => {
     });
   }
 
-  console.log(colorsPicture.Netflix.picture);
   return (
-    <SafeAreaView style={{ height: "100%", width: "100%", marginBottom: 70 }}>
+    <SafeAreaView style={{ height: "100%", width: "100%" }}>
       <HeaderContainer
         title="Prenumera"
         backArrow={() => {
@@ -247,112 +236,114 @@ const AddSubscriptionScreen = ({ navigation }) => {
       <ScrollView
         id="startView"
         style={{
-          marginTop: 24,
+          paddingTop: 24,
           display: startViewVisible ? "flex" : "none",
           paddingHorizontal: 12,
         }}
       >
-        <Card
-          onPress={() => {
-            setType("custom");
-            setPlan("");
-            setStartViewVisible(false);
-            setCustomNameVisible(true); // Show customName view;
-          }}
-          variant="basic"
-          title="Lägg till egen"
-          color="#FFFFFF"
-          icon="plus"
-        />
+        <View style={{ gap: 12, marginBottom: 110 }}>
+          <Card
+            onPress={() => {
+              setType("custom");
+              setPlan("");
+              setStartViewVisible(false);
+              setCustomNameVisible(true); // Show customName view;
+            }}
+            variant="basic"
+            title="Lägg till egen"
+            color="#FFFFFF"
+            icon="plus"
+          />
 
-        {/* preset */}
-        <Card
-          onPress={() => {
-            setType("preset");
-            setStartViewVisible(false);
-            setPlanVisible(true);
-            setName("Netflix"); // Show customName view;
-          }}
-          variant="default"
-          title="Netflix"
-          color="#E60000"
-          icon="netflix"
-        />
-        <Card
-          onPress={() => {
-            setType("preset");
-            setStartViewVisible(false);
-            setPlanVisible(true);
-            setName("HBO Max"); // Show customName view;
-          }}
-          variant="default"
-          title="HBO Max"
-          color="#9C00AF"
-          icon="hbo"
-        />
-        <Card
-          onPress={() => {
-            setType("preset");
-            setStartViewVisible(false);
-            setPlanVisible(true);
-            setName("Amazon Prime"); // Show customName view;
-          }}
-          variant="default"
-          title="Amazon Prime"
-          color="#0097EC"
-          icon="prime"
-        />
-        <Card
-          onPress={() => {
-            setType("preset");
-            setStartViewVisible(false);
-            setPlanVisible(true);
-            setName("Spotify"); // Show customName view;
-          }}
-          variant="default"
-          title="Spotify"
-          color="#00863F"
-          icon="spotify"
-        />
-        <Card
-          onPress={() => {
-            setType("preset");
-            setStartViewVisible(false);
-            setPlanVisible(true);
-            setName("Storytel"); // Show customName view;
-          }}
-          variant="default"
-          title="Storytel"
-          color="#FF3D00"
-          icon="storytel"
-        />
-        <Card
-          onPress={() => {
-            setType("preset");
-            setStartViewVisible(false);
-            setPlanVisible(true);
-            setName("Disney+"); // Show customName view;
-          }}
-          variant="default"
-          title="Disney+"
-          color="#0097EC"
-          icon="disney"
-        />
-        <Card
-          onPress={() => {
-            setType("preset");
-            setStartViewVisible(false);
-            setPlanVisible(true);
-            setName("GP"); // Show customName view;
-          }}
-          variant="default"
-          title="GP"
-          color="#4443BC"
-          icon="gp"
-        />
+          {/* preset */}
+          <Card
+            onPress={() => {
+              setType("preset");
+              setStartViewVisible(false);
+              setPlanVisible(true);
+              setName("Netflix"); // Show customName view;
+            }}
+            variant="default"
+            title="Netflix"
+            color="#E60000"
+            icon="netflix"
+          />
+          <Card
+            onPress={() => {
+              setType("preset");
+              setStartViewVisible(false);
+              setPlanVisible(true);
+              setName("HBO Max"); // Show customName view;
+            }}
+            variant="default"
+            title="HBO Max"
+            color="#9C00AF"
+            icon="hbo"
+          />
+          <Card
+            onPress={() => {
+              setType("preset");
+              setStartViewVisible(false);
+              setPlanVisible(true);
+              setName("Amazon Prime"); // Show customName view;
+            }}
+            variant="default"
+            title="Amazon Prime"
+            color="#0097EC"
+            icon="prime"
+          />
+          <Card
+            onPress={() => {
+              setType("preset");
+              setStartViewVisible(false);
+              setPlanVisible(true);
+              setName("Spotify"); // Show customName view;
+            }}
+            variant="default"
+            title="Spotify"
+            color="#00863F"
+            icon="spotify"
+          />
+          <Card
+            onPress={() => {
+              setType("preset");
+              setStartViewVisible(false);
+              setPlanVisible(true);
+              setName("Storytel"); // Show customName view;
+            }}
+            variant="default"
+            title="Storytel"
+            color="#FF3D00"
+            icon="storytel"
+          />
+          <Card
+            onPress={() => {
+              setType("preset");
+              setStartViewVisible(false);
+              setPlanVisible(true);
+              setName("Disney+"); // Show customName view;
+            }}
+            variant="default"
+            title="Disney+"
+            color="#0097EC"
+            icon="disney"
+          />
+          <Card
+            onPress={() => {
+              setType("preset");
+              setStartViewVisible(false);
+              setPlanVisible(true);
+              setName("GP"); // Show customName view;
+            }}
+            variant="default"
+            title="GP"
+            color="#4443BC"
+            icon="gp"
+          />
+        </View>
       </ScrollView>
       {/* All the views for setting props */}
-      <View
+      <ScrollView
         id="presetPlan"
         style={{
           paddingHorizontal: 12,
@@ -388,7 +379,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
           >
             Välj plan
           </Text>
-          <View style={{ gap: 12 }}>
+          <View style={{ gap: 12, marginBottom: 110 }}>
             {plans[name] && (
               <React.Fragment>
                 {Object.keys(plans[name]).map((key) => (
@@ -410,12 +401,13 @@ const AddSubscriptionScreen = ({ navigation }) => {
             )}
           </View>
         </View>
-      </View>
-      <SafeAreaView
+      </ScrollView>
+      <KeyboardAvoidingView
         id="customName"
         style={{
-          paddingHorizontal: 12,
           marginTop: "26%",
+          paddingHorizontal: 12,
+
           display: customNameVisible ? "flex" : "none",
         }}
       >
@@ -446,7 +438,22 @@ const AddSubscriptionScreen = ({ navigation }) => {
           onChangeText={(text) => setName(text)}
           style={styles.input}
         />
-        <View style={{ alignItems: "flex-end", marginTop: 12 }}>
+        <View
+          style={{
+            justifyContent: "space-between",
+            marginTop: 12,
+            flexDirection: "row",
+          }}
+        >
+          <CTAButtonSmall
+            title="Tillbaka"
+            variant="secondary"
+            onPress={() => {
+              setName("");
+              setCustomNameVisible(false);
+              setStartViewVisible(true);
+            }}
+          />
           <CTAButtonSmall
             title="Nästa"
             variant="primary"
@@ -454,14 +461,13 @@ const AddSubscriptionScreen = ({ navigation }) => {
               if (name === "") {
                 alert("Du måste skriva in ett namn");
               } else {
-                console.log(name);
                 setCustomNameVisible(false);
                 setBillingPeriodVisible(true);
               }
             }}
           />
         </View>
-      </SafeAreaView>
+      </KeyboardAvoidingView>
       <SafeAreaView
         id="billingPeriod"
         style={{
@@ -473,14 +479,14 @@ const AddSubscriptionScreen = ({ navigation }) => {
         <Text
           style={{
             fontSize: 30,
-            marginBottom: 64,
+
             fontFamily: "Inter_600SemiBold",
             alignSelf: "center",
           }}
         >
           Faktureringsperiod
         </Text>
-        <Text
+        {/* <Text
           style={{
             fontSize: 12,
             marginBottom: 8,
@@ -490,9 +496,8 @@ const AddSubscriptionScreen = ({ navigation }) => {
           }}
         >
           Välj din Faktureringsperiod
-        </Text>
+        </Text> */}
         <Picker
-          style={{ marginBottom: 12 }}
           selectedValue={billingPeriod}
           onValueChange={(itemValue, itemIndex) => setBillingPeriod(itemValue)}
         >
@@ -525,7 +530,6 @@ const AddSubscriptionScreen = ({ navigation }) => {
               if (billingPeriod === "") {
                 alert("Du måste välja en faktureringsperiod");
               } else {
-                console.log(name);
                 setBillingPeriodVisible(false);
                 setPriceVisible(true);
               }
@@ -572,6 +576,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
           }}
           inputMode="numeric" // This prop restricts the keyboard to show only numeric input
           style={styles.input}
+          returnKeyType="done"
         />
         <View
           style={{
@@ -586,7 +591,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
             onPress={() => {
               setPrice("");
               setPriceVisible(false);
-              setBillingPeriod(true);
+              setBillingPeriodVisible(true);
             }}
           />
           <CTAButtonSmall
@@ -614,14 +619,14 @@ const AddSubscriptionScreen = ({ navigation }) => {
         <Text
           style={{
             fontSize: 36,
-            marginBottom: 64,
+
             fontFamily: "Inter_600SemiBold",
             alignSelf: "center",
           }}
         >
           Startdatum
         </Text>
-        <Text
+        {/* <Text
           style={{
             fontSize: 12,
             marginBottom: 8,
@@ -631,38 +636,18 @@ const AddSubscriptionScreen = ({ navigation }) => {
           }}
         >
           Skriv i datumet du började din prenumeration
-        </Text>
+        </Text> */}
 
-        <TextInput
-          placeholder="dag/månad/år"
-          value={startDate}
-          onChangeText={(text) => setStartDate(text)}
-          style={styles.input}
-        />
-
-        {/* <CTAButtonBig onPress={showDatepicker} title="Pick a date" />
-        <Text>{startDate.toLocaleDateString()}</Text>
-        <Text>selected: {startDate.toLocaleDateString()}</Text>
-        {show && (
-          <DateTimePicker
-            testID="dateTimePicker"
-            value={startDate}
-            mode={mode}
-            is24Hour={true}
-            onChange={onChange}
-          />
-        )} */}
-        {/* <Text>selected: {startDate.toLocaleString()}</Text>
         <DateTimePicker
+          style={{ height: 200 }}
           testID="dateTimePicker"
-          value={startDate}
+          value={date}
           mode="date"
           is24Hour={true}
-          display="default"
-          onChange={() => {
-            setStartDate(startDate);
-          }}
-        /> */}
+          onChange={onChange}
+          display="spinner"
+        />
+
         <View
           style={{
             marginTop: 12,
@@ -689,7 +674,6 @@ const AddSubscriptionScreen = ({ navigation }) => {
                 // const startDateConversion = startDate.toLocaleDateString();
                 // setStartDate(startDateConversion);
 
-                console.log(startDate);
                 setStartDateVisible(false);
                 setDescriptionVisible(true);
               }
@@ -770,9 +754,12 @@ export default AddSubscriptionScreen;
 const styles = StyleSheet.create({
   input: {
     backgroundColor: "#fff",
-    paddingHorizontal: 15,
-    paddingVertical: 10,
-    borderRadius: 10,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderRadius: 12,
     marginTop: 5,
+    borderWidth: 2,
+    borderColor: "#7D7D7D",
+    height: 46,
   },
 });

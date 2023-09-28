@@ -10,8 +10,7 @@ import { useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import { getAuth } from "firebase/auth";
 
-const StatisticsScreen = ({navigation}) => {
-
+const StatisticsScreen = ({ navigation }) => {
   const auth = getAuth();
   const user = auth.currentUser;
   const [subscriptions, setSubscriptions] = useState([]);
@@ -54,7 +53,6 @@ const StatisticsScreen = ({navigation}) => {
       monthlyCosts += parseFloat(subscriptions[key].price);
     }
   });
-
 
   return (
     <SafeAreaView style={styles.body}>
@@ -134,18 +132,17 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 134,
     paddingLeft: 12,
+    marginTop: 12,
 
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
 
-
-
     borderWidth: 2,
     borderColor: "#7D7D7D",
     borderRadius: 12,
   },
-  
+
   boxTitle: {
     marginTop: 24,
     fontFamily: "Inter_400Regular",
@@ -161,7 +158,6 @@ const styles = StyleSheet.create({
     borderColor: "#7D7D7D",
     borderRadius: 12,
   },
-
 
   title: {
     fontFamily: "Inter_600SemiBold",

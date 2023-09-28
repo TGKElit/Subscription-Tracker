@@ -58,14 +58,16 @@ const SubscriptionScreen = ({ navigation }) => {
   });
 
   return (
-    <SafeAreaView style={{ height: "100%", width: "100%" }}>
+    <SafeAreaView
+      style={{ height: "100%", width: "100%", backgroundColor: "#FFFFFF" }}
+    >
       <HeaderContainer
         title="Prenumerationer"
         navigation={navigation}
         addSubscription={true}
       />
       <NotficationHandler />
-      <ScrollView style={{ backgroundColor: "#FFFFFF" }}>
+      <ScrollView>
         <View style={{ paddingHorizontal: 12, marginBottom: 110 }}>
           <View
             style={{

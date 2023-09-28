@@ -14,6 +14,7 @@ import { useState, useEffect } from "react";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { CTAButtonSmall } from "../src/Components/CTAButton/CTAButtonSmall";
 import { CTAButtonBig } from "../src/Components/CTAButton/CTAButtonBig";
+import { BlurView } from "expo-blur";
 
 const RegisterScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -65,7 +66,11 @@ const RegisterScreen = ({ navigation }) => {
         backgroundColor: "#FFFFFF",
       }}
     >
-      <View style={styles.container}>
+      <BlurView
+        style={styles.container}
+        tint="dark"
+        intensity={modalVisible ? 100 : 0}
+      >
         <Text
           style={{
             fontSize: 36,
@@ -152,7 +157,7 @@ const RegisterScreen = ({ navigation }) => {
             variant="primary"
           />
         </View>
-      </View>
+      </BlurView>
 
       <View>
         <Modal
@@ -165,7 +170,7 @@ const RegisterScreen = ({ navigation }) => {
         >
           <View
             style={{
-              width: 342,
+              width: "87%",
               height: 340,
               paddingHorizontal: 12,
               paddingVertical: 24,
@@ -251,7 +256,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginHorizontal: 24,
+    paddingHorizontal: 24,
   },
   inputContainer: {
     width: "100%",

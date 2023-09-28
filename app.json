@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "expoTest",
-    "slug": "expoTest",
+    "slug": "subscription-tracker",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -40,6 +40,12 @@
           }
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "843b053f-95e1-44c6-8a63-c785d2a70f8e"
+      }
+    },
+    "owner": "tgkelit"
   }
 }

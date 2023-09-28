@@ -63,14 +63,13 @@ const styles = StyleSheet.create({
   box: {
     width: "100%",
     height: 68,
-
+    backgroundColor: "white",
     borderBottomRightRadius: 12,
     borderBottomLeftRadius: 12,
     borderColor: "#7D7D7D",
     borderWidth: 2,
     borderTopWidth: 0,
     alignItems: "center",
-
     justifyContent: "flex-end",
     padding: 20,
   },

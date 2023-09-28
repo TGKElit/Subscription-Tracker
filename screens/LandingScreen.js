@@ -14,7 +14,7 @@ const LandingScreen = ({ navigation }) => {
         justifyContent: "center",
         alignItems: "center",
         paddingHorizontal: 12,
-        backgroundColor: "white",
+        backgroundColor: "#FFFFFF",
         height: "100%",
         width: "100%",
       }}

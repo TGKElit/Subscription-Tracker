@@ -286,13 +286,39 @@ const SubscriptionInfo = ({ route, navigation }) => {
     } else {
       const [year, month, day] = startDate.split("-").map(Number);
       const startDateObject = new Date(year, month - 1, day);
+      const currentYearStartDateObject = new Date();
 
-      if (billingPeriod === "månad") {
-        startDateObject.setMonth(startDateObject.getMonth() + 1);
-      } else if (billingPeriod === "kvartal") {
-        startDateObject.setMonth(startDateObject.getMonth() + 3);
-      } else if (billingPeriod === "år") {
-        startDateObject.setFullYear(startDateObject.getFullYear() + 1);
+      const currentYear = new Date().getFullYear();
+      const currentMonth = new Date().getMonth() + 1;
+      console.log(currentYear);
+      console.log(currentMonth);
+      console.log(startDateObject.getMonth() + 1);
+
+      if (currentYear < startDateObject.getFullYear()) {
+        if (billingPeriod === "månad") {
+          startDateObject.setMonth(startDateObject.getMonth() + 1);
+        } else if (billingPeriod === "kvartal") {
+          startDateObject.setMonth(startDateObject.getMonth() + 3);
+        } else if (billingPeriod === "år") {
+          startDateObject.setFullYear(startDateObject.getFullYear() + 1);
+        }
+      } else {
+        startDateObject.setFullYear(currentYear);
+        if (billingPeriod === "månad") {
+          startDateObject.setMonth(startDateObject.getMonth() + 1);
+        } else if (billingPeriod === "kvartal") {
+          startDateObject.setMonth(startDateObject.getMonth() + 3);
+        } else if (
+          billingPeriod === "år" &&
+          currentMonth > startDateObject.getMonth()
+        ) {
+          startDateObject.setFullYear(currentYear + 1);
+        } else if (
+          billingPeriod === "år" &&
+          currentMonth < startDateObject.getMonth()
+        ) {
+          startDateObject.setFullYear(currentYear);
+        }
       }
 
       // Add one month
@@ -309,7 +335,9 @@ const SubscriptionInfo = ({ route, navigation }) => {
   }
 
   return (
-    <SafeAreaView style={{ height: "100%", width: "100%" }}>
+    <SafeAreaView
+      style={{ height: "100%", width: "100%", backgroundColor: "#FFFFFF" }}
+    >
       <HeaderContainer
         title="Prenumerationer"
         backArrow={() => {
@@ -320,6 +348,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
         style={{
           marginBottom: 70,
           display: landingScreenVisible ? "flex" : "none",
+          backgroundColor: "#FFFFFF",
         }}
       >
         <SafeAreaView style={{ paddingHorizontal: 12 }}>

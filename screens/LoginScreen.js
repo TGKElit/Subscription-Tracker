@@ -93,7 +93,21 @@ const LoginScreen = ({ navigation }) => {
             secureTextEntry
           />
         </View>
-        <View style={{ alignSelf: "flex-start", marginTop: 12 }}>
+        <View
+          style={{
+            width: "100%",
+            justifyContent: "space-between",
+            marginTop: 12,
+            flexDirection: "row",
+          }}
+        >
+          <CTAButtonSmall
+            title="Tillbaka"
+            onPress={() => {
+              navigation.navigate("Landing");
+            }}
+            variant="secondary"
+          />
           <CTAButtonSmall title="Logga in" onPress={login} variant="primary" />
         </View>
         {/* <Text style={{ fontFamily: "Inter_600SemiBold", fontSize: 36 }}>

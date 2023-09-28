@@ -23,20 +23,14 @@ const SettingsScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.body}>
       <HeaderContainer title="Inställningar" />
-      <ScrollView style={styles.menu}>
+      <View style={styles.menu}>
         <Card variant="settings" title="Om oss" icon="terms" />
         <Card variant="settings" title="Villkor" icon="terms" color="orange" />
         <Card variant="settings" title="Hjäp" icon="help" />
-
-        {/* <Card variant="basic" title="Example" icon="default" iconColor="blue" color="gray"/>
-        <Card variant="default" title="Test" color="red" icon="netflix" info="455kr/mån"/>
-        <Card variant="basic" title="Basic" info="Basic"/>
-        <Card variant="basic" title="Lägg till egen" icon="plus"/> */}
-        <Image style={styles.illustration} />
-        <Pressable onPress={signOut}>
-          <Text style={styles.logout}>Logga ut</Text>
-        </Pressable>
-      </ScrollView>
+      </View>
+      <Pressable onPress={signOut} style={{ position: "absolute", bottom: 0 }}>
+        <Text style={styles.logout}>Logga ut</Text>
+      </Pressable>
       <Navbar navigation={navigation} screen="settings" />
     </SafeAreaView>
   );
@@ -71,6 +65,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     margin: 12,
     marginLeft: 24,
-    marginBottom: 112,
+    marginBottom: 93,
   },
 });

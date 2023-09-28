@@ -130,7 +130,21 @@ const RegisterScreen = ({ navigation }) => {
           </Text>
         </View>
         {/* få registreringsknappen till vänster */}
-        <View style={{ alignSelf: "flex-start", marginTop: 12 }}>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            marginTop: 12,
+            width: "100%",
+          }}
+        >
+          <CTAButtonSmall
+            title="Tillbaka"
+            onPress={() => {
+              navigation.navigate("Landing");
+            }}
+            variant="secondary"
+          />
           <CTAButtonSmall
             title="Registrera"
             onPress={createAccount}

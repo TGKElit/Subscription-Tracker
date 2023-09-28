@@ -62,7 +62,7 @@ export const HeaderContainer: FC<HeaderProps> = ({
 const styles = StyleSheet.create({
   box: {
     width: "100%",
-    height: 104,
+    height: 68,
 
     borderBottomRightRadius: 12,
     borderBottomLeftRadius: 12,

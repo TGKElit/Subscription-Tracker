@@ -13,17 +13,23 @@ const LandingScreen = ({ navigation }) => {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        gap: 44,
         paddingHorizontal: 12,
         backgroundColor: "white",
         height: "100%",
+        width: "100%",
       }}
     >
       <StatusBar style="dark" />
-      <View style={{ height: "40%", backgroundColor: "grey", width: "100%" }}>
+      <View
+        style={{
+          height: 250,
+          backgroundColor: "grey",
+          width: 250,
+        }}
+      >
         <Image
           source={require("../assets/landing.png")}
-          style={{ width: "100%", height: "100%" }}
+          style={{ width: "100%", height: "100%", contentFit: "fill" }}
           contentFit="cover"
         />
       </View>
@@ -33,10 +39,15 @@ const LandingScreen = ({ navigation }) => {
           justifyContent: "center",
           alignItems: "center",
           paddingHorizontal: 10,
-          paddingBottom: 10,
         }}
       >
-        <Text style={{ fontFamily: "Inter_600SemiBold", fontSize: 48 }}>
+        <Text
+          style={{
+            fontFamily: "Inter_600SemiBold",
+            fontSize: 48,
+            marginBottom: 10,
+          }}
+        >
           tracky.
         </Text>
         <Text
@@ -45,15 +56,17 @@ const LandingScreen = ({ navigation }) => {
             fontSize: 16,
             textAlign: "center",
             lineHeight: 22,
-            marginHorizontal: "6%",
+            marginHorizontal: 10,
+            marginBottom: 32,
           }}
         >
-          Lorem ipsum dolor sit amet consectetur. Donec augue elit praesent
-          faucibus quisque malesuada vitae pellentesque aliquam.
+          Upptäck vår prenumerationsspårningsapp – din nyckel till ekonomisk
+          kontroll! Missa aldrig en betalning igen med våra tidiga påminnelser
+          och spåra dina utgifter utan ansträngning.
         </Text>
       </View>
 
-      <View style={{ gap: 16, width: "100%" }}>
+      <View style={{ gap: 16, width: "100%", marginBottom: 48 }}>
         <CTAButtonBig
           title="Logga in"
           onPress={() => navigation.navigate("Login")}

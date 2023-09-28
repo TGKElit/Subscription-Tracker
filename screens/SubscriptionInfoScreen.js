@@ -367,6 +367,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
               <Pressable style={{ marginBottom: 24 }}>
                 <Card
                   title="Plan"
+                  info={plan}
                   variant="basic"
                   onPress={() => {
                     setPlanVisible(true);

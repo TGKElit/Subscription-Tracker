@@ -7,7 +7,6 @@ type ButtonType = "primary" | "secondary" | "red" | "disabled";
 interface CTAButtonProps {
   title: string;
   variant: ButtonType;
-  enabled: boolean;
   onPress: () => void;
 }
 
@@ -15,7 +14,6 @@ export const CTAButtonBig: FC<CTAButtonProps> = ({
   title,
   onPress,
   variant,
-  enabled,
 }) => {
   const containerStyle =
     variant === "primary"
@@ -35,7 +33,7 @@ export const CTAButtonBig: FC<CTAButtonProps> = ({
       ? styles.textRed
       : styles.textDisabled;
   return (
-    <Pressable onPress={onPress} style={containerStyle} disabled={enabled}>
+    <Pressable onPress={onPress} style={containerStyle}>
       <Text style={textStyle}>{title}</Text>
     </Pressable>
   );

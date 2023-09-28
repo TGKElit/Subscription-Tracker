@@ -487,11 +487,14 @@ const SubscriptionInfo = ({ route, navigation }) => {
           <View style={{ marginTop: 12, marginBottom: 12 }}>
             <CTAButtonBig
               title="Spara"
-              enabled={deleteConfirmationVisible}
               variant={deleteConfirmationVisible ? "primary" : "disabled"}
               onPress={() => {
-                updateData(targetDataKey);
-                navigation.navigate("SubscriptionScreen");
+                if (deleteConfirmationVisible === false) {
+                  return;
+                } else {
+                  updateData(targetDataKey);
+                  navigation.navigate("SubscriptionScreen");
+                }
               }}
             />
             {/* <CTAButtonBig

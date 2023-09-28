@@ -261,6 +261,10 @@ const SubscriptionInfo = ({ route, navigation }) => {
 
   useEffect(() => {
     displayNextPayment(startDate);
+  }, [billingPeriod]);
+
+  useEffect(() => {
+    displayNextPayment(startDate);
   }, [startDate]);
 
   const [date, setDate] = useState(new Date());
@@ -281,8 +285,15 @@ const SubscriptionInfo = ({ route, navigation }) => {
       const [year, month, day] = startDate.split("-").map(Number);
       const startDateObject = new Date(year, month - 1, day);
 
+      if (billingPeriod === "månad") {
+        startDateObject.setMonth(startDateObject.getMonth() + 1);
+      } else if (billingPeriod === "kvartal") {
+        startDateObject.setMonth(startDateObject.getMonth() + 3);
+      } else if (billingPeriod === "år") {
+        startDateObject.setFullYear(startDateObject.getFullYear() + 1);
+      }
+
       // Add one month
-      startDateObject.setMonth(startDateObject.getMonth() + 1);
 
       // Format the date as YYYY-MM-DD
       const newDate = `${startDateObject.getFullYear()}-${String(

@@ -223,6 +223,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
       .catch((error) => {
         console.error(error);
       });
+    
   }
 
   function deleteData(uniqueID) {
@@ -273,6 +274,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate;
+    setShowDatePicker(Platform.OS === 'ios');
     setDate(currentDate);
     setStartDate(currentDate.toLocaleDateString());
   };
@@ -691,7 +693,8 @@ const SubscriptionInfo = ({ route, navigation }) => {
         >
           Skriv i datumet du började din prenumeration
         </Text> */}
-
+          
+        { startDateVisible &&
         <DateTimePicker
           style={{ height: 200 }}
           testID="dateTimePicker"
@@ -701,6 +704,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
           onChange={onChange}
           display="spinner"
         />
+        }
         <CTAButtonBig
           title="Spara"
           variant="primary"

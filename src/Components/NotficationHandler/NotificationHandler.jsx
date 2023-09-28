@@ -36,7 +36,6 @@ export default function NotificationHandler() {
 
   return (
     <View>
-      <Text>Your expo push token: {expoPushToken}</Text>
       <Button
         title="Press to schedule a notification"
         onPress={async () => {

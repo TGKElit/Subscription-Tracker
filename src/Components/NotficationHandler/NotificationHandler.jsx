@@ -46,14 +46,14 @@ export default function NotificationHandler() {
   );
 }
 
-async function schedulePushNotification() {
+export async function schedulePushNotification(message) {
   await Notifications.scheduleNotificationAsync({
     content: {
-      title: "Next payment due soon",
-      body: 'Hello',
+      title: "Prenumeration uppdaterad",
+      body: message,
       data: { data: 'goes here' },
     },
-    trigger: { seconds: 5 },
+    trigger: { seconds: 1 },
   });
 }
 

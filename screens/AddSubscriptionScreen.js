@@ -22,6 +22,7 @@ import { HeaderContainer } from "../src/Components/HeaderContainer/HeaderContain
 import { Navbar } from "../src/Components/Navbar/Navbar";
 import { useRef } from "react";
 import { Image } from "expo-image";
+import { schedulePushNotification } from "../src/Components/NotficationHandler/NotificationHandler";
 
 const AddSubscriptionScreen = ({ navigation }) => {
   const plans = {
@@ -188,9 +189,8 @@ const AddSubscriptionScreen = ({ navigation }) => {
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate;
-    setShowDatePicker(Platform.OS === 'ios');
-    setFieldValue(inputName, selectedDate);
-    setSelectedDate(selectedDate);
+    startDateVisible = (Platform.OS === 'ios');
+    //setShowDatePicker(Platform.OS === 'ios');
     setDate(currentDate);
   };
 
@@ -209,6 +209,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
         type: type,
         plan: plan,
       });
+      schedulePushNotification("Prenumeration tillagd!");
     } catch (error) {
       console.error("Error adding data: ", error);
     }

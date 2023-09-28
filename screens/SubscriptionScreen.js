@@ -66,7 +66,6 @@ const SubscriptionScreen = ({ navigation }) => {
         navigation={navigation}
         addSubscription={true}
       />
-      <NotficationHandler />
       <ScrollView>
         <View style={{ paddingHorizontal: 12, marginBottom: 110 }}>
           <View

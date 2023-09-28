@@ -23,6 +23,7 @@ import { Image } from "expo-image";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { CTAButtonSmall } from "../src/Components/CTAButton/CTAButtonSmall";
 import { BlurView } from "expo-blur";
+import { schedulePushNotification } from "../src/Components/NotficationHandler/NotificationHandler";
 
 const SubscriptionInfo = ({ route, navigation }) => {
   const plans = {
@@ -225,6 +226,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
       .catch((error) => {
         console.error(error);
       });
+      schedulePushNotification("Prenumerationsinfo ändrad");
   }
 
   function deleteData(uniqueID) {
@@ -285,6 +287,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate;
+    startDateVisible = (Platform.OS === 'ios');
     setDate(currentDate);
     setStartDate(currentDate.toLocaleDateString());
   };
@@ -553,7 +556,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
                   if (deleteConfirmationVisible === false) {
                     return;
                   } else {
-                    updateData(targetDataKey);
+                    updateData(targetDataKey);  
                     navigation.navigate("SubscriptionScreen");
                   }
                 }}

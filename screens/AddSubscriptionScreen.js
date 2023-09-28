@@ -228,7 +228,9 @@ const AddSubscriptionScreen = ({ navigation }) => {
   }
 
   return (
-    <SafeAreaView style={{ height: "100%", width: "100%" }}>
+    <SafeAreaView
+      style={{ height: "100%", width: "100%", backgroundColor: "#FFFFFF" }}
+    >
       <HeaderContainer
         title="Prenumera"
         backArrow={() => {

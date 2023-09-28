@@ -54,7 +54,7 @@ const LoginScreen = ({ navigation }) => {
         alignContent: "center",
         justifyContent: "center",
         flex: 1,
-        backgroundColor: "white",
+        backgroundColor: "#FFFFFF",
       }}
     >
       <View style={styles.container}>

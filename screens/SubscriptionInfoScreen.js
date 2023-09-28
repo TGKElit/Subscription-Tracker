@@ -288,13 +288,52 @@ const SubscriptionInfo = ({ route, navigation }) => {
     } else {
       const [year, month, day] = startDate.split("-").map(Number);
       const startDateObject = new Date(year, month - 1, day);
+      const currentYearStartDateObject = new Date();
 
-      if (billingPeriod === "månad") {
-        startDateObject.setMonth(startDateObject.getMonth() + 1);
-      } else if (billingPeriod === "kvartal") {
-        startDateObject.setMonth(startDateObject.getMonth() + 3);
-      } else if (billingPeriod === "år") {
-        startDateObject.setFullYear(startDateObject.getFullYear() + 1);
+      const currentYear = new Date().getFullYear();
+      const currentMonth = new Date().getMonth() + 1;
+
+      if (currentYear < startDateObject.getFullYear()) {
+        if (billingPeriod === "månad") {
+          startDateObject.setMonth(startDateObject.getMonth() + 1);
+        } else if (billingPeriod === "kvartal") {
+          startDateObject.setMonth(startDateObject.getMonth() + 3);
+        } else if (billingPeriod === "år") {
+          startDateObject.setFullYear(startDateObject.getFullYear() + 1);
+        }
+      } else {
+        startDateObject.setFullYear(currentYear);
+        if (
+          billingPeriod === "månad" &&
+          currentMonth > startDateObject.getMonth()
+        ) {
+          startDateObject.setMonth(currentMonth);
+        } else if (
+          billingPeriod === "månad" &&
+          currentMonth < startDateObject.getMonth()
+        ) {
+          startDateObject.setMonth(startDateObject.getMonth() + 1);
+        } else if (billingPeriod === "kvartal") {
+          if (currentMonth <= startDateObject.getMonth() + 4) {
+            startDateObject.setMonth(startDateObject.getMonth() + 3);
+          } else if (currentMonth <= startDateObject.getMonth() + 7) {
+            startDateObject.setMonth(startDateObject.getMonth() + 6);
+          } else if (currentMonth <= startDateObject.getMonth() + 10) {
+            startDateObject.setMonth(startDateObject.getMonth() + 9);
+          } else if (currentMonth <= startDateObject.getMonth() + 13) {
+            startDateObject.setMonth(startDateObject.getMonth() + 12);
+          }
+        } else if (
+          billingPeriod === "år" &&
+          currentMonth > startDateObject.getMonth()
+        ) {
+          startDateObject.setFullYear(currentYear + 1);
+        } else if (
+          billingPeriod === "år" &&
+          currentMonth < startDateObject.getMonth()
+        ) {
+          startDateObject.setFullYear(currentYear);
+        }
       }
 
       // Add one month
@@ -311,7 +350,9 @@ const SubscriptionInfo = ({ route, navigation }) => {
   }
 
   return (
-    <SafeAreaView style={{ height: "100%", width: "100%" }}>
+    <SafeAreaView
+      style={{ height: "100%", width: "100%", backgroundColor: "#FFFFFF" }}
+    >
       <HeaderContainer
         title="Prenumerationer"
         backArrow={() => {
@@ -322,6 +363,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
         style={{
           marginBottom: 70,
           display: landingScreenVisible ? "flex" : "none",
+          backgroundColor: "#FFFFFF",
         }}
       >
         <SafeAreaView style={{ paddingHorizontal: 12 }}>
@@ -489,11 +531,14 @@ const SubscriptionInfo = ({ route, navigation }) => {
           <View style={{ marginTop: 12, marginBottom: 12 }}>
             <CTAButtonBig
               title="Spara"
-              enabled={deleteConfirmationVisible}
               variant={deleteConfirmationVisible ? "primary" : "disabled"}
               onPress={() => {
-                updateData(targetDataKey);
-                navigation.navigate("SubscriptionScreen");
+                if (deleteConfirmationVisible === false) {
+                  return;
+                } else {
+                  updateData(targetDataKey);
+                  navigation.navigate("SubscriptionScreen");
+                }
               }}
             />
             {/* <CTAButtonBig

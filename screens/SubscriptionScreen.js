@@ -87,7 +87,7 @@ const SubscriptionScreen = ({ navigation }) => {
               Denna månaden kommer du att betala:
             </Text>
             <Text style={{ fontSize: 36, fontFamily: "Inter_700Bold" }}>
-              {totalCost} kr
+              {totalCost.toFixed(0)} kr
             </Text>
           </View>
 

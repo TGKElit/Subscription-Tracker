@@ -188,9 +188,9 @@ const AddSubscriptionScreen = ({ navigation }) => {
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate;
-    setShowDatePicker(Platform.OS === 'ios');
-    setFieldValue(inputName, selectedDate);
-    setSelectedDate(selectedDate);
+    // setShowDatePicker(Platform.OS === 'ios');
+    // setFieldValue(inputName, selectedDate);
+    // setSelectedDate(selectedDate);
     setDate(currentDate);
   };
 
@@ -641,17 +641,17 @@ const AddSubscriptionScreen = ({ navigation }) => {
         >
           Skriv i datumet du började din prenumeration
         </Text> */}
-      {startDateVisible &&
-        <DateTimePicker
-          style={{ height: 200,}}
-          testID="dateTimePicker"
-          value={date}
-          mode="date"
-          is24Hour={true}
-          onChange={onChange}
-          display="spinner"
-        />
-      }
+        {startDateVisible && (
+          <DateTimePicker
+            style={{ height: 200 }}
+            testID="dateTimePicker"
+            value={date}
+            mode="date"
+            is24Hour={true}
+            onChange={onChange}
+            display="spinner"
+          />
+        )}
 
         <View
           style={{

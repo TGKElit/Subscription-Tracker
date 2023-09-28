@@ -441,6 +441,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
                     variant="basic"
                     onPress={() => {
                       setPlanVisible(true);
+                      setDeleteConfirmationVisible(true);
                       setLandingScreenVisible(false);
                     }}
                   />
@@ -460,8 +461,11 @@ const SubscriptionInfo = ({ route, navigation }) => {
                 info={billingPeriod}
                 variant="primary"
                 onPress={() => {
-                  setBillingPeriodVisible(true);
-                  setStartDateVisible(false);
+                  if (plan === "") {
+                    console.log(plan);
+                    setBillingPeriodVisible(true);
+                    setStartDateVisible(false);
+                  }
                 }}
               />
               <Pressable style={styles.containerPrimary}>
@@ -475,6 +479,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
                     width: "50%",
                   }}
                   inputMode="numeric"
+                  editable={plan === "" ? true : false}
                   value={price}
                   onChangeText={(text) =>
                     setPrice(text) + setDeleteConfirmationVisible(true)
@@ -656,7 +661,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
             borderRadius: 12,
             paddingVertical: 24,
             paddingHorizontal: 12,
-            marginTop: "50%",
+            marginTop: "90%",
             borderWidth: 2,
           }}
         >
@@ -773,7 +778,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
           borderColor: "black",
           borderRadius: 12,
           paddingVertical: 24,
-          marginTop: "50%",
+          marginTop: "40%",
           gap: 12,
           paddingHorizontal: 12,
         }}

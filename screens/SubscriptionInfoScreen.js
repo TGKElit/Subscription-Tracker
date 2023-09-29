@@ -486,7 +486,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
       />
       <ScrollView
         style={{
-          marginBottom: 54,
+          marginBottom: 66,
           display: landingScreenVisible ? "flex" : "none",
         }}
       >
@@ -771,7 +771,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
             borderRadius: 12,
             paddingVertical: 24,
             paddingHorizontal: 12,
-            marginTop: "70%",
+            marginTop: plan === "" ? "80%" : "100%",
             borderWidth: 2,
           }}
         >

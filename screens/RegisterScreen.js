@@ -13,7 +13,6 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { CTAButtonSmall } from "../src/Components/CTAButton/CTAButtonSmall";
-import { CTAButtonBig } from "../src/Components/CTAButton/CTAButtonBig";
 import { BlurView } from "expo-blur";
 
 const RegisterScreen = ({ navigation }) => {
@@ -110,7 +109,9 @@ const RegisterScreen = ({ navigation }) => {
         <View style={styles.checkBoxContainer}>
           <Pressable onPress={toggleBox} style={[styles.checkBox]}>
             {boxState ? (
-              <Text style={{ fontSize: 24, color: "black" }}>✓</Text>
+              <Text style={{ fontSize: 24, color: "black", paddingLeft: 4 }}>
+                ✓
+              </Text>
             ) : null}
           </Pressable>
           <Text
@@ -135,7 +136,7 @@ const RegisterScreen = ({ navigation }) => {
             Villkoren
           </Text>
         </View>
-        {/* få registreringsknappen till vänster */}
+
         <View
           style={{
             flexDirection: "row",
@@ -183,13 +184,7 @@ const RegisterScreen = ({ navigation }) => {
             }}
           >
             <View style={{ flexDirection: "row", justifyContent: "center" }}>
-              <Svg
-                style={styles.icon}
-                width="32"
-                height="32"
-                viewBox="0 0 32 32"
-                fill="none"
-              >
+              <Svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                 <Path
                   d="M7 20.7273C6.44772 20.7273 6 21.175 6 21.7273C6 22.2796 6.44772 22.7273 7 22.7273V20.7273ZM14.875 22.7273C15.4273 22.7273 15.875 22.2796 15.875 21.7273C15.875 21.175 15.4273 20.7273 14.875 20.7273V22.7273ZM25.7493 18.5714C26.115 18.1576 26.0761 17.5256 25.6623 17.1598C25.2485 16.7941 24.6165 16.833 24.2507 17.2468L25.7493 18.5714ZM20.5 23L19.7507 23.6623C19.9406 23.877 20.2134 24 20.5 24C20.7866 24 21.0594 23.877 21.2493 23.6623L20.5 23ZM18.9993 19.7923C18.6335 19.3785 18.0015 19.3395 17.5877 19.7053C17.1739 20.0711 17.135 20.703 17.5007 21.1168L18.9993 19.7923ZM7 14.3636C6.44772 14.3636 6 14.8114 6 15.3636C6 15.9159 6.44772 16.3636 7 16.3636V14.3636ZM19.375 16.3636C19.9273 16.3636 20.375 15.9159 20.375 15.3636C20.375 14.8114 19.9273 14.3636 19.375 14.3636V16.3636ZM7 8C6.44772 8 6 8.44772 6 9C6 9.55228 6.44772 10 7 10V8ZM19.375 10C19.9273 10 20.375 9.55228 20.375 9C20.375 8.44772 19.9273 8 19.375 8V10ZM7 22.7273H14.875V20.7273H7V22.7273ZM24.2507 17.2468L19.7507 22.3377L21.2493 23.6623L25.7493 18.5714L24.2507 17.2468ZM21.2493 22.3377L18.9993 19.7923L17.5007 21.1168L19.7507 23.6623L21.2493 22.3377ZM7 16.3636H19.375V14.3636H7V16.3636ZM7 10H19.375V8H7V10Z"
                   fill="black"
@@ -208,10 +203,10 @@ const RegisterScreen = ({ navigation }) => {
             </View>
             <View>
               <Text style={{ fontFamily: "Inter_400Regular", fontSize: 16 }}>
-                Lorem ipsum dolor sit amet consectetur. Donec augue elit
-                praesent faucibus quisque malesuada vitae pellentesque aliquam.
-                Lorem ipsum dolor sit amet consectetur. Donec augue elit
-                praesent faucibus quisque malesuada vitae pellentesque aliquam.
+                Lorem ipsum dolor sit amet consecte. Donec augue elit praesent
+                faucibus quisque malesuada vitae pellentesque aliquam. Lorem
+                ipsum dolor sit amet consectetur. Donec augue elit praesent
+                faucibus quisque malesuada vitae pellentesque aliquam.
               </Text>
             </View>
             <View
@@ -273,12 +268,7 @@ const styles = StyleSheet.create({
     borderColor: "#7D7D7D",
     height: 46,
   },
-  buttonContainer: {
-    width: "60%",
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 40,
-  },
+
   checkBox: {
     height: 32,
     width: 32,
@@ -290,70 +280,5 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     alignSelf: "flex-start",
-  },
-
-  icon: {
-    width: 40,
-    height: 40,
-    borderRadius: 12,
-  },
-
-  termsOfSeriveContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "white",
-    paddingVertical: 24,
-    paddingHorizontal: 12,
-    gap: 24,
-    borderRadius: 12,
-    height: 372,
-    width: 330,
-    borderWidth: 2,
-  },
-  modalView: {
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  termsOfServiceHeader: {
-    fontSize: 24,
-
-    lineHeight: 28,
-    fontFamily: "Inter_600SemiBold",
-  },
-  termsOfServiceTextContainer: {
-    marginTop: 20,
-    width: 269,
-  },
-
-  // gör spacebetween
-  termsOfServiceButtonContainer: {
-    flexDirection: "row",
-    width: "100%",
-    justifyContent: "space-between",
-  },
-  termsOfServiceButton: {
-    width: 126,
-    paddingVertical: 12,
-    paddingHorizontal: 10,
-    justifyContent: "center",
-    alignItems: "center",
-    gap: 10,
-    borderRadius: 12,
-    borderColor: "black",
-    borderWidth: 2,
-  },
-
-  denyButton: {
-    backgroundColor: "white",
-  },
-  acceptButton: {
-    backgroundColor: "black",
-  },
-
-  textBlack: {
-    color: "black",
-  },
-  textWhite: {
-    color: "white",
   },
 });

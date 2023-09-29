@@ -10,7 +10,6 @@ import { Navbar } from "../src/Components/Navbar/Navbar";
 import { useFocusEffect } from "@react-navigation/native";
 
 import { Card } from "../src/Components/Card/Card";
-import NotficationHandler from "../src/Components/NotficationHandler/NotificationHandler";
 
 const SubscriptionScreen = ({ navigation }) => {
   const auth = getAuth();

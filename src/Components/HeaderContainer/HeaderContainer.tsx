@@ -77,13 +77,13 @@ const styles = StyleSheet.create({
   backArrow: {
     position: "absolute",
     left: 20,
-    bottom: 20,
+    bottom: 18,
   },
 
   plus: {
     position: "absolute",
     right: 20,
-    bottom: 20,
+    bottom: 16,
   },
 
   textStyle: {

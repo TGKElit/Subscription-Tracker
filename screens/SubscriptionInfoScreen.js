@@ -178,6 +178,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
   const [deleteConfirmationVisible, setDeleteConfirmationVisible] =
     useState(false);
 
+  //set all params from SubscriptionScreen to states
   useEffect(() => {
     getData();
     setBillingPeriod(route.params.billingPeriod);
@@ -209,6 +210,8 @@ const SubscriptionInfo = ({ route, navigation }) => {
       });
   }
 
+  //Update data in db
+
   function updateData(uniqueID) {
     const db = getDatabase();
     const subscriptionRef = ref(db, `users/${user.uid}/${uniqueID}`); // Use template literal to construct the path
@@ -226,14 +229,14 @@ const SubscriptionInfo = ({ route, navigation }) => {
       .catch((error) => {
         console.error(error);
       });
-      schedulePushNotification("Prenumerationsinfo ändrad");
+    schedulePushNotification("Prenumerationsinfo ändrad");
   }
 
+  // Delete data form db
   function deleteData(uniqueID) {
     const db = getDatabase();
     const subscriptionRef = ref(db, `users/${user.uid}/${uniqueID}`);
 
-    // Remove the data
     remove(subscriptionRef)
       .then(() => {})
       .catch((error) => {
@@ -241,6 +244,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
       });
   }
 
+  //find right subscription in database
   const findTarget = () => {
     for (const key in subscriptions) {
       const subscription = subscriptions[key];
@@ -287,7 +291,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate;
-    startDateVisible = (Platform.OS === 'ios');
+    // startDateVisible = (Platform.OS === 'ios');
     setDate(currentDate);
     setStartDate(currentDate.toLocaleDateString());
   };
@@ -301,7 +305,6 @@ const SubscriptionInfo = ({ route, navigation }) => {
     } else {
       const [year, month, day] = startDate.split("-").map(Number);
       const startDateObject = new Date(year, month - 1, day);
-      const currentYearStartDateObject = new Date();
 
       const currentYear = new Date().getFullYear();
       const currentMonth = new Date().getMonth() + 1;
@@ -361,6 +364,114 @@ const SubscriptionInfo = ({ route, navigation }) => {
       setNextPayment(newDate);
     }
   }
+  //Working on more accurate displayNextPayment function
+
+  // function displayNextPayment(startDate) {
+  //   if (startDate === "") {
+  //     setNextPayment("Välj startdatum");
+  //   } else {
+  //     const [year, month, day] = startDate.split("-").map(Number);
+  //     const startDateObject = new Date(year, month - 1, day);
+  //     const currentYearStartDateObject = new Date();
+
+  //     const currentYear = new Date().getFullYear();
+  //     const currentMonth = new Date().getMonth() + 1;
+  //     const currentDay = new Date().getDate();
+  //     console.log(
+  //       currentMonth,
+  //       currentDay,
+  //       startDateObject.getMonth(),
+  //       startDateObject.getDate(),
+  //       startDateObject.getFullYear()
+  //     );
+
+  //     if (currentYear < startDateObject.getFullYear()) {
+  //       if (billingPeriod === "månad") {
+  //         startDateObject.setMonth(startDateObject.getMonth() + 0);
+  //       } else if (billingPeriod === "kvartal") {
+  //         startDateObject.setMonth(startDateObject.getMonth() + 3);
+  //       } else if (billingPeriod === "år") {
+  //         startDateObject.setFullYear(startDateObject.getFullYear() + 1);
+  //       }
+  //     } else {
+  //       startDateObject.setFullYear(currentYear);
+  //       if (billingPeriod === "månad") {
+  //         if (
+  //           currentMonth === startDateObject.getMonth() &&
+  //           currentDay === startDateObject.getDate()
+  //         ) {
+  //           console.log("sätt samma dag och månad");
+  //           startDateObject.setMonth(startDateObject.getMonth() + 1);
+  //         } else if (
+  //           billingPeriod === "månad" &&
+  //           currentMonth > startDateObject.getMonth() + 1 &&
+  //           currentDay > startDateObject.getDate()
+  //         ) {
+  //           console.log("sätt 1 månad +");
+  //           startDateObject.setMonth(currentMonth);
+  //         } else if (
+  //           billingPeriod === "månad" &&
+  //           currentMonth === startDateObject.getMonth() + 1 &&
+  //           currentDay > startDateObject.getDate()
+  //         ) {
+  //           console.log(currentYear, startDateObject.getFullYear());
+  //           console.log("Sätt 1 månad + om samma månad men dag har gått");
+  //           startDateObject.setMonth(startDateObject.getMonth() + 1);
+  //           console.log(currentYear, startDateObject.getFullYear());
+  //         } else if (startDateObject.getFullYear() > currentYear) {
+  //           console.log("år i framtiden");
+  //           startDateObject.setMonth(startDateObject.getMonth() + 1);
+  //         } else {
+  //           startDateObject.setMonth(currentMonth);
+  //           console.log("något är fel");
+  //         }
+
+  //         // startDateObject.setMonth(startDateObject.getMonth() + 1);
+  //       } else if (billingPeriod === "kvartal") {
+  //         if (currentMonth <= startDateObject.getMonth()) {
+  //           console.log("tjoho");
+  //           startDateObject.setMonth(startDateObject.getMonth() + 0);
+  //         } else if (
+  //           currentMonth === startDateObject.getMonth() + 1 &&
+  //           currentDay <= startDateObject.getDate()
+  //         ) {
+  //           console.log("hej");
+  //           startDateObject.setMonth(startDateObject.getMonth() + 0);
+  //         } else if (currentMonth <= startDateObject.getMonth() + 3) {
+  //           console.log("hej 2");
+  //           startDateObject.setMonth(startDateObject.getMonth() + 3);
+  //         } else if (currentMonth <= startDateObject.getMonth() + 7) {
+  //           startDateObject.setMonth(startDateObject.getMonth() + 6);
+  //         } else if (currentMonth <= startDateObject.getMonth() + 10) {
+  //           startDateObject.setMonth(startDateObject.getMonth() + 9);
+  //         } else if (currentMonth <= startDateObject.getMonth() + 13) {
+  //           startDateObject.setMonth(startDateObject.getMonth() + 12);
+  //         }
+  //       } else if (
+  //         billingPeriod === "år" &&
+  //         currentMonth > startDateObject.getMonth()
+  //       ) {
+  //         startDateObject.setFullYear(currentYear + 1);
+  //       } else if (
+  //         billingPeriod === "år" &&
+  //         currentMonth < startDateObject.getMonth()
+  //       ) {
+  //         startDateObject.setFullYear(currentYear);
+  //       }
+  //     }
+
+  //     // Add one month
+
+  //     // Format the date as YYYY-MM-DD
+  //     const newDate = `${startDateObject.getFullYear()}-${String(
+  //       startDateObject.getMonth() + 1
+  //     ).padStart(2, "0")}-${String(startDateObject.getDate()).padStart(
+  //       2,
+  //       "0"
+  //     )}`;
+  //     setNextPayment(newDate);
+  //   }
+  // }
 
   return (
     <SafeAreaView
@@ -561,19 +672,11 @@ const SubscriptionInfo = ({ route, navigation }) => {
                   if (deleteConfirmationVisible === false) {
                     return;
                   } else {
-                    updateData(targetDataKey);  
+                    updateData(targetDataKey);
                     navigation.navigate("SubscriptionScreen");
                   }
                 }}
               />
-              {/* <CTAButtonBig
-              title="Spara"
-              variant="primary"
-              onPress={() => {
-                updateData(targetDataKey);
-                navigation.navigate("SubscriptionScreen");
-              }}
-            /> */}
             </View>
             <View style={{ marginBottom: 24 }}>
               <CTAButtonBig
@@ -598,8 +701,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
               width: "94%",
               position: "absolute",
               alignSelf: "center",
-              // justifyContent: "center",
-              // alignItems: "center",
+
               backgroundColor: "white",
               top: 0,
               display: billingPeriodVisible ? "flex" : "none",
@@ -769,8 +871,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
           position: "absolute",
           justifyContent: "center",
           alignSelf: "center",
-          // justifyContent: "center",
-          // alignItems: "center",
+
           backgroundColor: "white",
           top: 0,
           display: startDateVisible ? "flex" : "none",

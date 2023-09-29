@@ -189,7 +189,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate;
-    startDateVisible = (Platform.OS === 'ios');
+    // startDateVisible = (Platform.OS === 'ios');
     //setShowDatePicker(Platform.OS === 'ios');
     setDate(currentDate);
   };
@@ -491,17 +491,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
         >
           Faktureringsperiod
         </Text>
-        {/* <Text
-          style={{
-            fontSize: 12,
-            marginBottom: 8,
-            fontFamily: "Inter_400Regular",
-            lineHeight: 16,
-            alignSelf: "flex-start",
-          }}
-        >
-          Välj din Faktureringsperiod
-        </Text> */}
+
         <Picker
           selectedValue={billingPeriod}
           onValueChange={(itemValue, itemIndex) => setBillingPeriod(itemValue)}
@@ -631,17 +621,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
         >
           Startdatum
         </Text>
-        {/* <Text
-          style={{
-            fontSize: 12,
-            marginBottom: 8,
-            fontFamily: "Inter_400Regular",
-            lineHeight: 16,
-            alignSelf: "flex-start",
-          }}
-        >
-          Skriv i datumet du började din prenumeration
-        </Text> */}
+
         {startDateVisible && (
           <DateTimePicker
             style={{ height: 200 }}
@@ -677,9 +657,6 @@ const AddSubscriptionScreen = ({ navigation }) => {
               if (startDate === "") {
                 alert("Du måste välja ett startdatum");
               } else {
-                // const startDateConversion = startDate.toLocaleDateString();
-                // setStartDate(startDateConversion);
-
                 setStartDateVisible(false);
                 setDescriptionVisible(true);
               }

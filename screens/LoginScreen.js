@@ -110,27 +110,6 @@ const LoginScreen = ({ navigation }) => {
           />
           <CTAButtonSmall title="Logga in" onPress={login} variant="primary" />
         </View>
-        {/* <Text style={{ fontFamily: "Inter_600SemiBold", fontSize: 36 }}>
-        Logga in
-      </Text>
-      <View style={styles.inputContainer}>
-        <TextInput
-          placeholder="Email"
-          value={email}
-          onChangeText={(text) => setEmail(text)}
-          style={styles.input}
-        />
-        <TextInput
-          placeholder="Password"
-          value={password}
-          onChangeText={(text) => setPassword(text)}
-          style={styles.input}
-          secureTextEntry
-        />
-      </View>
-      <View>
-        <CTAButtonBig title="Logga in" onPress={login} variant="primary" />
-      </View> */}
       </View>
     </KeyboardAvoidingView>
   );
@@ -159,82 +138,5 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: "#7D7D7D",
     height: 46,
-  },
-  buttonContainer: {
-    width: "60%",
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 40,
-  },
-  checkBox: {
-    height: 32,
-    width: 32,
-    borderColor: "black",
-    borderWidth: 2,
-    borderRadius: 5,
-  },
-  checkBoxContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    alignSelf: "flex-start",
-  },
-
-  termsOfSeriveContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-    height: "50vh",
-    backgroundColor: "white",
-    paddingVertical: 24,
-    paddingHorizontal: 12,
-    gap: 24,
-    borderRadius: 12,
-  },
-  modalView: {
-    justifyContent: "space-between",
-    alignItems: "center",
-    height: "100%",
-    width: "100%",
-  },
-  termsOfServiceHeader: {
-    fontSize: 24,
-    fontWeight: "600",
-    lineHeight: 28,
-    fontStyle: "normal",
-  },
-  termsOfServiceTextContainer: {
-    marginTop: 20,
-    height: "20vh",
-    width: "100%",
-  },
-
-  // gör spacebetween
-  termsOfServiceButtonContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  termsOfServiceButton: {
-    width: 126,
-    paddingVertical: 12,
-    paddingHorizontal: 10,
-    justifyContent: "center",
-    alignItems: "center",
-    gap: 10,
-    borderRadius: 12,
-    borderColor: "black",
-    borderWidth: 2,
-  },
-
-  denyButton: {
-    backgroundColor: "white",
-  },
-  acceptButton: {
-    backgroundColor: "black",
-  },
-
-  textBlack: {
-    color: "black",
-  },
-  textWhite: {
-    color: "white",
   },
 });

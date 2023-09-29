@@ -246,7 +246,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
           paddingHorizontal: 12,
         }}
       >
-        <View style={{ gap: 12, marginBottom: 110 }}>
+        <View style={{ gap: 12, marginBottom: 154 }}>
           <Card
             onPress={() => {
               setType("custom");

@@ -26,7 +26,7 @@ const SettingsScreen = ({ navigation }) => {
       <View style={styles.menu}>
         <Card variant="settings" title="Om oss" icon="terms" />
         <Card variant="settings" title="Villkor" icon="terms" color="orange" />
-        <Card variant="settings" title="Hjäp" icon="help" />
+        <Card variant="settings" title="Hjälp" icon="help" />
       </View>
       <Pressable onPress={signOut} style={{ position: "absolute", bottom: 0 }}>
         <Text style={styles.logout}>Logga ut</Text>

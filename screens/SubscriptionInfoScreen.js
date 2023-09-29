@@ -206,7 +206,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
         }
       })
       .catch((error) => {
-        // console.error(error);
+        console.error(error);
       });
   }
 
@@ -242,6 +242,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
       .catch((error) => {
         console.error(error);
       });
+    schedulePushNotification("Prenumeration borttagen");
   }
 
   //find right subscription in database
@@ -500,7 +501,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
                   justifyContent: "center",
                   alignItems: "center",
                   borderRadius: 12,
-                  marginVertical: 24,
+                  marginBottom: 24,
                 }}
               >
                 <Text
@@ -524,7 +525,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
                     justifyContent: "center",
                     alignItems: "center",
                     borderRadius: 12,
-                    marginVertical: 24,
+                    marginBottom: 24,
                   }}
                 >
                   <Image
@@ -626,9 +627,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
                 info={startDate}
                 variant="primary"
                 onPress={() => {
-                  setStartDateVisible(true) +
-                    setDeleteConfirmationVisible(true) +
-                    setBillingPeriodVisible(false);
+                  setStartDateVisible(true) + setBillingPeriodVisible(false);
                 }}
               />
               <InfoBox
@@ -697,7 +696,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
           <View
             id="billingPeriod"
             style={{
-              height: "55%",
+              height: "64%",
               width: "94%",
               position: "absolute",
               alignSelf: "center",
@@ -709,7 +708,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
               borderColor: "black",
               borderRadius: 12,
               paddingVertical: 24,
-              marginTop: "25%",
+              marginTop: "5%",
               gap: 12,
               paddingHorizontal: 12,
             }}
@@ -735,19 +734,28 @@ const SubscriptionInfo = ({ route, navigation }) => {
               <Picker.Item label="Kvartal" value="kvartal" />
               <Picker.Item label="År" value="år" />
             </Picker>
-            <CTAButtonBig
-              title="Spara"
-              variant="primary"
-              onPress={() => {
-                if (billingPeriod === "") {
-                  alert("Du måste välja en faktureringsperiod");
-                } else {
-                  setBillingPeriod(billingPeriod);
+            <View style={{ marginBottom: 12, gap: 12 }}>
+              <CTAButtonBig
+                title="Spara"
+                variant="primary"
+                onPress={() => {
+                  if (billingPeriod === "") {
+                    alert("Du måste välja en faktureringsperiod");
+                  } else {
+                    setBillingPeriod(billingPeriod);
+                    setBillingPeriodVisible(false);
+                    setDeleteConfirmationVisible(true);
+                  }
+                }}
+              />
+              <CTAButtonBig
+                title="Avbryt"
+                variant="secondary"
+                onPress={() => {
                   setBillingPeriodVisible(false);
-                  setDeleteConfirmationVisible(true);
-                }
-              }}
-            />
+                }}
+              />
+            </View>
           </View>
         )}
 
@@ -763,7 +771,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
             borderRadius: 12,
             paddingVertical: 24,
             paddingHorizontal: 12,
-            marginTop: "90%",
+            marginTop: "70%",
             borderWidth: 2,
           }}
         >
@@ -826,6 +834,15 @@ const SubscriptionInfo = ({ route, navigation }) => {
               style={{ width: 64, height: 64, borderRadius: 12 }}
               source={colorsPicture[name].picture}
             />
+            <Text
+              style={{
+                fontSize: 48,
+                fontFamily: "Inter_600SemiBold",
+                color: "white",
+              }}
+            >
+              {name}
+            </Text>
           </View>
         )}
         <View>
@@ -866,7 +883,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
       <View
         id="date"
         style={{
-          height: "59%",
+          height: "65%",
           width: "94%",
           position: "absolute",
           justifyContent: "center",
@@ -879,7 +896,7 @@ const SubscriptionInfo = ({ route, navigation }) => {
           borderColor: "black",
           borderRadius: 12,
           paddingVertical: 24,
-          marginTop: "40%",
+          marginTop: "28%",
           gap: 12,
           paddingHorizontal: 12,
         }}
@@ -906,14 +923,24 @@ const SubscriptionInfo = ({ route, navigation }) => {
             display="spinner"
           />
         )}
-        <CTAButtonBig
-          title="Spara"
-          variant="primary"
-          onPress={() => {
-            setStartDate(startDate);
-            setStartDateVisible(false);
-          }}
-        />
+        <View style={{ gap: 12, marginBottom: 12 }}>
+          <CTAButtonBig
+            title="Spara"
+            variant="primary"
+            onPress={() => {
+              setStartDate(startDate);
+              setStartDateVisible(false);
+              setDeleteConfirmationVisible(true);
+            }}
+          />
+          <CTAButtonBig
+            title="Avbryt"
+            variant="secondary"
+            onPress={() => {
+              setStartDateVisible(false);
+            }}
+          />
+        </View>
       </View>
       <Navbar navigation={navigation} />
     </SafeAreaView>

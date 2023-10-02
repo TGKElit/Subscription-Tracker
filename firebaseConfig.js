@@ -1,13 +1,4 @@
 import { initializeApp } from "firebase/app";
-import { getDatabase } from "firebase/database";
-import {
-  getAuth,
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  connectAuthEmulator,
-} from "firebase/auth";
-
-// Optionally import the services that you want to use
 
 // Initialize Firebase
 const firebaseApp = {
@@ -28,14 +19,3 @@ export const startFirebaseApp = () => {
   const app = initializeApp(firebaseApp);
   app;
 };
-
-// const db = getDatabase();
-// export { db };
-// export const db = getDatabase();
-
-// const auth = getAuth(firebaseApp);
-
-// connectAuthEmulator(auth, "http://localhost:9099");
-
-// For more information on how to access Firebase in your project,
-// see the Firebase documentation: https://firebase.google.com/docs/web/setup#access-firebase

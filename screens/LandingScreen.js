@@ -6,67 +6,71 @@ import { CTAButtonBig } from "../src/Components/CTAButton/CTAButtonBig";
 import { Image } from "expo-image";
 
 const LandingScreen = ({ navigation }) => {
+  const styles = StyleSheet.create({
+    safeArea: {
+      flex: 1,
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+      paddingHorizontal: 12,
+      backgroundColor: "#FFFFFF",
+      height: "100%",
+      width: "100%",
+    },
+    imageContainer: {
+      height: 250,
+      width: 250,
+    },
+    image: {
+      width: "100%",
+      height: "100%",
+      contentFit: "fill",
+    },
+    textContainer: {
+      justifyContent: "center",
+      alignItems: "center",
+      paddingHorizontal: 10,
+    },
+    title: {
+      fontFamily: "Inter_600SemiBold",
+      fontSize: 48,
+      marginBottom: 10,
+    },
+    descriptionText: {
+      fontFamily: "Inter_400Regular",
+      fontSize: 16,
+      textAlign: "center",
+      lineHeight: 22,
+      marginHorizontal: 10,
+      marginBottom: 32,
+    },
+    buttonContainer: {
+      gap: 16,
+      width: "100%",
+      marginBottom: 48,
+    },
+  });
   return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        paddingHorizontal: 12,
-        backgroundColor: "#FFFFFF",
-        height: "100%",
-        width: "100%",
-      }}
-    >
+    <SafeAreaView style={styles.safeArea}>
       <StatusBar style="dark" />
-      <View
-        style={{
-          height: 250,
-          backgroundColor: "grey",
-          width: 250,
-        }}
-      >
+      <View style={styles.imageContainer}>
         <Image
           source={require("../assets/landing.png")}
-          style={{ width: "100%", height: "100%", contentFit: "fill" }}
+          style={styles.image}
           contentFit="cover"
         />
       </View>
 
-      <View
-        style={{
-          justifyContent: "center",
-          alignItems: "center",
-          paddingHorizontal: 10,
-        }}
-      >
-        <Text
-          style={{
-            fontFamily: "Inter_600SemiBold",
-            fontSize: 48,
-            marginBottom: 10,
-          }}
-        >
-          tracky.
-        </Text>
-        <Text
-          style={{
-            fontFamily: "Inter_400Regular",
-            fontSize: 16,
-            textAlign: "center",
-            lineHeight: 22,
-            marginHorizontal: 10,
-            marginBottom: 32,
-          }}
-        >
+      <View style={styles.textContainer}>
+        <Text style={styles.title}>tracky.</Text>
+        <Text style={styles.descriptionText}>
           Upptäck vår prenumerationsspårningsapp – din nyckel till ekonomisk
           kontroll! Missa aldrig en betalning igen med våra tidiga påminnelser
           och spåra dina utgifter utan ansträngning.
         </Text>
       </View>
 
-      <View style={{ gap: 16, width: "100%", marginBottom: 48 }}>
+      <View style={styles.buttonContainer}>
         <CTAButtonBig
           title="Logga in"
           onPress={() => navigation.navigate("Login")}

@@ -25,19 +25,14 @@ export const InfoBoxEditable: FC<InfoProps> = ({
     variant === "primary" ? styles.containerPrimary : styles.containerSecondary;
   return (
     <Pressable style={containerStyle} onPress={onPress}>
-      <Text style={{ fontSize: 16, fontFamily: "Inter_600SemiBold" }}>
-        {title}
-      </Text>
+      <Text style={styles.textStyleSemiBold}>{title}</Text>
       <TextInput
         onChangeText={onChange} // Use the onChange prop to handle changes
-        style={{ fontSize: 16, fontFamily: "Inter_400Regular", color: "black" }}
+        style={styles.textStyleRegular}
         keyboardType={keyBoardType}
         value={value} // Pass the value prop to the TextInput
       />
 
-      {/* <Text style={{ fontSize: 16, fontFamily: "Inter_400Regular" }}>
-        {info}
-      </Text> */}
       <View style={{ alignSelf: "flex-end" }}>
         <Svg width="32" height="32" viewBox="0 0 32 32" fill="none">
           <Path
@@ -68,5 +63,14 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     paddingHorizontal: 10,
     paddingVertical: 10,
+  },
+  textStyleSemiBold: {
+    fontSize: 16,
+    fontFamily: "Inter_600SemiBold",
+  },
+  textStyleRegular: {
+    fontSize: 16,
+    fontFamily: "Inter_400Regular",
+    color: "black",
   },
 });

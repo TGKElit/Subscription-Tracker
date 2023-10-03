@@ -16,12 +16,8 @@ export const InfoBox: FC<InfoProps> = ({ title, info, onPress, variant }) => {
     variant === "primary" ? styles.containerPrimary : styles.containerSecondary;
   return (
     <Pressable style={containerStyle} onPress={onPress}>
-      <Text style={{ fontSize: 16, fontFamily: "Inter_600SemiBold" }}>
-        {title}
-      </Text>
-      <Text style={{ fontSize: 16, fontFamily: "Inter_400Regular" }}>
-        {info}
-      </Text>
+      <Text style={styles.textStyleSemiBold}>{title}</Text>
+      <Text style={styles.textStyleRegular}>{info}</Text>
       <View style={{ alignSelf: "flex-end", position: "absolute", top: 0 }}>
         <Svg width="32" height="32" viewBox="0 0 32 32" fill="none">
           <Path
@@ -54,5 +50,14 @@ const styles = StyleSheet.create({
     borderColor: "#7D7D7D",
     paddingHorizontal: 10,
     paddingVertical: 10,
+  },
+
+  textStyleSemiBold: {
+    fontSize: 16,
+    fontFamily: "Inter_600SemiBold",
+  },
+  textStyleRegular: {
+    fontSize: 16,
+    fontFamily: "Inter_400Regular",
   },
 });

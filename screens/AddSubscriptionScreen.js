@@ -161,7 +161,6 @@ const AddSubscriptionScreen = ({ navigation }) => {
 
   const auth = getAuth();
   const user = auth.currentUser;
-  const isStateUpdated = useRef(false);
 
   const [startViewVisible, setStartViewVisible] = useState(true);
   const [customNameVisible, setCustomNameVisible] = useState(false);
@@ -177,9 +176,9 @@ const AddSubscriptionScreen = ({ navigation }) => {
 
   const [descriptionVisible, setDescriptionVisible] = useState(false);
   const [description, setDescription] = useState("");
+
   //Datepicker
   const [startDate, setStartDate] = useState("");
-
   const [date, setDate] = useState(new Date());
 
   useEffect(() => {
@@ -215,7 +214,8 @@ const AddSubscriptionScreen = ({ navigation }) => {
     }
   }
 
-  //weird solution to make sure the data is added to the database before navigating to the next screen when u press a plan.
+  //function that makes sure the added data is sent to the database before navigating to the next screen
+  const isStateUpdated = useRef(false);
   if (isStateUpdated.current) {
     addData();
     navigation.navigate("SubscriptionInfo", {
@@ -228,25 +228,100 @@ const AddSubscriptionScreen = ({ navigation }) => {
     });
   }
 
+  const styles = StyleSheet.create({
+    input: {
+      backgroundColor: "#fff",
+      paddingHorizontal: 16,
+      paddingVertical: 12,
+      borderRadius: 12,
+      marginTop: 5,
+      borderWidth: 2,
+      borderColor: "#7D7D7D",
+      height: 46,
+    },
+    safeArea: {
+      height: "100%",
+      width: "100%",
+      backgroundColor: "#FFFFFF",
+    },
+    startView: {
+      paddingTop: 24,
+      display: startViewVisible ? "flex" : "none",
+      paddingHorizontal: 12,
+    },
+    startViewCardColumn: {
+      gap: 12,
+      marginBottom: 154,
+    },
+    presetPlan: {
+      paddingHorizontal: 12,
+      display: planVisible ? "flex" : "none",
+    },
+    presetPlanPictureBox: {
+      width: "100%",
+      height: 200,
+      justifyContent: "center",
+      alignItems: "center",
+      borderRadius: 12,
+      marginVertical: 24,
+    },
+    presetPlanPicture: {
+      width: 64,
+      height: 64,
+      borderRadius: 12,
+    },
+    presetPlanTitle: {
+      fontSize: 24,
+      fontFamily: "Inter_600SemiBold",
+      lineHeight: 28,
+      marginBottom: 12,
+    },
+    presetPlanCardColumn: {
+      gap: 12,
+      marginBottom: 110,
+    },
+    customView: {
+      marginTop: "26%",
+      paddingHorizontal: 12,
+    },
+    customTitle: {
+      fontSize: 36,
+      marginBottom: 64,
+      fontFamily: "Inter_600SemiBold",
+      alignSelf: "center",
+    },
+    customExplainText: {
+      fontSize: 12,
+      marginBottom: 8,
+      fontFamily: "Inter_400Regular",
+      lineHeight: 16,
+      alignSelf: "flex-start",
+    },
+
+    customButtonContainer: {
+      justifyContent: "space-between",
+      marginTop: 12,
+      flexDirection: "row",
+    },
+    billingPeriodTitle: {
+      fontSize: 30,
+
+      fontFamily: "Inter_600SemiBold",
+      alignSelf: "center",
+    },
+  });
+
   return (
-    <SafeAreaView
-      style={{ height: "100%", width: "100%", backgroundColor: "#FFFFFF" }}
-    >
+    <SafeAreaView style={styles.safeArea}>
       <HeaderContainer
         title="Prenumera"
         backArrow={() => {
           navigation.navigate("SubscriptionScreen");
         }}
       />
-      <ScrollView
-        id="startView"
-        style={{
-          paddingTop: 24,
-          display: startViewVisible ? "flex" : "none",
-          paddingHorizontal: 12,
-        }}
-      >
-        <View style={{ gap: 12, marginBottom: 154 }}>
+      {/* need inline styling here due to the display being conditional to the state */}
+      <ScrollView id="startView" style={styles.startView}>
+        <View style={styles.startViewCardColumn}>
           <Card
             onPress={() => {
               setType("custom");
@@ -348,43 +423,23 @@ const AddSubscriptionScreen = ({ navigation }) => {
         </View>
       </ScrollView>
       {/* All the views for setting props */}
-      <ScrollView
-        id="presetPlan"
-        style={{
-          paddingHorizontal: 12,
-          display: planVisible ? "flex" : "none",
-        }}
-      >
+      <ScrollView id="presetPlan" style={styles.presetPlan}>
         {colorsPicture[name] && (
           <View
-            style={{
-              width: "100%",
-              height: 200,
-              backgroundColor: colorsPicture[name].color,
-              justifyContent: "center",
-              alignItems: "center",
-              borderRadius: 12,
-              marginVertical: 24,
-            }}
+            style={[
+              styles.presetPlanPictureBox,
+              { backgroundColor: colorsPicture[name].color },
+            ]}
           >
             <Image
-              style={{ width: 64, height: 64, borderRadius: 12 }}
+              style={styles.presetPlanPicture}
               source={colorsPicture[name].picture}
             />
           </View>
         )}
         <View>
-          <Text
-            style={{
-              fontSize: 24,
-              fontFamily: "Inter_600SemiBold",
-              lineHeight: 28,
-              marginBottom: 12,
-            }}
-          >
-            Välj plan
-          </Text>
-          <View style={{ gap: 12, marginBottom: 110 }}>
+          <Text style={styles.presetPlanTitle}>Välj plan</Text>
+          <View style={styles.presetPlanCardColumn}>
             {plans[name] && (
               <React.Fragment>
                 {Object.keys(plans[name]).map((key) => (
@@ -409,32 +464,13 @@ const AddSubscriptionScreen = ({ navigation }) => {
       </ScrollView>
       <KeyboardAvoidingView
         id="customName"
-        style={{
-          marginTop: "26%",
-          paddingHorizontal: 12,
-
-          display: customNameVisible ? "flex" : "none",
-        }}
+        style={[
+          styles.customView,
+          { display: customNameVisible ? "flex" : "none" },
+        ]}
       >
-        <Text
-          style={{
-            fontSize: 36,
-            marginBottom: 64,
-            fontFamily: "Inter_600SemiBold",
-            alignSelf: "center",
-          }}
-        >
-          Namn
-        </Text>
-        <Text
-          style={{
-            fontSize: 12,
-            marginBottom: 8,
-            fontFamily: "Inter_400Regular",
-            lineHeight: 16,
-            alignSelf: "flex-start",
-          }}
-        >
+        <Text style={styles.customTitle}>Namn</Text>
+        <Text style={styles.customExplainText}>
           Skriv in namnet på din prenumeration
         </Text>
         <TextInput
@@ -443,13 +479,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
           onChangeText={(text) => setName(text)}
           style={styles.input}
         />
-        <View
-          style={{
-            justifyContent: "space-between",
-            marginTop: 12,
-            flexDirection: "row",
-          }}
-        >
+        <View style={styles.customButtonContainer}>
           <CTAButtonSmall
             title="Tillbaka"
             variant="secondary"
@@ -475,22 +505,12 @@ const AddSubscriptionScreen = ({ navigation }) => {
       </KeyboardAvoidingView>
       <SafeAreaView
         id="billingPeriod"
-        style={{
-          paddingHorizontal: 12,
-          marginTop: "26%",
-          display: billingPeriodVisible ? "flex" : "none",
-        }}
+        style={[
+          styles.customView,
+          { display: billingPeriodVisible ? "flex" : "none" },
+        ]}
       >
-        <Text
-          style={{
-            fontSize: 30,
-
-            fontFamily: "Inter_600SemiBold",
-            alignSelf: "center",
-          }}
-        >
-          Faktureringsperiod
-        </Text>
+        <Text style={styles.billingPeriodTitle}>Faktureringsperiod</Text>
 
         <Picker
           selectedValue={billingPeriod}
@@ -501,7 +521,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
           <Picker.Item label="Kvartal" value="kvartal" />
           <Picker.Item label="År" value="år" />
         </Picker>
-        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+        <View style={styles.customButtonContainer}>
           <CTAButtonSmall
             title="Tillbaka"
             variant="secondary"
@@ -534,31 +554,10 @@ const AddSubscriptionScreen = ({ navigation }) => {
       </SafeAreaView>
       <SafeAreaView
         id="price"
-        style={{
-          paddingHorizontal: 12,
-          marginTop: "26%",
-          display: priceVisible ? "flex" : "none",
-        }}
+        style={[styles.customView, { display: priceVisible ? "flex" : "none" }]}
       >
-        <Text
-          style={{
-            fontSize: 36,
-            marginBottom: 64,
-            fontFamily: "Inter_600SemiBold",
-            alignSelf: "center",
-          }}
-        >
-          Pris
-        </Text>
-        <Text
-          style={{
-            fontSize: 12,
-            marginBottom: 8,
-            fontFamily: "Inter_400Regular",
-            lineHeight: 16,
-            alignSelf: "flex-start",
-          }}
-        >
+        <Text style={styles.customTitle}>Pris</Text>
+        <Text style={styles.customExplainText}>
           Skriv i priset du betalar per {billingPeriod}
         </Text>
         <TextInput
@@ -573,13 +572,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
           style={styles.input}
           returnKeyType="done"
         />
-        <View
-          style={{
-            marginTop: 12,
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
+        <View style={styles.customButtonContainer}>
           <CTAButtonSmall
             title="Tillbaka"
             variant="secondary"
@@ -605,22 +598,12 @@ const AddSubscriptionScreen = ({ navigation }) => {
       </SafeAreaView>
       <SafeAreaView
         id="startDate"
-        style={{
-          paddingHorizontal: 12,
-          marginTop: "26%",
-          display: startDateVisible ? "flex" : "none",
-        }}
+        style={[
+          styles.customView,
+          { display: startDateVisible ? "flex" : "none" },
+        ]}
       >
-        <Text
-          style={{
-            fontSize: 36,
-
-            fontFamily: "Inter_600SemiBold",
-            alignSelf: "center",
-          }}
-        >
-          Startdatum
-        </Text>
+        <Text style={styles.customTitle}>Startdatum</Text>
 
         {startDateVisible && (
           <DateTimePicker
@@ -634,13 +617,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
           />
         )}
 
-        <View
-          style={{
-            marginTop: 12,
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
+        <View style={styles.customButtonContainer}>
           <CTAButtonSmall
             title="Tillbaka"
             variant="secondary"
@@ -666,31 +643,13 @@ const AddSubscriptionScreen = ({ navigation }) => {
       </SafeAreaView>
       <SafeAreaView
         id="description "
-        style={{
-          paddingHorizontal: 12,
-          marginTop: "26%",
-          display: descriptionVisible ? "flex" : "none",
-        }}
+        style={[
+          styles.customView,
+          { display: descriptionVisible ? "flex" : "none" },
+        ]}
       >
-        <Text
-          style={{
-            fontSize: 36,
-            marginBottom: 64,
-            fontFamily: "Inter_600SemiBold",
-            alignSelf: "center",
-          }}
-        >
-          Beskrivning
-        </Text>
-        <Text
-          style={{
-            fontSize: 12,
-            marginBottom: 8,
-            fontFamily: "Inter_400Regular",
-            lineHeight: 16,
-            alignSelf: "flex-start",
-          }}
-        >
+        <Text style={styles.customTitle}>Beskrivning</Text>
+        <Text style={styles.customExplainText}>
           Skriv en beskrivning av din prenumation
         </Text>
         <TextInput
@@ -700,13 +659,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
           style={styles.input}
         />
 
-        <View
-          style={{
-            marginTop: 12,
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
+        <View style={styles.customButtonContainer}>
           <CTAButtonSmall
             title="Tillbaka"
             variant="secondary"
@@ -733,16 +686,3 @@ const AddSubscriptionScreen = ({ navigation }) => {
 };
 
 export default AddSubscriptionScreen;
-
-const styles = StyleSheet.create({
-  input: {
-    backgroundColor: "#fff",
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    borderRadius: 12,
-    marginTop: 5,
-    borderWidth: 2,
-    borderColor: "#7D7D7D",
-    height: 46,
-  },
-});

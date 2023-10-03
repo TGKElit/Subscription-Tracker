@@ -57,37 +57,14 @@ const RegisterScreen = ({ navigation }) => {
   };
 
   return (
-    <KeyboardAvoidingView
-      style={{
-        alignContent: "center",
-        justifyContent: "center",
-        flex: 1,
-        backgroundColor: "#FFFFFF",
-      }}
-    >
+    <KeyboardAvoidingView style={styles.keyboardView}>
       <BlurView
         style={styles.container}
         tint="dark"
         intensity={modalVisible ? 100 : 0}
       >
-        <Text
-          style={{
-            fontSize: 36,
-            marginBottom: 64,
-            fontFamily: "Inter_600SemiBold",
-          }}
-        >
-          Registrera
-        </Text>
-        <Text
-          style={{
-            fontSize: 12,
-            marginBottom: 8,
-            fontFamily: "Inter_400Regular",
-            lineHeight: 16,
-            alignSelf: "flex-start",
-          }}
-        >
+        <Text style={styles.title}>Registrera</Text>
+        <Text style={styles.descriptionText}>
           Skriv i e-post och lösenord för att registrera
         </Text>
         <View style={styles.inputContainer}>
@@ -108,43 +85,20 @@ const RegisterScreen = ({ navigation }) => {
 
         <View style={styles.checkBoxContainer}>
           <Pressable onPress={toggleBox} style={[styles.checkBox]}>
-            {boxState ? (
-              <Text style={{ fontSize: 24, color: "black", paddingLeft: 4 }}>
-                ✓
-              </Text>
-            ) : null}
+            {boxState ? <Text style={styles.checkMark}>✓</Text> : null}
           </Pressable>
-          <Text
-            style={{
-              marginLeft: 8,
-              fontFamily: "Inter_400Regular",
-              lineHeight: 16,
-              fontSize: 12,
-            }}
-          >
+          <Text style={styles.condintionsText}>
             Genom att kryssa samtycker jag till{" "}
           </Text>
           <Text
             onPress={() => setModalVisible(true)}
-            style={{
-              textDecorationLine: "underline",
-              fontSize: 12,
-              lineHeight: 16,
-              fontFamily: "Inter_600SemiBold",
-            }}
+            style={styles.conditionTextUnderine}
           >
             Villkoren
           </Text>
         </View>
 
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            marginTop: 12,
-            width: "100%",
-          }}
-        >
+        <View style={styles.buttonContainer}>
           <CTAButtonSmall
             title="Tillbaka"
             onPress={() => {
@@ -169,20 +123,7 @@ const RegisterScreen = ({ navigation }) => {
             setModalVisible(!modalVisible);
           }}
         >
-          <View
-            style={{
-              width: "87%",
-              height: 340,
-              paddingHorizontal: 12,
-              paddingVertical: 24,
-              backgroundColor: "white",
-              borderWidth: 2,
-              alignSelf: "center",
-              marginTop: "45%",
-              borderRadius: 12,
-              // justifyContent: "center"
-            }}
-          >
+          <View style={styles.modalView}>
             <View style={{ flexDirection: "row", justifyContent: "center" }}>
               <Svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                 <Path
@@ -190,36 +131,17 @@ const RegisterScreen = ({ navigation }) => {
                   fill="black"
                 />
               </Svg>
-              <Text
-                style={{
-                  fontFamily: "Inter_600SemiBold",
-                  fontSize: 24,
-                  marginBottom: 24,
-                  textAlign: "center",
-                }}
-              >
-                Villkor for tjänsten
-              </Text>
+              <Text style={styles.modalTitle}>Villkor for tjänsten</Text>
             </View>
             <View>
-              <Text style={{ fontFamily: "Inter_400Regular", fontSize: 16 }}>
+              <Text style={styles.modalText}>
                 Lorem ipsum dolor sit amet consecte. Donec augue elit praesent
                 faucibus quisque malesuada vitae pellentesque aliquam. Lorem
                 ipsum dolor sit amet consectetur. Donec augue elit praesent
                 faucibus quisque malesuada vitae pellentesque aliquam.
               </Text>
             </View>
-            <View
-              style={{
-                marginHorizontal: 12,
-                position: "absolute",
-                marginBottom: 24,
-                bottom: 0,
-                width: "100%",
-                flexDirection: "row",
-                justifyContent: "space-between",
-              }}
-            >
+            <View style={styles.modalButtonContainer}>
               <CTAButtonSmall
                 title="Avböj"
                 onPress={() => {
@@ -247,6 +169,37 @@ const RegisterScreen = ({ navigation }) => {
 export default RegisterScreen;
 
 const styles = StyleSheet.create({
+  keyboardView: {
+    alignContent: "center",
+    justifyContent: "center",
+    flex: 1,
+    backgroundColor: "#FFFFFF",
+  },
+  title: {
+    fontSize: 36,
+    marginBottom: 64,
+    fontFamily: "Inter_600SemiBold",
+  },
+  descriptionText: {
+    fontSize: 12,
+    marginBottom: 8,
+    fontFamily: "Inter_400Regular",
+    lineHeight: 16,
+    alignSelf: "flex-start",
+  },
+  condintionsText: {
+    marginLeft: 8,
+    fontFamily: "Inter_400Regular",
+    lineHeight: 16,
+    fontSize: 12,
+  },
+
+  conditionTextUnderine: {
+    textDecorationLine: "underline",
+    fontSize: 12,
+    lineHeight: 16,
+    fontFamily: "Inter_600SemiBold",
+  },
   container: {
     flex: 1,
     justifyContent: "center",
@@ -268,6 +221,12 @@ const styles = StyleSheet.create({
     borderColor: "#7D7D7D",
     height: 46,
   },
+  buttonContainer: {
+    width: "100%",
+    justifyContent: "space-between",
+    marginTop: 12,
+    flexDirection: "row",
+  },
 
   checkBox: {
     height: 32,
@@ -280,5 +239,40 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     alignSelf: "flex-start",
+  },
+  checkMark: {
+    fontSize: 24,
+    color: "black",
+    paddingLeft: 4,
+  },
+  modalView: {
+    width: "87%",
+    height: 340,
+    paddingHorizontal: 12,
+    paddingVertical: 24,
+    backgroundColor: "white",
+    borderWidth: 2,
+    alignSelf: "center",
+    marginTop: "45%",
+    borderRadius: 12,
+  },
+  modalTitle: {
+    fontFamily: "Inter_600SemiBold",
+    fontSize: 24,
+    marginBottom: 24,
+    textAlign: "center",
+  },
+  modalText: {
+    fontFamily: "Inter_400Regular",
+    fontSize: 16,
+  },
+  modalButtonContainer: {
+    marginHorizontal: 12,
+    position: "absolute",
+    marginBottom: 24,
+    bottom: 0,
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 });

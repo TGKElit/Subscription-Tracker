@@ -319,7 +319,7 @@ const AddSubscriptionScreen = ({ navigation }) => {
           navigation.navigate("SubscriptionScreen");
         }}
       />
-      {/* need inline styling here due to the display being conditional to the state */}
+
       <ScrollView id="startView" style={styles.startView}>
         <View style={styles.startViewCardColumn}>
           <Card

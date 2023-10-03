@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 
 // Initialize Firebase
+//api key does not need to be hidden with firebase since it only identifies your project with Google's servers, it is not a security risk to expose it
 const firebaseApp = {
   apiKey: "AIzaSyDqEnnr80Kkus5lzHkGSfSRMCQHyHC3Tbk",
   authDomain: "subscriptiontracker-b0f27.firebaseapp.com",

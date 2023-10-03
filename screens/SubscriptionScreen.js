@@ -2,7 +2,7 @@ import { ScrollView, Text, View } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { getAuth } from "firebase/auth";
-
+import { StyleSheet } from "react-native";
 import { useState } from "react";
 import { HeaderContainer } from "../src/Components/HeaderContainer/HeaderContainer";
 import { ref, getDatabase, get } from "firebase/database";
@@ -56,43 +56,59 @@ const SubscriptionScreen = ({ navigation }) => {
     totalCost += monthlyCost;
   });
 
+  const styles = StyleSheet.create({
+    safeArea: {
+      height: "100%",
+      width: "100%",
+      backgroundColor: "#FFFFFF",
+    },
+    scrollView: {
+      paddingHorizontal: 12,
+      marginBottom: 110,
+    },
+    monthlyCost: {
+      height: 134,
+      width: "100%",
+      borderRadius: 12,
+      borderWidth: 2,
+      paddingTop: 24,
+      paddingHorizontal: 12,
+      paddingBottom: 12,
+      marginTop: 24,
+      marginBottom: 24,
+      borderColor: "#7D7D7D",
+    },
+    fontRegular: {
+      fontSize: 12,
+      fontFamily: "Inter_400Regular",
+    },
+    fontBold: {
+      fontSize: 36,
+      fontFamily: "Inter_700Bold",
+    },
+    fontSemiBold: {
+      fontSize: 24,
+      fontFamily: "Inter_600SemiBold",
+    },
+  });
   return (
-    <SafeAreaView
-      style={{ height: "100%", width: "100%", backgroundColor: "#FFFFFF" }}
-    >
+    <SafeAreaView style={styles.safeArea}>
       <HeaderContainer
         title="Prenumerationer"
         navigation={navigation}
         addSubscription={true}
       />
       <ScrollView>
-        <View style={{ paddingHorizontal: 12, marginBottom: 110 }}>
-          <View
-            style={{
-              height: 134,
-              width: "100%",
-              borderRadius: 12,
-              borderWidth: 2,
-              paddingTop: 24,
-              paddingHorizontal: 12,
-              paddingBottom: 12,
-              marginTop: 24,
-              marginBottom: 24,
-              borderColor: "#7D7D7D",
-            }}
-          >
-            <Text style={{ fontSize: 12, fontFamily: "Inter_400Regular" }}>
+        <View style={styles.scrollView}>
+          <View style={styles.monthlyCost}>
+            <Text style={styles.fontRegular}>
               Denna månaden kommer du att betala:
             </Text>
-            <Text style={{ fontSize: 36, fontFamily: "Inter_700Bold" }}>
-              {totalCost.toFixed(0)} kr
-            </Text>
+            <Text style={styles.fontBold}>{totalCost.toFixed(0)} kr</Text>
           </View>
 
           <View style={{ gap: 12 }}>
-            <Text style={{ fontSize: 24, fontFamily: "Inter_600SemiBold" }}>
-              Prenumationer
-            </Text>
+            <Text style={styles.fontSemiBold}>Prenumationer</Text>
 
             {Object.keys(subscriptions).map((key) => (
               <React.Fragment key={key}>

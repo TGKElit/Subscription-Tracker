@@ -47,35 +47,59 @@ const LoginScreen = ({ navigation }) => {
       alert(error.message);
     }
   };
+  const styles = StyleSheet.create({
+    keyboardView: {
+      alignContent: "center",
+      justifyContent: "center",
+      flex: 1,
+      backgroundColor: "#FFFFFF",
+    },
+    title: {
+      fontSize: 36,
+      marginBottom: 64,
+      fontFamily: "Inter_600SemiBold",
+    },
+    descriptionText: {
+      fontSize: 12,
+      marginBottom: 8,
+      fontFamily: "Inter_400Regular",
+      lineHeight: 16,
+      alignSelf: "flex-start",
+    },
+    container: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+      marginHorizontal: 24,
+    },
+    inputContainer: {
+      width: "100%",
+      gap: 8,
+      marginBottom: 8,
+    },
+    input: {
+      backgroundColor: "#fff",
+      paddingHorizontal: 16,
+      paddingVertical: 12,
+      borderRadius: 12,
+      marginTop: 5,
+      borderWidth: 2,
+      borderColor: "#7D7D7D",
+      height: 46,
+    },
+    buttonContainer: {
+      width: "100%",
+      justifyContent: "space-between",
+      marginTop: 12,
+      flexDirection: "row",
+    },
+  });
 
   return (
-    <KeyboardAvoidingView
-      style={{
-        alignContent: "center",
-        justifyContent: "center",
-        flex: 1,
-        backgroundColor: "#FFFFFF",
-      }}
-    >
+    <KeyboardAvoidingView style={styles.keyboardView}>
       <View style={styles.container}>
-        <Text
-          style={{
-            fontSize: 36,
-            marginBottom: 64,
-            fontFamily: "Inter_600SemiBold",
-          }}
-        >
-          Logga in
-        </Text>
-        <Text
-          style={{
-            fontSize: 12,
-            marginBottom: 8,
-            fontFamily: "Inter_400Regular",
-            lineHeight: 16,
-            alignSelf: "flex-start",
-          }}
-        >
+        <Text style={styles.title}>Logga in</Text>
+        <Text style={styles.descriptionText}>
           Skriv i e-post och lösenord för att logga in
         </Text>
         <View style={styles.inputContainer}>
@@ -93,14 +117,7 @@ const LoginScreen = ({ navigation }) => {
             secureTextEntry
           />
         </View>
-        <View
-          style={{
-            width: "100%",
-            justifyContent: "space-between",
-            marginTop: 12,
-            flexDirection: "row",
-          }}
-        >
+        <View style={styles.buttonContainer}>
           <CTAButtonSmall
             title="Tillbaka"
             onPress={() => {
@@ -116,27 +133,3 @@ const LoginScreen = ({ navigation }) => {
 };
 
 export default LoginScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginHorizontal: 24,
-  },
-  inputContainer: {
-    width: "100%",
-    gap: 8,
-    marginBottom: 8,
-  },
-  input: {
-    backgroundColor: "#fff",
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    borderRadius: 12,
-    marginTop: 5,
-    borderWidth: 2,
-    borderColor: "#7D7D7D",
-    height: 46,
-  },
-});
